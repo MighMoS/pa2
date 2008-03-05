@@ -22,7 +22,7 @@ Transaction::Transaction (const unsigned int account_id,
 		const short its_year,
 		const short its_month,
 		const short its_day):
-	id (account_id), type (its_type), amount (the_amount),
+	id (account_id), amount (the_amount), type (its_type),
 	year (its_year), month (its_month), day (its_day)
 {
 }

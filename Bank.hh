@@ -19,8 +19,9 @@ enum transaction_type {Deposit, Withdrawal, Check};
 class Transaction {
 	const unsigned int id;
 	const float amount;
-	const short year, month, day;
 	const transaction_type type;
+
+	const short year, month, day;
 
 	public:
 	

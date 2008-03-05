@@ -7,7 +7,7 @@ unsigned int Account::last_account_id = 0;
 
 // Creates a new account, with ID based on previous last highest ID
 Account::Account (const float initial_balance, const account_type its_type) :
-	balance (initial_balance), type (its_type), id (last_account_id++)
+	id (last_account_id++), type (its_type), balance (initial_balance)
 {
 };	
 
