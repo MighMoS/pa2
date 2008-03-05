@@ -16,6 +16,7 @@ Account::Account (const float initial_balance, const account_type its_type) :
 // like logging
 float Account::do_transaction (const float amount)
 {
+	//XXX: This is now wrong, and should be handled by the tm
 	Bank::log_transaction (id, type, amount);
 	return balance += amount;
 }

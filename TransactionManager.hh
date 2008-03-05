@@ -3,7 +3,7 @@
 #include <vector>
 #include <fstream>
 
-#include "Bank.hh"
+#include "Transaction.hh"
 
 using std::vector;
 
