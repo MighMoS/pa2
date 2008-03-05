@@ -1,5 +1,6 @@
 #ifndef ACCOUNT
 #define ACCOUNT
+#include "TransactionManager.hh"
 
 // We have three account types
 enum account_type {Savings, Checking, MoneyMarket};
@@ -9,6 +10,7 @@ class Account {
 	const unsigned int id;
 	const account_type type;
 	float balance;
+	TransactionManager* tm;
 	
 	static unsigned int last_account_id;
 public:
