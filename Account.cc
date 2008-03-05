@@ -3,7 +3,7 @@
 #include "Account.hh"
 #include "Bank.hh"
 
-int Account::last_account_id = 0; 
+unsigned int Account::last_account_id = 0; 
 
 // Creates a new account, with ID based on previous last highest ID
 Account::Account (const float initial_balance, const account_type its_type) :
@@ -20,7 +20,7 @@ float Account::do_transaction (const float amount)
 	return balance += amount;
 }
 
-int Account::get_id (void) const
+unsigned int Account::get_id (void) const
 {
 	return id;
 }
@@ -35,7 +35,7 @@ float Account::get_balance (void) const
 	return balance;
 }
 
-int Account::get_last_account_id (void)
+unsigned int Account::get_last_account_id (void)
 {
 	return last_account_id;
 }

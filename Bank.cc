@@ -3,7 +3,8 @@
 
 #include "Bank.hh"
 
-void Bank::log_transaction (const int id, const account_type type, const float amount)
+void Bank::log_transaction (const unsigned int id, const account_type type,
+		const float amount)
 {
 	std::cout << "STUB: LOG_TRANSACTION. ID = " << id << ", amount = " << amount 
 		<< std::endl;
@@ -15,7 +16,7 @@ void Bank::write_customer_report (...)
 	std::cout << "STUB: WRITE CUSTOMER REPORT\n";
 }
 
-Transaction::Transaction (const int account_id,
+Transaction::Transaction (const unsigned int account_id,
 		const transaction_type its_type,
 		const float the_amount,
 		const short its_year,
