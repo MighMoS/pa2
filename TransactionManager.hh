@@ -27,7 +27,7 @@ class TransactionManager
 	public:
 	TransactionManager (unsigned int owner_id);
 	void archive_this_month ();
-	void record_transaction (Transaction t);
+	void record_transaction (Transaction *t);
 	bool check_for_fines ();
 };
 
