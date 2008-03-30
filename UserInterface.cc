@@ -1,5 +1,5 @@
 #include "UserInterface.hh"
-
+#include "customer.cc"
 
 void UserInterface::clearScreen ()
 //
@@ -81,6 +81,7 @@ unsigned int UserInterface::obtainCustomerID()
 
 void UserInterface::manage_customer(unsigned int ID)
 {
+	Customer bloke(ID);
 	bool done=false
 	int choice;
 	while (!done)
@@ -102,25 +103,26 @@ void UserInterface::manage_customer(unsigned int ID)
 		switch(choice)
 		{
 		case 1:
-			getcustomerinfo();
+			bloke.get_customer_info();
 			break;
 		case 2:
-			Transfermoney();
+			bloke.Transfermoney();
 			break;
 		case 3:
-			withdrawmondey();
+			bloke.withdrawmondey();
 			break;
 		case 4:
-			depositmoney();
+			bloke.depositmoney();
 			break;
 		case 5:
-			changecustomerinfo();
+			bloke.changecustomerinfo();
 			break;
 		case 6:
-			closeaccount();
+			bloke.closeaccount();
 			break;
 		case 7:
-			deletecustomer();
+			if (bloke.deletecustomer())
+				done=true;			
 			break;
 		case 8:
 			done=true;
@@ -174,7 +176,7 @@ void UserInterface::customer_lookup()
 			cout << "\n\nNot a valid choice\n";
           	pressEnter();
 			break;
-		}
+		} 	
 	}
 }
 
