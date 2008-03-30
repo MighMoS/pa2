@@ -27,7 +27,7 @@ void UserInterface::pressEnter()
 
 void UserInterface::displayMainMenu (){
   
-	bool done = false;
+      	bool done = false;
 	int  choice;
 
 	while (!done)
@@ -39,7 +39,7 @@ void UserInterface::displayMainMenu (){
 		cout << "\t              SPARTAN BANK\n\n";
 		cout << "\t            1. Manage Customer\n";
 		cout << "\t            2. New Customer\n";
-		cout << "\t            3. List All Accounts\n";
+		cout << "\t            3. Look up Customer\n";
 		cout << "\t            4. Preform Administrative Duties\n";
 		cout << "Enter your choice and press <ENTER>: ";
 		cin >> choice;
@@ -56,7 +56,7 @@ void UserInterface::displayMainMenu (){
 			break;
 		
 		case 3:
-			list_all_accounts();
+			customer_lookup();
 			break;
 			
 		case 4:
@@ -81,17 +81,57 @@ unsigned int UserInterface::obtainCustomerID()
 
 void UserInterface::manage_customer(unsigned int ID)
 {
-	cout << "Managing customer...\n";
-	//1. list Customer information
-	//2. transfer money
-	//3. Withdraw money
-	//4. Deposit money
-	//5. Change customer information
-	//6. Close account
-	//7. Remove Customer
-	//8. Return to main menu
+	bool done=false
+	int choice;
+	while (!done)
+	{
+		clearscreen();
+		cout << "\t               Manage Customer\n\n";
+		cout << "\t                SPARTAN BANK\n\n";
+		cout << "\t               1. List Customer Information\n";
+		cout << "\t               2. Transfer Money\n";
+		cout << "\t               3. Withdraw Money\n";
+		cout << "\t               4. Deposit Money\n";
+		cout << "\t               5. Change Customer Information\n";
+		cout << "\t               6. Close acount\n";
+		cout << "\t               7. Remove Customer\n";
+		cout << "\t               8. Return to Main Menu\n";
+		cout << "Enter your choice and press <ENTER>: ";
+		cin >> choice;
+		
+		switch(choice)
+		{
+		case 1:
+			getcustomerinfo();
+			break;
+		case 2:
+			Transfermoney();
+			break;
+		case 3:
+			withdrawmondey();
+			break;
+		case 4:
+			depositmoney();
+			break;
+		case 5:
+			changecustomerinfo();
+			break;
+		case 6:
+			closeaccount();
+			break;
+		case 7:
+			deletecustomer();
+			break;
+		case 8:
+			done=true;
+			break;
+		default:
+			cout << "\n\nNot a valid choice\n";
+          	pressEnter();
+			break;
+		}
+	}
 }
-
 void UserInterface::create_new_customer()
 {
 	cout << "Customer created...\n";
@@ -100,14 +140,42 @@ void UserInterface::create_new_customer()
 	//customer.save
 }
 
-void UserInterface::list_all_accounts()
+void UserInterface::customer_lookup()
 {
-	cout << "ACCOUNTS!\n";
-	//Access the list of accounts
-	//while !done
-	//for (int i=0;i<4;i++)
-		//output account
-	//press enter
+	bool done=false;
+	int choice;
+	while(!done)
+	{
+		clearscreen();
+		cout << "\t               Lookup Customer \n\n";
+		cout << "\t                SPARTAN BANK\n\n";
+		cout << "\t               1. By Customer Name\n";
+		cout << "\t               2. By Customer Address\n";
+		cout << "\t               3. List all Accounts\n";
+		cout << "\t               4. Return to Main Menu\n";
+		cout << "Enter your choice and press <ENTER>: ";
+		cin >> choice;
+		
+		switch(choice)
+		{
+		case 1:
+			lookup_by_name();
+			break;
+		case 2:
+			lookup_by_address();
+			break;
+		case 3:
+			list_all_accounts();
+			break;
+		case 4:
+			done=true;
+			break;
+		default:
+			cout << "\n\nNot a valid choice\n";
+          	pressEnter();
+			break;
+		}
+	}
 }
 
 void UserInterface::admin_duties()
