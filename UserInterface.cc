@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "UserInterface.hh"
-#include "customer.cc"
+#include "customer.hh"
 
 using std::cout;
 using std::cin;
@@ -48,6 +48,7 @@ void UserInterface::displayMainMenu (){
 		cout << "\t            2. New Customer\n";
 		cout << "\t            3. Look up Customer\n";
 		cout << "\t            4. Preform Administrative Duties\n";
+		cout << "\t            5. Exit\n";
 		cout << "Enter your choice and press <ENTER>: ";
 		cin >> choice;
 
@@ -69,7 +70,10 @@ void UserInterface::displayMainMenu (){
 		case 4:
 			admin_duties();
 			break;
-				
+		case 5:
+			done = true;
+			break;
+
      	default:
 			cout << "\n\nNot a valid choice\n";
           	pressEnter();

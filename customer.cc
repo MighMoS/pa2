@@ -64,3 +64,8 @@ bool Customer::delete_customer()
 	//delete the customer.
 	//return true if customer is deleted.
 }
+
+void Customer::get_customer_info ()
+{
+	// Do something
+}
