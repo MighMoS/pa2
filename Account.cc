@@ -7,6 +7,7 @@
 #include "Bank.hh"
 
 using std::string;
+using std::endl;
 
 unsigned int Account::last_account_id = 0; 
 
@@ -57,8 +58,13 @@ void Account::save (void) const
 
 	stream << id;
 
-	path = customer_s + txt + stream.str();
-	//file.open (path); // This fails. I don't know know why.
+	path = customer_s + stream.str() + txt;
+	file.open (path.c_str());
+
+	file << id << " " << type;
+	file << balance << endl;
+
+	file.close();
 }
 
 unsigned int Account::get_last_account_id (void)
