@@ -155,10 +155,27 @@ void UserInterface::manage_customer(unsigned int ID)
 }
 void UserInterface::create_new_customer()
 {
-	cout << "Customer created...\n";
-	//Prompt user for information (last name, First name, Address)
-	//Intialize Customer class with information
-	//customer.save
+	string first, last, street, city, state, zip;
+	Address* addr;
+	cout << "Enter customer's first name: ";
+	cin >> first;
+	cout << "Enter customer's last name: ";
+	cin >> last;
+	
+	cout << "Enter the customer's address\n";
+	cout << "\tstreet: ";
+	cin >> street;
+	cout << "\tcity: ";
+	cin >> city;
+	cout << "\tstate: ";
+	cin >> state;
+	cout << "\tzip: ";
+	cin >> zip;
+	
+	addr = new Address (street, city, state, zip);
+	
+	Customer (first, last, addr) recruit;
+	//recruit.save ();
 }
 
 void UserInterface::customer_lookup()

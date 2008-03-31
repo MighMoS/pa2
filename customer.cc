@@ -15,6 +15,12 @@ Customer::Customer(unsigned int id)
 		address = new Address("100 Avenue Q", "Nowhere","No How", "90210");
 }
 
+Customer::Customer(string firstn, string lastn, Address* addr) :
+	F_Name (firstn), L_Name (lastn), address (addr)
+{
+	ID = ++lastCustomerID;
+}
+
 void Customer::set_Address(Address* new_add)
 {
 	if (address)
@@ -45,6 +51,7 @@ void Customer::deposit_money()
 	//call account.deposit(money)
 }
 
+// Should this be UserInterface:: ?
 void Customer::change_customer_info()
 {
 	string newfirstname, newlastname;
@@ -64,6 +71,7 @@ void Customer::close_account()
 	//call account.remove
 }
 
+// Should this be UserInterface::delete_customer ?
 bool Customer::delete_customer()
 {
 	//prompt user if they're sure.

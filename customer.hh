@@ -21,7 +21,7 @@ private:
 	static unsigned int lastCustomerID;
 public:
 	Customer(unsigned int id);  //Initialize customer off of their ID from a file.
-	Customer(); 			   //Initialize a blank customer
+	Customer(string firstn, string lastn, Address* addr);
 
 	// When would the customer ID change?
 	void set_ID (int num) {ID=num;}
