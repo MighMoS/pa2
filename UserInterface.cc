@@ -164,7 +164,8 @@ void UserInterface::create_new_customer()
 	
 	cout << "Enter the customer's address\n";
 	cout << "\tstreet: ";
-	cin >> street;
+	// Something fails here
+	getline (cin, street);
 	cout << "\tcity: ";
 	cin >> city;
 	cout << "\tstate: ";
