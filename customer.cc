@@ -26,7 +26,7 @@ Customer::Customer(string firstn, string lastn, Address* addr) :
 
 /* Customer::save. Save a customer to the disk.
  * Takes no parameters, does not alter customer.
- * Opens customers/_ID_.txt, and writes out the nessisary info.
+ * Opens customers/_ID_.txt, and writes out the necessary info.
  * We don't care if something was there earlier, its not anymore.
  */
 void Customer::save (void) const
@@ -41,7 +41,24 @@ void Customer::save (void) const
 	stream << ID;
 
 	path = customer_s + txt + stream.str();
-	//file.open (path); // This fails. I don't know know why.
+	file.open (path.c_str()); 
+
+	/* Format is:
+	 * Bob Jenkins
+	 * 100
+	 * 2
+	 * 30 50
+	 * 1003 Some St, Somewhere, CA, 23412
+	 */
+	file << F_Name << " " << L_Name << endl;
+	file << ID << endl;
+	file << Accounts.size();
+	for (int i = 0; i < Accounts.size(); i++)
+		cout << Accounts[i] << " ";
+	cout << endl;
+	cout << address << endl;
+
+	file.close();
 }
 
 void Customer::set_Address(Address* new_add)
