@@ -1,5 +1,11 @@
+#include <iostream>
+
 #include "UserInterface.hh"
 #include "customer.cc"
+
+using std::cout;
+using std::cin;
+using std::endl;
 
 void UserInterface::clearScreen ()
 //
@@ -29,6 +35,7 @@ void UserInterface::displayMainMenu (){
   
       	bool done = false;
 	int  choice;
+	unsigned int ID;
 
 	while (!done)
 	{
@@ -47,7 +54,7 @@ void UserInterface::displayMainMenu (){
 		switch (choice)
 		{
 		case 1:
-			unsigned int ID=obtainCustomerID();
+			ID=obtainCustomerID();
 			manage_customer(ID);
 			break;
 			
@@ -72,21 +79,24 @@ void UserInterface::displayMainMenu (){
 
 unsigned int UserInterface::obtainCustomerID()
 {
-	clearScreen();
 	unsigned int ID;
-	cout << "Enter the Users Customer ID:"
+
+	clearScreen();
+	cout << "Enter the Users Customer ID:";
 	cin >> ID;
+
 	return ID;
 }
 
 void UserInterface::manage_customer(unsigned int ID)
 {
 	Customer bloke(ID);
-	bool done=false
+	bool done=false;
 	int choice;
+
 	while (!done)
 	{
-		clearscreen();
+		clearScreen();
 		cout << "\t               Manage Customer\n\n";
 		cout << "\t                SPARTAN BANK\n\n";
 		cout << "\t               1. List Customer Information\n";
@@ -106,22 +116,22 @@ void UserInterface::manage_customer(unsigned int ID)
 			bloke.get_customer_info();
 			break;
 		case 2:
-			bloke.Transfermoney();
+			bloke.transfer_money();
 			break;
 		case 3:
-			bloke.withdrawmondey();
+			bloke.withdraw_money();
 			break;
 		case 4:
-			bloke.depositmoney();
+			bloke.deposit_money();
 			break;
 		case 5:
-			bloke.changecustomerinfo();
+			bloke.change_customer_info();
 			break;
 		case 6:
-			bloke.closeaccount();
+			bloke.close_account();
 			break;
 		case 7:
-			if (bloke.deletecustomer())
+			if (bloke.delete_customer())
 				done=true;			
 			break;
 		case 8:
@@ -148,7 +158,7 @@ void UserInterface::customer_lookup()
 	int choice;
 	while(!done)
 	{
-		clearscreen();
+		clearScreen();
 		cout << "\t               Lookup Customer \n\n";
 		cout << "\t                SPARTAN BANK\n\n";
 		cout << "\t               1. By Customer Name\n";
@@ -161,13 +171,13 @@ void UserInterface::customer_lookup()
 		switch(choice)
 		{
 		case 1:
-			lookup_by_name();
+			//lookup_by_name();
 			break;
 		case 2:
-			lookup_by_address();
+			//lookup_by_address();
 			break;
 		case 3:
-			list_all_accounts();
+			//list_all_accounts();
 			break;
 		case 4:
 			done=true;
