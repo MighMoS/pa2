@@ -174,7 +174,7 @@ void UserInterface::create_new_customer()
 	
 	addr = new Address (street, city, state, zip);
 	
-	Customer (first, last, addr) recruit;
+	Customer customer (first, last, addr);
 	//recruit.save ();
 }
 
