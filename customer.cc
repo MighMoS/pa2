@@ -1,7 +1,10 @@
+#include "Address.hh"
 #include "customer.hh"
 #include "UserInterface.hh"
+
+#include <fstream>
 #include <iostream>
-#include "Address.hh"
+#include <sstream>
 using std::cout;
 using std::endl;
 
@@ -11,7 +14,7 @@ Customer::Customer(unsigned int id)
 {
 	ID=id;
 	//Search customer file for their ID.
-	//read in that Information to intialize F_Name L_Name Address
+	//read in that Information to initialize F_Name L_Name Address
 		address = new Address("100 Avenue Q", "Nowhere","No How", "90210");
 }
 
@@ -19,6 +22,26 @@ Customer::Customer(string firstn, string lastn, Address* addr) :
 	F_Name (firstn), L_Name (lastn), address (addr)
 {
 	ID = ++lastCustomerID;
+}
+
+/* Customer::save. Save a customer to the disk.
+ * Takes no parameters, does not alter customer.
+ * Opens customers/_ID_.txt, and writes out the nessisary info.
+ * We don't care if something was there earlier, its not anymore.
+ */
+void Customer::save (void) const
+{
+	const static string customer_s = "customers/";
+	const static string txt = ".txt";
+
+	string path;
+	std::stringstream stream; // Used for converting int to string
+	std::ofstream file;
+
+	stream << ID;
+
+	path = customer_s + txt + stream.str();
+	//file.open (path); // This fails. I don't know know why.
 }
 
 void Customer::set_Address(Address* new_add)

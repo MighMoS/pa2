@@ -1,7 +1,12 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 
 #include "Account.hh"
 #include "Bank.hh"
+
+using std::string;
 
 unsigned int Account::last_account_id = 0; 
 
@@ -34,6 +39,26 @@ account_type Account::get_type(void) const
 float Account::get_balance (void) const
 {
 	return balance;
+}
+
+/* save. Save an account to the disk.
+ * Takes no parameters, does not alter the account.
+ * Opens account/_ID_.txt, and writes out the nessisary info.
+ * We don't care if something was there earlier, its not anymore.
+ */
+void Account::save (void) const
+{
+	const static string customer_s = "accounts/";
+	const static string txt = ".txt";
+
+	string path;
+	std::stringstream stream; // Used for converting int to string
+	std::ofstream file;
+
+	stream << id;
+
+	path = customer_s + txt + stream.str();
+	//file.open (path); // This fails. I don't know know why.
 }
 
 unsigned int Account::get_last_account_id (void)

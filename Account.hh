@@ -21,6 +21,8 @@ public:
 	account_type get_type(void) const;
 	float get_balance (void) const;
 
+	void save(void) const;
+
 	static unsigned int get_last_account_id (void);
 };
 

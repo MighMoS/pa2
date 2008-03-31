@@ -13,27 +13,29 @@ using std::string;
 class Customer
 {
 private:
-	int ID;
+	vector<int> Accounts;
 	string F_Name;
 	string L_Name;
 	Address* address;
-	vector<int> Accounts;
+	int ID;
+
 	static unsigned int lastCustomerID;
 public:
 	Customer(unsigned int id);  //Initialize customer off of their ID from a file.
 	Customer(string firstn, string lastn, Address* addr);
 
-	// When would the customer ID change?
-	void set_ID (int num) {ID=num;}
+	void save(void) const;
+
 	void set_First(string name){F_Name=name;}
 	void set_Last(string name){L_Name=name;}
+	void set_Address (Address* new_add);
+
 	int get_ID(){return ID;}
 	string get_FName(){return F_Name;}
 	string get_LName(){return L_Name;}
 	Address& get_Address(){return *address;}
 	vector<int> get_Accounts(){return Accounts;}
 	
-	void set_Address (Address* new_add);
 	void get_customer_info();	
 	void add_Account(string type);
 	void remove_Account(int acc);
