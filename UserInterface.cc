@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 #include "UserInterface.hh"
 #include "customer.hh"
@@ -20,7 +22,7 @@ void UserInterface::clearScreen ()
 
 void UserInterface::pressEnter()
 {
-
+std::ofstream file;
 	char ch;
 
 	cin.sync();
@@ -57,7 +59,8 @@ void UserInterface::displayMainMenu (){
 		{
 		case 1:
 			ID=obtainCustomerID();
-			manage_customer(ID);
+			if (ID!=0)
+				manage_customer(ID);
 			break;
 			
 		case 2:
@@ -84,13 +87,27 @@ void UserInterface::displayMainMenu (){
 
 unsigned int UserInterface::obtainCustomerID()
 {
+	bool working=true;
+	std::ofstream file;
+	std::stringstream stream;
+	string temp;
 	unsigned int ID;
-
-	clearScreen();
-	cout << "Enter the Users Customer ID:";
-	cin >> ID;
-	//Needs to verify that this is a valid customer ID.
-
+	do
+	{
+		clearScreen();
+		if (!working)
+			cout << "Incorrect User ID.  Customer may not Exist.\n";
+		cout << "Enter the Users Customer ID(0 to Quit): ";
+		cin >> ID;
+		stream << ID;
+		temp="customer"+stream.str()+".txt";
+		file.open(temp.c_str());
+		
+		working = (file.is_open() && ID != 0);
+	}
+	while (!working);
+	file.close();
+	
 	return ID;
 }
 
@@ -178,6 +195,9 @@ void UserInterface::create_new_customer()
 	
 	Customer customer (first, last, addr);
 	customer.save ();
+	clearScreen();
+	cout << "Customer Created Sucsessfully." << endl << "Your customer ID is " << customer.get_ID();
+	pressEnter();
 }
 
 void UserInterface::customer_lookup()
@@ -221,5 +241,5 @@ void UserInterface::customer_lookup()
 void UserInterface::admin_duties()
 {
 	cout << "Admin noise!\n";
-	//Nothing to implement in this version
+	//Need to implement Monthly Interest and Fee accural.
 }
