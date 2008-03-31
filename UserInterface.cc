@@ -164,7 +164,8 @@ void UserInterface::create_new_customer()
 	
 	cout << "Enter the customer's address\n";
 	cout << "\tstreet: ";
-	// Something fails here
+	cin.sync();
+	cin.get();
 	getline (cin, street);
 	cout << "\tcity: ";
 	cin >> city;
@@ -176,7 +177,7 @@ void UserInterface::create_new_customer()
 	addr = new Address (street, city, state, zip);
 	
 	Customer customer (first, last, addr);
-	//recruit.save ();
+	customer.save ();
 }
 
 void UserInterface::customer_lookup()
