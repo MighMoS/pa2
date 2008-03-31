@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 using std::string;
 
@@ -8,7 +9,7 @@ class Address
 	string state;
 	string zip_code;
 
-	friend std::ostream& operator << (ostream& os, const Address& rhs);
+	friend std::ostream& operator << (std::ostream& os, const Address& rhs);
 	
 	public:
 	Address (const string& str,

@@ -1,6 +1,7 @@
+#include <iostream>
 #include "Address.hh"
 
-ostream& operator << (ostream& os, const Address& rhs);
+std::ostream& operator << (std::ostream& os, const Address& rhs);
 
 Address::Address (const string& str,
 			const string& cty,

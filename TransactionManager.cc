@@ -1,6 +1,6 @@
 #include "TransactionManager.hh"
 
-TransactionManager::TransactionManager (unsigned int owner_id)
+TransactionManager::TransactionManager (unsigned int owner_id) : id (owner_id)
 {
 }
 
@@ -12,6 +12,6 @@ void TransactionManager::record_transaction (Transaction *t)
 {
 }
 
-bool TransactionManger::check_for_fines ()
+bool TransactionManager::check_for_fines ()
 {
 }
