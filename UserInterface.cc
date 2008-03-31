@@ -25,7 +25,8 @@ void UserInterface::pressEnter()
 
 	cin.sync();
 	cout << endl;
-	ch = getchar ();
+	ch = cin.get();
+	ch = cin.get();
 
 } // pressEnter ()
 
@@ -75,7 +76,7 @@ void UserInterface::displayMainMenu (){
 			break;
 
      	default:
-			cout << "\n\nNot a valid choice\n";
+			cout << "\nNot a valid choice\n";
           	pressEnter();
 			break;
 		}	}
@@ -88,6 +89,7 @@ unsigned int UserInterface::obtainCustomerID()
 	clearScreen();
 	cout << "Enter the Users Customer ID:";
 	cin >> ID;
+	//Needs to verify that this is a valid customer ID.
 
 	return ID;
 }
@@ -95,6 +97,7 @@ unsigned int UserInterface::obtainCustomerID()
 void UserInterface::manage_customer(unsigned int ID)
 {
 	Customer bloke(ID);
+	//if Customer == NULL, break.
 	bool done=false;
 	int choice;
 
@@ -117,7 +120,9 @@ void UserInterface::manage_customer(unsigned int ID)
 		switch(choice)
 		{
 		case 1:
+			clearScreen();
 			bloke.get_customer_info();
+			pressEnter();
 			break;
 		case 2:
 			bloke.transfer_money();

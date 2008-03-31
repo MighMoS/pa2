@@ -1,4 +1,9 @@
 #include "customer.hh"
+#include "UserInterface.hh"
+#include <iostream>
+#include "Address.hh"
+using std::cout;
+using std::endl;
 
 unsigned int Customer::lastCustomerID = 0;
 
@@ -7,6 +12,7 @@ Customer::Customer(unsigned int id)
 	ID=id;
 	//Search customer file for their ID.
 	//read in that Information to intialize F_Name L_Name Address
+		address = new Address("100 Avenue Q", "Nowhere","No How", "90210");
 }
 
 void Customer::set_Address(Address* new_add)
@@ -67,5 +73,8 @@ bool Customer::delete_customer()
 
 void Customer::get_customer_info ()
 {
-	// Do something
+	cout << F_Name << " " << L_Name << endl;
+	if (address != NULL)
+		cout << *address;
+	//If (has account) cout Account type and balance.   Do for all 3 account types.
 }

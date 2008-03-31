@@ -1,3 +1,5 @@
+#ifndef ADDRESS
+#define ADDRESS
 #include <iostream>
 #include <string>
 using std::string;
@@ -12,8 +14,9 @@ class Address
 	friend std::ostream& operator << (std::ostream& os, const Address& rhs);
 	
 	public:
-	Address (const string& str,
-			const string& cty,
-			const string& ste,
-			const string& zip);
+	Address (const string& str, const string& cty, const string& ste, const string& zip);
+			
+	void set (const string& str, const string& cty, const string& ste, const string& zip);
+
 };
+#endif
