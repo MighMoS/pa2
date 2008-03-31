@@ -46,7 +46,7 @@ void Customer::save (void) const
 
 	stream << ID;
 
-	path = customer_s + txt + stream.str();
+	path = customer_s + stream.str() + txt;
 	file.open (path.c_str()); 
 
 	/* Format is:
