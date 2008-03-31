@@ -24,6 +24,12 @@ Customer::Customer(string firstn, string lastn, Address* addr) :
 	ID = ++lastCustomerID;
 }
 
+Customer::~Customer()
+{
+	if (address)
+		delete address;
+}
+
 /* Customer::save. Save a customer to the disk.
  * Takes no parameters, does not alter customer.
  * Opens customers/_ID_.txt, and writes out the necessary info.

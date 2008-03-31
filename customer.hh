@@ -23,6 +23,7 @@ private:
 public:
 	Customer(unsigned int id);  //Initialize customer off of their ID from a file.
 	Customer(string firstn, string lastn, Address* addr);
+	~Customer();
 
 	void save(void) const;
 
