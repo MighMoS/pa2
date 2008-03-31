@@ -59,7 +59,7 @@ void Customer::save (void) const
 	file << F_Name << " " << L_Name << endl;
 	file << ID << endl;
 	file << Accounts.size();
-	for (int i = 0; i < Accounts.size(); i++)
+	for (unsigned int i = 0; i < Accounts.size(); i++)
 		cout << Accounts[i] << " ";
 	cout << endl;
 	cout << address << endl;
@@ -123,6 +123,7 @@ bool Customer::delete_customer()
 	//prompt user if they're sure.
 	//delete the customer.
 	//return true if customer is deleted.
+	return true;
 }
 
 void Customer::get_customer_info ()

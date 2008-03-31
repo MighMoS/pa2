@@ -5,8 +5,9 @@ using std::endl;
 
 std::ostream& operator << (std::ostream& os, const Address& rhs)
 {
-	cout << rhs.street << endl << rhs.city << ", " << rhs.state << " " << rhs.zip_code;
+	os << rhs.street << endl << rhs.city << ", " << rhs.state << " " << rhs.zip_code;
 
+	return os;
 }
 
 Address::Address (const string& str,
