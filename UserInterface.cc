@@ -317,7 +317,7 @@ void UserInterface::move_money(Customer& cust, transaction_type type)
 {
 	vector<unsigned int> cust_accounts;
 	unsigned int first_acct, second_acct;
-	unsigned int money;
+	float money;
 	Transaction* cust_trans;
 
 	cust_accounts = cust.get_Accounts();
