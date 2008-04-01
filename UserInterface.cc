@@ -165,6 +165,7 @@ void UserInterface::manage_customer(unsigned int ID)
 			pressEnter();
 			break;
 		case 7:
+			clearScreen();
 			bloke.close_account();
 			break;
 		case 8:

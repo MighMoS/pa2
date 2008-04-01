@@ -35,6 +35,7 @@ Customer::Customer(unsigned int id)
 	for (int i=0;i<numbofacc;i++)
 	{
 		file >> temp;
+		Accounts.clear();
 		Accounts.push_back(temp);
 	}
 	file.sync();
@@ -132,8 +133,48 @@ void Customer::change_customer_info()
 
 void Customer::close_account()
 {
-	//prompt user for account that needs to be closed.
-	//call account.remove
+	bool repeat=true;
+	unsigned int choice;
+	while(repeat)
+	{
+		cout << "Select account to close (";
+		if (has_account(Checking))
+		{
+			cout << Accounts[0] << ". Checking ";
+		}
+		if (has_account(Savings))
+		{
+			cout << Accounts[1] << ". Savings ";
+		}
+		if (has_account(MoneyMarket))
+		{
+			cout << Accounts[2] << ". Money Market";
+		}
+		cout << ")" << endl;
+		cin >> choice;
+		if (choice == 0)
+			break;
+		if (choice != accounts[0]&& choice != accounts[1] && choice != accounts[2])
+			cout << "Not a valid Choice, please enter a Valid choice, or 0 to quit." << endl;
+		else
+			repeat=false;
+	}
+	if (choice!=0)
+	{
+		string path;
+		std::stringstream stream; // Used for converting int to string
+		std::ofstream file;
+		stream << choice;
+		path = customer_s + stream.str() + txt;
+		remove(path.c_str);
+		if (choice == accounts[0])
+			accounts[0]=0;
+		if (choice == accounts[1])
+			accounts[1]=0;
+		if (choice == accounts[2])
+			accounts[2]=0;
+	}
+
 }
 
 // Should this be UserInterface::delete_customer ?
