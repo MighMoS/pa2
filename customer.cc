@@ -30,6 +30,11 @@ Customer::Customer(unsigned int id)
 
 	path = "customers/" + stream.str() + ".txt";
 	file.open (path.c_str());
+	if (!file.is_open())
+	{
+		std::cerr << "Could not open file: " << path << endl;
+		return;
+	}
 	file >> F_Name >> L_Name;
 	file >> numbofacc;
 	for (int i=0;i<numbofacc;i++)
@@ -44,6 +49,7 @@ Customer::Customer(unsigned int id)
 	file >>city >> state >> zip;
 	address = new Address(street,city,state,zip);
 
+	file.close();
 }
 
 Customer::Customer(string firstn, string lastn, Address* addr) :

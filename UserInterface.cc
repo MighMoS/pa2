@@ -106,7 +106,8 @@ unsigned int UserInterface::obtainCustomerID()
 		working = (file.is_open() || ID == 0);
 	}
 	while (!working);
-	file.close();
+	if (file.is_open())
+		file.close();
 	
 	return ID;
 }

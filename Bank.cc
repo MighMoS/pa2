@@ -48,6 +48,7 @@ bool Bank::init (void)
 	Customer::setLastCustomerID (lastCust);
 	Account::set_last_account_id (lastAcct);
 
+	file.close();
 	return true;
 }
 
