@@ -199,6 +199,7 @@ void UserInterface::create_new_customer()
 	
 	Customer customer (first, last, addr);
 	customer.save ();
+
 	clearScreen();
 	cout << "Customer Created Sucsessfully." << endl << "Your customer ID is " << customer.get_ID();
 	pressEnter();
