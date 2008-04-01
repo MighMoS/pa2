@@ -237,8 +237,12 @@ void UserInterface::customer_lookup()
 		{
 		case 1:
 			//lookup_by_name();
+			cout << "Not implemented in this version.\n";
+			pressEnter ();
 			break;
 		case 2:
+			cout << "Not implemented in this version.\n";
+			pressEnter ();
 			//lookup_by_address();
 			break;
 		case 3:
