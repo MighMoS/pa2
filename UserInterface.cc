@@ -145,12 +145,13 @@ void UserInterface::manage_customer(unsigned int ID)
 			break;
 		case 2:
 			bloke.transfer_money();
+			move_money (bloke, Transfer);
 			break;
 		case 3:
-			bloke.withdraw_money();
+			move_money (bloke, Withdrawal);
 			break;
 		case 4:
-			bloke.deposit_money();
+			move_money (bloke, Deposit);
 			break;
 		case 5:
 			create_account(bloke);
@@ -297,6 +298,49 @@ void UserInterface::create_account(Customer &cust)
 		clearScreen();
 		cout << "Account Added Sucsessfully";
 		pressEnter();
+	}
+}
+
+/* Note that transfers are TO acct_no FROM acct_no
+ */
+void UserInterface::move_money(Customer& cust, transaction_type type)
+{
+	vector<int> cust_accounts;
+	unsigned int first_acct, second_acct;
+	unsigned int money;
+	Transaction* cust_trans;
+
+	cust_accounts = cust.get_Accounts();
+
+	cout << (type == Withdrawal ? "Withdraw from" : "Deposit to" );
+	cout << " which account number? (";
+
+	for (unsigned int i = 0; i < cust_accounts.size(); i++)
+	{
+		if (cust_accounts[i])
+			cout << cust_accounts[i] << " ";
+	}
+	cout << "): ";
+	cin >> first_acct;
+
+	if (type == Transfer)
+	{
+		cout << "Withdraw from account number: ";
+		cin >> second_acct;
+	}
+
+	cout << "Enter amount: $";
+	cin >> money;
+
+	cust_trans = new Transaction (first_acct, type, money);
+	cust_trans->process();
+	delete cust_trans;
+	if (type == Transfer)
+	{
+		// This is a withdraw, so subtract money
+		cust_trans = new Transaction (second_acct, type, money * -1);
+		cust_trans->process();
+		delete cust_trans;
 	}
 }
 

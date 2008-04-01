@@ -10,7 +10,7 @@ class Account {
 	const unsigned int id;
 	const account_type type;
 	float balance;
-	TransactionManager* tm;
+	//TransactionManager* tm;
 	
 	static unsigned int last_account_id;
 public:

@@ -53,15 +53,22 @@ bool Bank::init (void)
 
 Transaction::Transaction (const unsigned int account_id,
 		const transaction_type its_type,
-		const float the_amount,
+		const float the_amount) :
+#if 0
 		const short its_year,
 		const short its_month,
 		const short its_day):
-	id (account_id), amount (the_amount), type (its_type),
-	year (its_year), month (its_month), day (its_day)
+	year (its_year), month (its_month), day (its_day),
+#endif
+	id (account_id), amount (the_amount), type (its_type)
 {
 }
 
+void Transaction::process (void)
+{
+}
+
+#if 0
 // Rough Sketch of what it should do. In this plan save doesn't care where
 // its writing, because some higher level method can worry about that.
 void Transaction::save(std::ofstream& output)
@@ -70,3 +77,4 @@ void Transaction::save(std::ofstream& output)
 	output << year << sep << month << sep << day << sep << type << amount
 		<< std::endl;
 }
+#endif
