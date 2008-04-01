@@ -70,7 +70,7 @@ void Transaction::process (void)
 	acct = Account::get_account_by_id (id);
 	if (!acct)
 	{
-		std::cerr << "Account doesn't exist to be processed. This shouldn't happen!\n";
+		std::cerr << "Account " << id << " doesn't exist to be processed. This shouldn't happen!\n";
 		exit (1);
 	}
 
