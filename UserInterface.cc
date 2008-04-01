@@ -2,9 +2,10 @@
 #include <fstream>
 #include <sstream>
 
-#include "UserInterface.hh"
-#include "customer.hh"
 #include "Account.hh"
+#include "Bank.hh"
+#include "customer.hh"
+#include "UserInterface.hh"
 
 using std::cout;
 using std::cin;
@@ -363,6 +364,54 @@ void UserInterface::move_money(Customer& cust, transaction_type type)
 
 void UserInterface::admin_duties()
 {
-	cout << "Admin noise!\n";
-	//Need to implement Monthly Interest and Fee accural.
+	unsigned int choice;
+	bool done = false;
+	while(!done)
+	{
+		clearScreen();
+		cout << "\t               Administrative Functions \n\n";
+		cout << "\t                SPARTAN BANK\n\n";
+		cout << "\t               1. Monthly Process Accounts\n";
+		cout << "\t               2. Write Financial Report\n";
+		cout << "\t               3. Write Accounts Report\n";
+		cout << "\t               4. Write Customer Report\n";
+		cout << "\t               5. Return to Main Menu\n";
+		cout << "Enter your choice and press <ENTER>: ";
+		cin >> choice;
+		
+		switch(choice)
+		{
+		case 1:
+			if (Bank::process_accounts ())
+			{
+				cout << "Accounts processed successfully.\n";
+				pressEnter ();
+			}
+			else 
+			{
+				std::cerr << "ERROR PROCESSING ACCOUNTS.\n";
+				pressEnter ();
+			}
+			break;
+		case 2:
+			cout << "Write financial report is not implemented in this version.\n";
+			pressEnter();
+			break;
+		case 3:
+			cout << "Write accounts report is not implemented in this version.\n";
+			pressEnter();
+			break;
+		case 4:
+			cout << "Write customer report is not implemented in this version.\n";
+			pressEnter();
+			break;
+		case 5:
+			done=true;
+			break;
+		default:
+			cout << "\n\nNot a valid choice\n";
+          	pressEnter();
+			break;
+		} 	
+	}
 }
