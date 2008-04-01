@@ -19,7 +19,7 @@ Customer::Customer(unsigned int id)
 	Accounts[1]=0;
 	Accounts[2]=0;
 
-	int numbofacc, temp;
+	int temp;
 	ID=id;
 	string path;
 	string street,city,state,zip;

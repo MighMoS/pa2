@@ -163,7 +163,7 @@ void UserInterface::manage_customer(unsigned int ID)
 			bloke.change_customer_info();
 			bloke.save();
 			clearScreen();
-			cout << "Customer Data Changed Sucsessfully.";
+			cout << "Customer Data Changed Successfully.";
 			pressEnter();
 			break;
 		case 7:
@@ -213,7 +213,7 @@ void UserInterface::create_new_customer()
 	customer.save ();
 
 	clearScreen();
-	cout << "Customer Created Sucsessfully." << endl << "Your customer ID is " << customer.get_ID();
+	cout << "Customer Created Successfully." << endl << "Your customer ID is " << customer.get_ID();
 	pressEnter();
 }
 
@@ -242,7 +242,7 @@ void UserInterface::customer_lookup()
 			//lookup_by_address();
 			break;
 		case 3:
-			//list_all_accounts();
+			ListAllAccounts ();
 			break;
 		case 4:
 			done=true;
@@ -296,11 +296,11 @@ void UserInterface::create_account(Customer &cust)
 	if (choice!=4)
 	{
 		clearScreen();
-		cout << "Enter the intial Deposit for the account: ";
+		cout << "Enter the initial Deposit for the account: ";
 		cin >> balance;
 		clearScreen();	
 		if (cust.add_Account(typeofaccount,balance))
-			cout << "Account Added Sucsessfully";
+			cout << "Account Added Successfully";
 		else
 			cout << "Adding account Failed: Customer already owns an account of that Type.";
 		pressEnter();
@@ -413,5 +413,30 @@ void UserInterface::admin_duties()
           	pressEnter();
 			break;
 		} 	
+	}
+}
+
+void UserInterface::ListAllAccounts (void)
+{
+	vector<Account*> all_accts;
+	string input;
+
+	all_accts = Account::get_all_accounts ();
+	for (unsigned int i = 0; i < all_accts.size (); i++)
+	{
+		cout << (all_accts[i]);
+		delete all_accts[i];
+
+		if (i % 2 == 0)
+		{
+			do
+			{
+				cout << "Enter  n for Next, or q for Quit: ";
+				cin >> input;
+			} while (input[0] != 'n' && input[0] != 'N' &&
+					input[0] != 'q' && input[0] != 'Q');
+			if (input [0] == 'Q' || input[0] == 'q')
+				return;
+		}
 	}
 }
