@@ -171,7 +171,9 @@ void UserInterface::manage_customer(unsigned int ID)
 			break;
 		case 8:
 			if (bloke.delete_customer())
-				done=true;			
+				done=true;
+			else
+				pressEnter();		
 			break;
 		case 9:
 			done=true;

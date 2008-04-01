@@ -15,7 +15,7 @@ unsigned int Customer::lastCustomerID = 0;
 Customer::Customer(unsigned int id)
 {
 	Accounts.resize(3);
-	Accounts[0]=0;
+	Accounts[	0]=0;
 	Accounts[1]=0;
 	Accounts[2]=0;
 
@@ -186,10 +186,30 @@ void Customer::close_account()
 // Should this be UserInterface::delete_customer ?
 bool Customer::delete_customer()
 {
-	//prompt user if they're sure.
-	//delete the customer.
-	//return true if customer is deleted.
-	return true;
+	string temp="a";
+	if (Accounts[0]==0 && Accounts[1]==0 && Accounts[2]==0)
+	{
+		while (temp[0]!='Y' && temp[0]!='y' && temp[0]!='N' && temp[0]!='n')
+		{
+			cout << "Are you sure you wish to Delete this Customers accounts?" << endl;
+			cin >> temp;
+			if (temp[0]!='Y' && temp[0]!='y' && temp[0]!='N' && temp[0]!='n')
+			cout << endl << "Please Enter Y for yes, or N for no." << endl;
+		}
+		if (temp[0]!='N' && temp[0]!='n')
+		{	cout << "No Action taken." << endl;
+			return false;
+		}
+		string path;
+		std::stringstream stream; // Used for converting int to string
+		std::ofstream file;
+		stream << ID;
+		path = "customers/" + stream.str() + ".txt";
+		remove(path.c_str());
+		return true;	
+	}
+		cout << "Customer Still has Active accounts.  Close Customers Accounts before Removing the Customer." << endl;
+		return false;
 }
 
 void Customer::get_customer_info ()
