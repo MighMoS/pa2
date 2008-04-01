@@ -165,6 +165,11 @@ void Customer::get_customer_info ()
 	//If (has account) cout Account type and balance.   Do for all 3 account types.
 }
 
+void Customer::setLastCustomerID (const unsigned int lastID)
+{
+	lastCustomerID = lastID;
+}
+
 unsigned int Customer::getLastCustomerID (void)
 {
 	return lastCustomerID;

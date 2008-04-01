@@ -67,6 +67,11 @@ void Account::save (void) const
 	file.close();
 }
 
+void Account::set_last_account_id (const unsigned int lastID)
+{
+	last_account_id = lastID;
+}
+
 unsigned int Account::get_last_account_id (void)
 {
 	return last_account_id;

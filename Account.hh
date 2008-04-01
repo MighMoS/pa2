@@ -23,6 +23,7 @@ public:
 
 	void save(void) const;
 
+	static void set_last_account_id (const unsigned int lastID);
 	static unsigned int get_last_account_id (void);
 };
 

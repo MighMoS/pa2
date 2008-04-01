@@ -50,6 +50,7 @@ public:
 
 	bool delete_customer();
 
+	static void setLastCustomerID(const unsigned int lastID);
 	static unsigned int getLastCustomerID(void);
 };
 

@@ -20,7 +20,7 @@ void Bank::write_customer_report (...)
 	std::cout << "STUB: WRITE CUSTOMER REPORT\n";
 }
 
-void Bank::save_status ()
+void Bank::save (void)
 {
 	const static char bank[] = "bank.txt";
 	std::ofstream file;
@@ -32,6 +32,23 @@ void Bank::save_status ()
 	file << Account::get_last_account_id() << endl;
 
 	file.close();
+}
+
+bool Bank::init (void)
+{
+	unsigned int lastCust, lastAcct;
+	const static char bank[] = "bank.txt";
+	std::ifstream file;
+	file.open (bank);
+	if (!file.is_open())
+		return false;
+
+	file >> lastCust >> lastAcct;
+
+	Customer::setLastCustomerID (lastCust);
+	Account::set_last_account_id (lastAcct);
+
+	return true;
 }
 
 Transaction::Transaction (const unsigned int account_id,
