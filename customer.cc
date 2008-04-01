@@ -179,12 +179,12 @@ void Customer::get_customer_info ()
 	if (has_account(Savings))
 	{
 		cout << "Savings account number: " << Accounts[1] <<
-			endl << "Account Balance: " << get_account_balance(Accounts[0]) << endl;
+			endl << "Account Balance: " << get_account_balance(Accounts[1]) << endl;
 	}
 	if (has_account(MoneyMarket))
 	{
 		cout << "Money Market account number: " << Accounts[2] <<
-			endl << "Account Balance: " << get_account_balance(Accounts[0]) << endl;
+			endl << "Account Balance: " << get_account_balance(Accounts[2]) << endl;
 	}
 }
 
