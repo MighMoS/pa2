@@ -76,7 +76,7 @@ void Customer::save (void) const
 	for (unsigned int i = 0; i < Accounts.size(); i++)
 		cout << Accounts[i] << " ";
 	file << endl;
-	file << address << endl;
+	file << *address << endl;
 
 	file.close();
 }
