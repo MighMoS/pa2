@@ -194,15 +194,16 @@ unsigned int Customer::getLastCustomerID (void)
  */
 bool Customer::add_Account(const account_type type, const float bal)
 {
+	if (has_account(type))
+		return false;
 	Account* acct;
 	acct = new Account (bal, type);
 
-	if (has_account (type) || !acct)
+	if (!acct)
 		return false;
 
 	Accounts[type] = acct->get_id();
 	acct->save();
-	
 	delete acct;
 	return true;
 }

@@ -292,10 +292,12 @@ void UserInterface::create_account(Customer &cust)
 	{
 		clearScreen();
 		cout << "Enter the intial Deposit for the account: ";
-		cin >> balance;	
-		cust.add_Account(typeofaccount,balance);
-		clearScreen();
-		cout << "Account Added Sucsessfully";
+		cin >> balance;
+		clearScreen();	
+		if (cust.add_Account(typeofaccount,balance))
+			cout << "Account Added Sucsessfully";
+		else
+			cout << "Adding account Failed: Customer already owns an account of that Type.";
 		pressEnter();
 	}
 }
