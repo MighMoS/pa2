@@ -129,7 +129,7 @@ void UserInterface::manage_customer(unsigned int ID)
 		cout << "\t               4. Deposit Money\n";
 		cout << "\t               5. Add Account\n";
 		cout << "\t               6. Change Customer Information\n";
-		cout << "\t               7. Close acount\n";
+		cout << "\t               7. Close account\n";
 		cout << "\t               8. Remove Customer\n";
 		cout << "\t               9. Return to Main Menu\n";
 		cout << "Enter your choice and press <ENTER>: ";
@@ -149,7 +149,7 @@ void UserInterface::manage_customer(unsigned int ID)
 			bloke.withdraw_money();
 			break;
 		case 4:
-			bloke.deposit_money();
+			deposit_money(bloke);
 			break;
 		case 5:
 			create_account(bloke);
@@ -297,6 +297,32 @@ void UserInterface::create_account(Customer &cust)
 		cout << "Account Added Sucsessfully";
 		pressEnter();
 	}
+}
+
+void UserInterface::deposit_money(Customer& cust)
+{
+	vector<int> cust_accounts;
+	unsigned int choice, money;
+	Transaction* cust_trans;
+
+	cust_accounts = cust.get_Accounts();
+
+	cout << "Deposit into which account number? (";
+
+	for (unsigned int i = 0; i < cust_accounts.size(); i++)
+	{
+		if (cust_accounts[i])
+			cout << cust_accounts[i] << " ";
+	}
+	cout << "): ";
+
+	cin >> choice;
+	cout << "Enter amount to deposit: $";
+	cin >> money;
+
+	cust_trans = new Transaction (choice, Deposit, money);
+	cust_trans->process();
+	delete cust_trans;
 }
 
 void UserInterface::admin_duties()

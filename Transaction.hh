@@ -1,7 +1,7 @@
 #ifndef TRANSACTION
 #define TRANSACTION
 // XXX: This isn't all, is it?
-enum transaction_type {Deposit, Withdrawal, Check};
+enum transaction_type {Deposit, Withdrawal, Check, Transfer};
 
 // XXX: Is this needed? And should we do this or use a time_t object?
 
@@ -10,7 +10,7 @@ class Transaction {
 	const float amount;
 	const transaction_type type;
 
-	const short year, month, day;
+	//const short year, month, day;
 
 	public:
 	
@@ -20,10 +20,14 @@ class Transaction {
 
 	Transaction (const unsigned int account_id,
 			const transaction_type its_type,
-			const float the_amount,
+			const float the_amount);
+#if 0
 			const short its_year,
 			const short its_month,
 			const short its_day);
+#endif
+	// Fires off the transaction to happen
+	void process (void);
 };
 
 #endif

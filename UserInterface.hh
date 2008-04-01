@@ -14,6 +14,11 @@ public:
 	static void admin_duties();
 	static void customer_lookup();
 	static void create_account(Customer &cust);
+
+	// For dealing with accounts
+	static void transfer_money (Customer& cust);
+	static void withdraw_money (Customer& cust);
+	static void deposit_money (Customer& cust);
 };
 
 #endif // USERINTERFACE
