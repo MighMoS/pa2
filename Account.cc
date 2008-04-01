@@ -87,6 +87,13 @@ unsigned int Account::get_last_account_id (void)
 	return last_account_id;
 }
 
+/* Account::get_account_by_id
+ * PARAMETERS: accID is an account number to fetch
+ *
+ * RETURNS:
+ *  A handle to account if it was found, or NULL if nothing was found.
+ *  The handle MUST BE FREED by the calling function.
+ */
 Account* Account::get_account_by_id (const unsigned int accID)
 {
 	float bal;

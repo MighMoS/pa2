@@ -307,7 +307,11 @@ void UserInterface::create_account(Customer &cust)
 	}
 }
 
-/* Note that transfers are TO acct_no FROM acct_no
+/* UserInterface::move_money
+ *   Asks the customer what they'd like to deposit or withdraw to / from
+ *
+ * NOTES:
+ *   Transfers are TO acct_no FROM acct_no; this is stored in two transactions
  */
 void UserInterface::move_money(Customer& cust, transaction_type type)
 {
@@ -319,7 +323,7 @@ void UserInterface::move_money(Customer& cust, transaction_type type)
 	cust_accounts = cust.get_Accounts();
 
 	cout << (type == Withdrawal ? "Withdraw from" : "Deposit to" );
-	cout << " which account number?\n";
+	cout << " which account number? (enter 0 to go back)\n";
 
 	for (unsigned int i = 0; i < cust_accounts.size(); i++)
 	{
@@ -337,6 +341,8 @@ void UserInterface::move_money(Customer& cust, transaction_type type)
 	}
 
 	cin >> first_acct;
+	if (first_acct == 0)
+		return;
 
 	if (type == Transfer)
 	{
