@@ -132,6 +132,7 @@ void Customer::change_customer_info()
 	L_Name=newlastname;
 	Address* newaddress= new Address(newadd,newcit,newstat,newzip);
 	set_Address (newaddress);
+	save();
 }
 
 void Customer::close_account()
