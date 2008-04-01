@@ -31,7 +31,10 @@ Customer::Customer(unsigned int id)
 		file >> temp;
 		Accounts.push_back(temp);
 	}
-	file >> street >> city >> state >> zip;
+	file.sync();
+	file.get();
+	getline(file, street);
+	file >>city >> state >> zip;
 		address = new Address(street,city,state,zip);
 }
 
@@ -164,4 +167,10 @@ void Customer::get_customer_info ()
 unsigned int Customer::getLastCustomerID (void)
 {
 	return lastCustomerID;
+}
+
+void add_Account(account_type type, float bal)
+{
+	
+	
 }

@@ -38,7 +38,7 @@ public:
 	vector<int> get_Accounts(){return Accounts;}
 	
 	void get_customer_info();	
-	void add_Account(string type);
+	void add_Account(account_type type, float bal);
 	void remove_Account(int acc);
 	int search_Accounts(int acc);
 	

@@ -126,10 +126,11 @@ void UserInterface::manage_customer(unsigned int ID)
 		cout << "\t               2. Transfer Money\n";
 		cout << "\t               3. Withdraw Money\n";
 		cout << "\t               4. Deposit Money\n";
-		cout << "\t               5. Change Customer Information\n";
-		cout << "\t               6. Close acount\n";
-		cout << "\t               7. Remove Customer\n";
-		cout << "\t               8. Return to Main Menu\n";
+		cout << "\t               5. Add Account\n";
+		cout << "\t               6. Change Customer Information\n";
+		cout << "\t               7. Close acount\n";
+		cout << "\t               8. Remove Customer\n";
+		cout << "\t               9. Return to Main Menu\n";
 		cout << "Enter your choice and press <ENTER>: ";
 		cin >> choice;
 		
@@ -150,6 +151,9 @@ void UserInterface::manage_customer(unsigned int ID)
 			bloke.deposit_money();
 			break;
 		case 5:
+			create_account(bloke);
+			break;
+		case 6:
 			clearScreen();
 			bloke.change_customer_info();
 			bloke.save();
@@ -157,14 +161,14 @@ void UserInterface::manage_customer(unsigned int ID)
 			cout << "Customer Data Changed Sucsessfully.";
 			pressEnter();
 			break;
-		case 6:
+		case 7:
 			bloke.close_account();
 			break;
-		case 7:
+		case 8:
 			if (bloke.delete_customer())
 				done=true;			
 			break;
-		case 8:
+		case 9:
 			done=true;
 			break;
 		default:
@@ -243,8 +247,57 @@ void UserInterface::customer_lookup()
 	}
 }
 
+void create_account(Customer &cust)
+{
+	account_type typeofaccount;
+	float balance;
+	int choice;
+	bool done=false;
+	while (!done)
+	{
+		clearscreen();
+		cout << "Which type of account would you like?" << endl;
+		cout << "\t         1. Checking"
+		cout << "\t         2. Savings"
+		cout << "\t         3. Money Market"
+		cout << "\t         4. Cancel"
+		cin >> choice;
+		switch(choice)
+		{
+		case 1:
+			typeofaccount=Checking;
+			done=true;
+			break;
+		case 2:
+			typeofaccount=Savings;
+			done=true;
+			break;
+		case 3:
+			typeofaccount=MoneyMarket;
+			done=true;
+			break;
+		case 4:
+			done=true;
+			break;
+		default:
+			cout << endl << "Not a Valid option, please pick a valid option(1-4)";
+			pressEnter();
+			break;
+		}
+	}
+	if choice=4
+		break;
+	clearScreen();
+	cout << "Enter the intial Deposit for the account: "
+	cin >> balance;	
+	bloke.add_Account(typeofaccount,balance);
+	clearScreen();
+	cout << "Account Added Sucsessfully";
+	pressEnter();
+}
+
 void UserInterface::admin_duties()
 {
 	cout << "Admin noise!\n";
 	//Need to implement Monthly Interest and Fee accural.
-}
+}		cout << "\t               8. Add Account\n";

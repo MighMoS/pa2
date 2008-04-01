@@ -12,6 +12,7 @@ public:
 	static void create_new_customer();
 	static void admin_duties();
 	static void customer_lookup();
+	static void create_account(Customer &cust);
 };
 
 #endif // USERINTERFACE
