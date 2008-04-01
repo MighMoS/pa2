@@ -1,5 +1,6 @@
 #ifndef ACCOUNT
 #define ACCOUNT
+#include <iostream>
 #include <vector>
 
 #include "Transaction.hh"
@@ -17,6 +18,7 @@ class Account {
 	//TransactionManager* tm;
 	
 	static unsigned int last_account_id;
+	friend std::ostream& operator << (std::ostream& os, const Account& rhs);
 public:
 	Account (const float initial_balance, const account_type its_type);
 	Account (const unsigned int id,

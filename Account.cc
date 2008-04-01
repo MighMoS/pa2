@@ -26,6 +26,20 @@ Account::Account (const unsigned int its_id,
 {
 }
 
+std::ostream& operator << (std::ostream& os, const Account& rhs)
+{
+	os << "Account ID: " << rhs.id << " (";
+	switch (rhs.get_type())
+	{
+		case Savings: os << "savings"; break;
+		case Checking: os << "checking"; break;
+		case MoneyMarket: os << "money market"; break;
+	}
+	os << ")\nBalance: " << rhs.balance << endl;
+
+	return os;
+}
+
 /* fancy name for "add or subtract money". Should ONLY be called through
  * Transaction::process.
  */

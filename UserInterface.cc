@@ -430,7 +430,7 @@ void UserInterface::ListAllAccounts (void)
 	all_accts = Account::get_all_accounts ();
 	for (unsigned int i = 0; i < all_accts.size (); i++)
 	{
-		cout << (all_accts[i]);
+		cout << *(all_accts[i]);
 		delete all_accts[i];
 
 		if (i % 2 == 0)
