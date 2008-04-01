@@ -13,7 +13,7 @@ using std::string;
 class Customer
 {
 private:
-	vector<int> Accounts;
+	vector<unsigned int> Accounts;
 	string F_Name;
 	string L_Name;
 	Address* address;
@@ -35,7 +35,7 @@ public:
 	string get_FName(){return F_Name;}
 	string get_LName(){return L_Name;}
 	Address& get_Address(){return *address;}
-	vector<int> get_Accounts(){return Accounts;}
+	vector<unsigned int> get_Accounts(){return Accounts;}
 	
 	void get_customer_info();	
 	bool add_Account(const account_type type, const float bal);
