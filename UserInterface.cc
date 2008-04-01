@@ -310,7 +310,7 @@ void UserInterface::create_account(Customer &cust)
  */
 void UserInterface::move_money(Customer& cust, transaction_type type)
 {
-	vector<int> cust_accounts;
+	vector<unsigned int> cust_accounts;
 	unsigned int first_acct, second_acct;
 	unsigned int money;
 	Transaction* cust_trans;

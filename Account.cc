@@ -93,7 +93,6 @@ Account* Account::get_account_by_id (const unsigned int accID)
 	const static string customer_s = "accounts/";
 	const static string txt = ".txt";
 	unsigned int type; // Wrong, but works
-	Account* acct;
 
 	string path;
 	std::stringstream stream; // Used for converting int to string
@@ -104,10 +103,13 @@ Account* Account::get_account_by_id (const unsigned int accID)
 	path = customer_s + stream.str() + txt;
 
 	file.open (path.c_str());
+
+	// We just return NULL here, because we may just want to see if
+	// something exists or not.
 	if (!file.is_open())
 	{
-		std::cerr << "Invalid account id: " << accID << endl;
-		exit (1);
+		//std::cerr << "Invalid account id: " << accID << endl;
+		return NULL;
 	}
 
 	file >> type;
@@ -115,5 +117,5 @@ Account* Account::get_account_by_id (const unsigned int accID)
 
 	file.close();
 
-	return acct = new Account (accID, bal, (account_type) type);
+	return new Account (accID, bal, (account_type) type);
 }

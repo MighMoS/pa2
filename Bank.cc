@@ -7,12 +7,16 @@
 
 using std::endl;
 
+// I'm not sure if we want to do things like this anymore.
+// TODO: decide before pa3
+#if 0
 void Bank::log_transaction (const unsigned int id, const account_type type,
 		const float amount)
 {
 	std::cout << "STUB: LOG_TRANSACTION. ID = " << id << ", amount = " << amount 
 		<< endl;
 }
+#endif
 
 // XXX: I'm not even sure what parameters this would take.
 void Bank::write_customer_report (...)
@@ -52,43 +56,107 @@ bool Bank::init (void)
 	return true;
 }
 
-Transaction::Transaction (const unsigned int account_id,
-		const transaction_type its_type,
-		const float the_amount) :
-#if 0
-		const short its_year,
-		const short its_month,
-		const short its_day):
-	year (its_year), month (its_month), day (its_day),
-#endif
-	id (account_id), amount (the_amount), type (its_type)
+/* PRECONDITION:
+ *   acct is != NULL. This should only be called by Bank::process_accounts
+ *   and only after acct has been verified to exist.
+ * RULES:
+ *   Checking have no interest.
+ *   Savings monthly interest = 1.5%
+ *   MoneyMarket montly interest = 3.0%
+ * POSTCONDITION:
+ *    (if it was not a checking acct) acct will have more money in it
+ */
+static void add_interest (Account* acct)
 {
+	static const float savings_monthly_interest_rate = 0.015;
+	static const float moneymkt_monthly_interest_rate = 0.030;
+	float interest_earned;
+	Transaction* trans;
+
+	if (acct->get_type() == Checking)
+		return;
+
+	if (acct->get_type() == Savings)
+		interest_earned = acct->get_balance ()
+			* savings_monthly_interest_rate;
+	else if (acct->get_type () == MoneyMarket)
+		interest_earned = acct->get_balance ()
+			* moneymkt_monthly_interest_rate;
+
+	trans = new Transaction (acct->get_id (), Interest, interest_earned);
+	trans->process ();
+	delete trans;
 }
 
-void Transaction::process (void)
+/* PRECONDITION:
+ *   acct is != NULL. This should only be called by Bank::process_accounts.
+ * RULES:
+ *   Checking: $100 minimum balance
+ *     ($5 fee)
+ *     bounced check: $5
+ *
+ *   Savings: $1,000 minimum balance
+ *     ($5 fee)
+ *
+ *   MoneyMarket: $10,000 min bal
+ *     ($100 fee)
+ *     bounced check: $100
+ *
+ * POSTCONDITIONS:
+ *   acct may have less $$ in it if rules were violated.
+ */
+static void charge_fees (Account* acct)
 {
-	Account* acct;
-	acct = Account::get_account_by_id (id);
-	if (!acct)
+	const static float CHECK_MIN = 100;
+	const static float CHECK_FEE = -5;
+	const static float SAVNG_MIN = 1000;
+	const static float SAVNG_FEE = -5;
+	const static float MMRKT_MIN = 10000;
+	const static float MMRKT_FEE = -100;
+
+	Transaction* trans = NULL;
+
+	switch (acct->get_type())
 	{
-		std::cerr << "Account " << id << " doesn't exist to be processed. This shouldn't happen!\n";
-		exit (1);
+		case Checking:
+			if (acct->get_balance() < CHECK_MIN)
+				trans = new Transaction (acct->get_id (),
+						BankFee, CHECK_FEE);
+			break;
+		case Savings:
+			if (acct->get_balance() < SAVNG_MIN)
+				trans = new Transaction (acct->get_id (),
+						BankFee, SAVNG_FEE);
+			break;
+		case MoneyMarket:
+			if (acct->get_balance() < MMRKT_MIN)
+				trans = new Transaction (acct->get_id (),
+						BankFee, MMRKT_FEE);
 	}
 
-	// We don't have to worry about the account type, because all can
-	// add/subtract money. Also, the amount is presigned (negative if needed)
-	acct->do_transaction (amount);
-
-	delete acct;
+	if (trans)
+	{
+		trans->process ();
+		delete trans;
+	}
 }
 
-#if 0
-// Rough Sketch of what it should do. In this plan save doesn't care where
-// its writing, because some higher level method can worry about that.
-void Transaction::save(std::ofstream& output)
+void Bank::process_accounts ()
 {
-	static const char sep = ' ';
-	output << year << sep << month << sep << day << sep << type << amount
-		<< std::endl;
+	Account* acct;
+
+	// Iterate through all accounts, no acct_no will be higher than the
+	// next one we'll create.
+	for (unsigned int i = 0; i < Account::get_last_account_id (); i++)
+	{
+		acct = Account::get_account_by_id (i);
+		if (acct == NULL)
+			continue;
+		add_interest (acct);
+		charge_fees (acct);
+		// archive month, prep new month
+
+		delete acct;
+	}
 }
-#endif
+
