@@ -89,7 +89,7 @@ void UserInterface::displayMainMenu (){
 unsigned int UserInterface::obtainCustomerID()
 {
 	bool working=true;
-	std::ofstream file;
+	std::ifstream file;
 	std::stringstream stream;
 	string temp;
 	unsigned int ID;
@@ -101,9 +101,9 @@ unsigned int UserInterface::obtainCustomerID()
 		cout << "Enter the Users Customer ID(0 to Quit): ";
 		cin >> ID;
 		stream << ID;
-		temp="customer"+stream.str()+".txt";
+		temp="customers/"+stream.str()+".txt";
 		file.open(temp.c_str());
-		working = (file.is_open() && ID != 0);
+		working = (file.is_open() || ID == 0);
 	}
 	while (!working);
 	file.close();
@@ -129,7 +129,7 @@ void UserInterface::manage_customer(unsigned int ID)
 		cout << "\t               4. Deposit Money\n";
 		cout << "\t               5. Add Account\n";
 		cout << "\t               6. Change Customer Information\n";
-		cout << "\t               7. Close acount\n";
+		cout << "\t               7. Close account\n";
 		cout << "\t               8. Remove Customer\n";
 		cout << "\t               9. Return to Main Menu\n";
 		cout << "Enter your choice and press <ENTER>: ";

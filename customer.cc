@@ -14,6 +14,10 @@ unsigned int Customer::lastCustomerID = 0;
 
 Customer::Customer(unsigned int id)
 {
+	Accounts.resize(3);
+	Accounts[0]=0;
+	Accounts[1]=0;
+	Accounts[2]=0;
 	int numbofacc, temp;
 	ID=id;
 	string path;
@@ -36,13 +40,17 @@ Customer::Customer(unsigned int id)
 	file.get();
 	getline(file, street);
 	file >>city >> state >> zip;
-		address = new Address(street,city,state,zip);
-	Accounts.resize(3);
+	address = new Address(street,city,state,zip);
+
 }
 
 Customer::Customer(string firstn, string lastn, Address* addr) :
 	F_Name (firstn), L_Name (lastn), address (addr)
 {
+	Accounts.resize(3);
+	Accounts[0]=0;
+	Accounts[1]=0;
+	Accounts[2]=0;
 	ID = ++lastCustomerID;
 }
 
@@ -80,7 +88,7 @@ void Customer::save (void) const
 	file << F_Name << " " << L_Name << endl;
 	file << Accounts.size();
 	for (unsigned int i = 0; i < Accounts.size(); i++)
-		cout << Accounts[i] << " ";
+		file << " " << Accounts[i];
 	file << endl;
 	file << *address << endl;
 
@@ -141,7 +149,6 @@ void Customer::change_customer_info()
 	L_Name=newlastname;
 	Address* newaddress= new Address(newadd,newcit,newstat,newzip);
 	set_Address (newaddress);
-	Accounts.resize(3);
 }
 
 void Customer::close_account()
@@ -167,17 +174,17 @@ void Customer::get_customer_info ()
 	if (has_account(Checking))
 	{
 		cout << "Checking account number: " << Accounts[0] <<
-			endl << "Account Balance: " << get_account_balance(0);
+			endl << "Account Balance: " << get_account_balance(Accounts[0]) << endl;
 	}
 	if (has_account(Savings))
 	{
 		cout << "Savings account number: " << Accounts[1] <<
-			endl << "Account Balance: " << get_account_balance(1);
+			endl << "Account Balance: " << get_account_balance(Accounts[0]) << endl;
 	}
 	if (has_account(MoneyMarket))
 	{
 		cout << "Money Market account number: " << Accounts[2] <<
-			endl << "Account Balance: " << get_account_balance(2);
+			endl << "Account Balance: " << get_account_balance(Accounts[0]) << endl;
 	}
 }
 
@@ -229,6 +236,8 @@ float Customer::get_account_balance(unsigned int accID)
 	path = customer_s + stream.str() + txt;
 	file.open (path.c_str());
 	file >> accID;
+	file.sync();
+	file.get();
 	float bal;
 	file >> bal;
 	return bal;	
