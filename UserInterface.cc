@@ -150,7 +150,12 @@ void UserInterface::manage_customer(unsigned int ID)
 			bloke.deposit_money();
 			break;
 		case 5:
+			clearScreen();
 			bloke.change_customer_info();
+			bloke.save();
+			clearScreen();
+			cout << "Customer Data Changed Sucsessfully.";
+			pressEnter();
 			break;
 		case 6:
 			bloke.close_account();

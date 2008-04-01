@@ -7,6 +7,7 @@
 #include <sstream>
 using std::cout;
 using std::endl;
+using std::cin;
 
 unsigned int Customer::lastCustomerID = 0;
 
@@ -21,7 +22,7 @@ Customer::Customer(unsigned int id)
 
 	stream << ID;
 
-	path = "customers" + stream.str() + ".txt";
+	path = "customers/" + stream.str() + ".txt";
 	file.open (path.c_str());
 	file >> F_Name >> L_Name;
 	file >> numbofacc;
@@ -115,13 +116,25 @@ void Customer::deposit_money()
 void Customer::change_customer_info()
 {
 	string newfirstname, newlastname;
-	Address* newaddress;
-	//prompt user for new First name
-	//prompt user for new Last name
-	//prompt user for new Address
-	//newaddress = new Address(string, string, blah);
+	string newadd, newcit, newstat, newzip;
+	cout << "Please enter Customers New Information." << endl;
+	cout << "First Name: ";
+	cin >> newfirstname;
+	cout << "Last Name: ";
+	cin >> newlastname;
+	cout << "Street Address: ";
+	cin.sync();
+	cin.get();
+	getline(cin, newadd);
+	cout << "City: ";
+	cin >> newcit;
+	cout << "State: ";
+	cin >> newstat;
+	cout << "Zip Code: ";
+	cin >> newzip;
 	F_Name=newfirstname;
 	L_Name=newlastname;
+	Address* newaddress= new Address(newadd,newcit,newstat,newzip);
 	set_Address (newaddress);
 }
 
