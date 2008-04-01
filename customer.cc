@@ -12,10 +12,26 @@ unsigned int Customer::lastCustomerID = 0;
 
 Customer::Customer(unsigned int id)
 {
+	int numbofacc, temp;
 	ID=id;
-	//Search customer file for their ID.
-	//read in that Information to initialize F_Name L_Name Address
-		address = new Address("100 Avenue Q", "Nowhere","No How", "90210");
+	string path;
+	string street,city,state,zip;
+	std::stringstream stream; // Used for converting int to string
+	std::ifstream file;
+
+	stream << ID;
+
+	path = "customers" + stream.str() + ".txt";
+	file.open (path.c_str());
+	file >> F_Name >> L_Name;
+	file >> numbofacc;
+	for (int i=0;i<numbofacc;i++)
+	{
+		file >> temp;
+		Accounts.push_back(temp);
+	}
+	file >> street >> city >> state >> zip;
+		address = new Address(street,city,state,zip);
 }
 
 Customer::Customer(string firstn, string lastn, Address* addr) :
@@ -51,13 +67,11 @@ void Customer::save (void) const
 
 	/* Format is:
 	 * Bob Jenkins
-	 * 100
 	 * 2
 	 * 30 50
 	 * 1003 Some St, Somewhere, CA, 23412
 	 */
 	file << F_Name << " " << L_Name << endl;
-	file << ID << endl;
 	file << Accounts.size();
 	for (unsigned int i = 0; i < Accounts.size(); i++)
 		cout << Accounts[i] << " ";
