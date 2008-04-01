@@ -141,7 +141,14 @@ static void charge_fees (Account* acct)
 	}
 }
 
-void Bank::process_accounts ()
+/* Go through all accounts in the system, and apply monthly duties
+ * (apply interest, fees, etc)
+ *
+ * RETURNS:
+ *   Currently always returns true, but could return false in the future in
+ *   case of error
+ */
+bool Bank::process_accounts ()
 {
 	Account* acct;
 
@@ -158,5 +165,6 @@ void Bank::process_accounts ()
 
 		delete acct;
 	}
+	return true;
 }
 
