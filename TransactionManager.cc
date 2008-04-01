@@ -14,4 +14,5 @@ void TransactionManager::record_transaction (Transaction *t)
 
 bool TransactionManager::check_for_fines ()
 {
+	return false;
 }

@@ -16,9 +16,7 @@ public:
 	static void create_account(Customer &cust);
 
 	// For dealing with accounts
-	static void transfer_money (Customer& cust);
-	static void withdraw_money (Customer& cust);
-	static void deposit_money (Customer& cust);
+	static void move_money (Customer& cust, transaction_type type);
 };
 
 #endif // USERINTERFACE
