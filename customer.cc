@@ -18,6 +18,7 @@ Customer::Customer(unsigned int id)
 	Accounts[0]=0;
 	Accounts[1]=0;
 	Accounts[2]=0;
+
 	int numbofacc, temp;
 	ID=id;
 	string path;
@@ -102,28 +103,6 @@ void Customer::set_Address(Address* new_add)
 	address=new_add;
 }
 
-void Customer::transfer_money()
-{
-	//choose account
-	//prompt second account (one of the customers 3 accounts, and then option for a completely different account.)
-	//prompt money amount
-	//call account1.withdraw(money)
-	//call account2.deposit(money)
-}
-
-void Customer::withdraw_money()
-{
-	//choose account
-	//prompt money amount
-	//call account.withdraw(money)
-}
-
-void Customer::deposit_money()
-{
-	//choose acocunt
-	//prompt money amount
-	//call account.deposit(money)
-}
 
 // Should this be UserInterface:: ?
 void Customer::change_customer_info()
@@ -168,23 +147,34 @@ bool Customer::delete_customer()
 
 void Customer::get_customer_info ()
 {
+	Account* acct;
 	cout << F_Name << " " << L_Name << endl;
 	if (address != NULL)
 		cout << *address << endl;
+
 	if (has_account(Checking))
 	{
-		cout << "Checking account number: " << Accounts[0] <<
-			endl << "Account Balance: " << get_account_balance(Accounts[0]) << endl;
+		acct = Account::get_account_by_id (Accounts[0]);
+		cout << "Checking account number: " << acct->get_id () <<
+			endl << "Account Balance: " << acct->get_balance () << endl;
+
+		delete acct;
 	}
 	if (has_account(Savings))
 	{
-		cout << "Savings account number: " << Accounts[1] <<
-			endl << "Account Balance: " << get_account_balance(Accounts[1]) << endl;
+		acct = Account::get_account_by_id (Accounts[1]);
+		cout << "Savings account number: " << acct->get_id () <<
+			endl << "Account Balance: " << acct->get_balance () << endl;
+
+		delete acct;
 	}
 	if (has_account(MoneyMarket))
 	{
-		cout << "Money Market account number: " << Accounts[2] <<
-			endl << "Account Balance: " << get_account_balance(Accounts[2]) << endl;
+		acct = Account::get_account_by_id (Accounts[2]);
+		cout << "Money Market account number: " << acct->get_id () <<
+			endl << "Account Balance: " << acct->get_balance () << endl;
+
+		delete acct;
 	}
 }
 
@@ -222,23 +212,3 @@ bool Customer::has_account (const account_type type)
 	return Accounts[type];
 }
 
-float Customer::get_account_balance(unsigned int accID)
-{
-	const static string customer_s = "accounts/";
-	const static string txt = ".txt";
-
-	string path;
-	std::stringstream stream; // Used for converting int to string
-	std::ifstream file;
-
-	stream << accID;
-
-	path = customer_s + stream.str() + txt;
-	file.open (path.c_str());
-	file >> accID;
-	file.sync();
-	file.get();
-	float bal;
-	file >> bal;
-	return bal;	
-}

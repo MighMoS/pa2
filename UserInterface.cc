@@ -144,7 +144,6 @@ void UserInterface::manage_customer(unsigned int ID)
 			pressEnter();
 			break;
 		case 2:
-			bloke.transfer_money();
 			move_money (bloke, Transfer);
 			break;
 		case 3:

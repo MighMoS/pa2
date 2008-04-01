@@ -17,10 +17,11 @@ Account::Account (const float initial_balance, const account_type its_type) :
 {
 };	
 
-Account::Account (const unsigned int its_id, const account_type acct_type) :
-	id (its_id), type (acct_type)
+Account::Account (const unsigned int its_id,
+		const float init_bal, 
+		const account_type acct_type) :
+	id (its_id), balance (init_bal), type (acct_type)
 {
-	// LOAD ACCOUNT FROM FILE
 }
 
 // XXX: Should this really be handled here? I don't think so. Something higher
@@ -67,7 +68,7 @@ void Account::save (void) const
 	path = customer_s + stream.str() + txt;
 	file.open (path.c_str());
 
-	file << id << " " << type;
+	file << type << endl;
 	file << balance << endl;
 
 	file.close();
@@ -81,4 +82,35 @@ void Account::set_last_account_id (const unsigned int lastID)
 unsigned int Account::get_last_account_id (void)
 {
 	return last_account_id;
+}
+
+Account* Account::get_account_by_id (const unsigned int accID)
+{
+	float bal;
+	const static string customer_s = "accounts/";
+	const static string txt = ".txt";
+	unsigned int type; // Wrong, but works
+	Account* acct;
+
+	string path;
+	std::stringstream stream; // Used for converting int to string
+	std::ifstream file;
+
+	stream << accID;
+
+	path = customer_s + stream.str() + txt;
+
+	file.open (path.c_str());
+	if (!file.is_open())
+	{
+		std::cerr << "Invalid account id: " << accID << endl;
+		exit (1);
+	}
+
+	file >> type;
+	file >> bal;
+
+	file.close();
+
+	return acct = new Account (accID, bal, (account_type) type);
 }
