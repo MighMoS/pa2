@@ -313,14 +313,23 @@ void UserInterface::move_money(Customer& cust, transaction_type type)
 	cust_accounts = cust.get_Accounts();
 
 	cout << (type == Withdrawal ? "Withdraw from" : "Deposit to" );
-	cout << " which account number? (";
+	cout << " which account number?\n";
 
 	for (unsigned int i = 0; i < cust_accounts.size(); i++)
 	{
 		if (cust_accounts[i])
-			cout << cust_accounts[i] << " ";
+		{
+			cout << "\t" << cust_accounts[i] << ": ";
+			switch ((account_type)i)
+			{
+				case Checking: cout << "Checking"; break;
+				case Savings: cout << "Savings"; break;
+				case MoneyMarket: cout << "Money market"; break;
+			}
+			cout << endl;
+		}
 	}
-	cout << "): ";
+
 	cin >> first_acct;
 
 	if (type == Transfer)
