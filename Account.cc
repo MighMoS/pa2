@@ -119,3 +119,26 @@ Account* Account::get_account_by_id (const unsigned int accID)
 
 	return new Account (accID, bal, (account_type) type);
 }
+
+/* Account::get_all_accounts
+ *  Obtains a handle to ALL accounts found in the system.
+ * 
+ * RETURNS: a vector of account handles
+ *  THESE MUST BE FREED BY THE CALLING FUNCTION
+ */
+vector <Account*> Account::get_all_accounts (void)
+{
+	vector <Account*> all_accts;
+
+	// Iterate through all accounts, no acct_no will be higher than the
+	// next one we'll create.
+	for (unsigned int i = 0; i < Account::get_last_account_id (); i++)
+	{
+		Account* acct = Account::get_account_by_id (i);
+		if (acct == NULL)
+			continue;
+		all_accts.push_back (acct);
+	}
+
+	return all_accts;
+}

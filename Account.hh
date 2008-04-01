@@ -1,6 +1,10 @@
 #ifndef ACCOUNT
 #define ACCOUNT
-#include "TransactionManager.hh"
+#include <vector>
+
+#include "Transaction.hh"
+
+using std::vector;
 
 // We have three account types
 enum account_type {Checking, Savings, MoneyMarket};
@@ -30,6 +34,7 @@ public:
 	static void set_last_account_id (const unsigned int lastID);
 	static unsigned int get_last_account_id (void);
 	static Account* get_account_by_id (const unsigned int accID);
+	static vector <Account*> get_all_accounts (void);
 };
 
 #endif // ACCOUNT
