@@ -154,7 +154,7 @@ void Customer::close_account()
 		cin >> choice;
 		if (choice == 0)
 			break;
-		if (choice != accounts[0]&& choice != accounts[1] && choice != accounts[2])
+		if (choice != Accounts[0]&& choice != Accounts[1] && choice != Accounts[2])
 			cout << "Not a valid Choice, please enter a Valid choice, or 0 to quit." << endl;
 		else
 			repeat=false;
@@ -165,14 +165,14 @@ void Customer::close_account()
 		std::stringstream stream; // Used for converting int to string
 		std::ofstream file;
 		stream << choice;
-		path = customer_s + stream.str() + txt;
-		remove(path.c_str);
-		if (choice == accounts[0])
-			accounts[0]=0;
-		if (choice == accounts[1])
-			accounts[1]=0;
-		if (choice == accounts[2])
-			accounts[2]=0;
+		path = "accounts/" + stream.str() + ".txt";
+		remove(path.c_str());
+		if (choice == Accounts[0])
+			Accounts[0]=0;
+		if (choice == Accounts[1])
+			Accounts[1]=0;
+		if (choice == Accounts[2])
+			Accounts[2]=0;
 	}
 
 }
