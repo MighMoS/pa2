@@ -37,6 +37,7 @@ Customer::Customer(unsigned int id)
 	getline(file, street);
 	file >>city >> state >> zip;
 		address = new Address(street,city,state,zip);
+	Accounts.resize(3);
 }
 
 Customer::Customer(string firstn, string lastn, Address* addr) :
@@ -140,6 +141,7 @@ void Customer::change_customer_info()
 	L_Name=newlastname;
 	Address* newaddress= new Address(newadd,newcit,newstat,newzip);
 	set_Address (newaddress);
+	Accounts.resize(3);
 }
 
 void Customer::close_account()
@@ -161,8 +163,22 @@ void Customer::get_customer_info ()
 {
 	cout << F_Name << " " << L_Name << endl;
 	if (address != NULL)
-		cout << *address;
-	//If (has account) cout Account type and balance.   Do for all 3 account types.
+		cout << *address << endl;
+	if (has_account(Checking))
+	{
+		cout << "Checking account number: " << Accounts[0] <<
+			endl << "Account Balance: " << get_account_balance(0);
+	}
+	if (has_account(Savings))
+	{
+		cout << "Savings account number: " << Accounts[1] <<
+			endl << "Account Balance: " << get_account_balance(1);
+	}
+	if (has_account(MoneyMarket))
+	{
+		cout << "Money Market account number: " << Accounts[2] <<
+			endl << "Account Balance: " << get_account_balance(2);
+	}
 }
 
 void Customer::setLastCustomerID (const unsigned int lastID)
@@ -197,4 +213,23 @@ bool Customer::add_Account(const account_type type, const float bal)
 bool Customer::has_account (const account_type type)
 {
 	return Accounts[type];
+}
+
+float Customer::get_account_balance(unsigned int accID)
+{
+	const static string customer_s = "accounts/";
+	const static string txt = ".txt";
+
+	string path;
+	std::stringstream stream; // Used for converting int to string
+	std::ifstream file;
+
+	stream << accID;
+
+	path = customer_s + stream.str() + txt;
+	file.open (path.c_str());
+	file >> accID;
+	float bal;
+	file >> bal;
+	return bal;	
 }

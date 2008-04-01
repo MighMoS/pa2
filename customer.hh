@@ -48,6 +48,7 @@ public:
 	void deposit_money();
 	void change_customer_info();
 	void close_account();
+	float get_account_balance(unsigned int accID);
 
 	bool delete_customer();
 

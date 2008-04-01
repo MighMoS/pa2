@@ -140,6 +140,7 @@ void UserInterface::manage_customer(unsigned int ID)
 		case 1:
 			clearScreen();
 			bloke.get_customer_info();
+			cout << endl << endl <<"Press any key to Continue"; 
 			pressEnter();
 			break;
 		case 2:
