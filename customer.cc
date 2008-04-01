@@ -196,7 +196,7 @@ bool Customer::delete_customer()
 			if (temp[0]!='Y' && temp[0]!='y' && temp[0]!='N' && temp[0]!='n')
 			cout << endl << "Please Enter Y for yes, or N for no." << endl;
 		}
-		if (temp[0]!='N' && temp[0]!='n')
+		if (temp[0]=='N' && temp[0]=='n')
 		{	cout << "No Action taken." << endl;
 			return false;
 		}
