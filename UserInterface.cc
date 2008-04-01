@@ -102,7 +102,6 @@ unsigned int UserInterface::obtainCustomerID()
 		stream << ID;
 		temp="customer"+stream.str()+".txt";
 		file.open(temp.c_str());
-		
 		working = (file.is_open() && ID != 0);
 	}
 	while (!working);
