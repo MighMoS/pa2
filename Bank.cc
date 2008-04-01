@@ -66,6 +66,19 @@ Transaction::Transaction (const unsigned int account_id,
 
 void Transaction::process (void)
 {
+	Account* acct;
+	acct = Account::get_account_by_id (id);
+	if (!acct)
+	{
+		std::cerr << "Account doesn't exist to be processed. This shouldn't happen!\n";
+		exit (1);
+	}
+
+	// We don't have to worry about the account type, because all can
+	// add/subtract money. Also, the amount is presigned (negative if needed)
+	acct->do_transaction (amount);
+
+	delete acct;
 }
 
 #if 0

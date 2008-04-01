@@ -24,14 +24,13 @@ Account::Account (const unsigned int its_id,
 {
 }
 
-// XXX: Should this really be handled here? I don't think so. Something higher
-// level like Bank ``might should'', so that we can more better handle things
-// like logging
+/* fancy name for "add or subtract money". Should ONLY be called through
+ * Transaction::process.
+ */
 float Account::do_transaction (const float amount)
 {
-	//XXX: This is now wrong, and should be handled by the tm
-	Bank::log_transaction (id, type, amount);
 	return balance += amount;
+	save();
 }
 
 unsigned int Account::get_id (void) const

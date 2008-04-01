@@ -342,6 +342,9 @@ void UserInterface::move_money(Customer& cust, transaction_type type)
 	cout << "Enter amount: $";
 	cin >> money;
 
+	if (type == Withdrawal)
+		money *= -1;
+
 	cust_trans = new Transaction (first_acct, type, money);
 	cust_trans->process();
 	delete cust_trans;
