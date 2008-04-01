@@ -56,3 +56,107 @@ bool Bank::init (void)
 	return true;
 }
 
+/* PRECONDITION:
+ *   acct is != NULL. This should only be called by Bank::process_accounts
+ *   and only after acct has been verified to exist.
+ * RULES:
+ *   Checking have no interest.
+ *   Savings monthly interest = 1.5%
+ *   MoneyMarket montly interest = 3.0%
+ * POSTCONDITION:
+ *    (if it was not a checking acct) acct will have more money in it
+ */
+static void add_interest (Account* acct)
+{
+	static const float savings_monthly_interest_rate = 0.015;
+	static const float moneymkt_monthly_interest_rate = 0.030;
+	float interest_earned;
+	Transaction* trans;
+
+	if (acct->get_type() == Checking)
+		return;
+
+	if (acct->get_type() == Savings)
+		interest_earned = acct->get_balance ()
+			* savings_monthly_interest_rate;
+	else if (acct->get_type () == MoneyMarket)
+		interest_earned = acct->get_balance ()
+			* moneymkt_monthly_interest_rate;
+
+	trans = new Transaction (acct->get_id (), Interest, interest_earned);
+	trans->process ();
+	delete trans;
+}
+
+/* PRECONDITION:
+ *   acct is != NULL. This should only be called by Bank::process_accounts.
+ * RULES:
+ *   Checking: $100 minimum balance
+ *     ($5 fee)
+ *     bounced check: $5
+ *
+ *   Savings: $1,000 minimum balance
+ *     ($5 fee)
+ *
+ *   MoneyMarket: $10,000 min bal
+ *     ($100 fee)
+ *     bounced check: $100
+ *
+ * POSTCONDITIONS:
+ *   acct may have less $$ in it if rules were violated.
+ */
+static void charge_fees (Account* acct)
+{
+	const static float CHECK_MIN = 100;
+	const static float CHECK_FEE = -5;
+	const static float SAVNG_MIN = 1000;
+	const static float SAVNG_FEE = -5;
+	const static float MMRKT_MIN = 10000;
+	const static float MMRKT_FEE = -100;
+
+	Transaction* trans = NULL;
+
+	switch (acct->get_type())
+	{
+		case Checking:
+			if (acct->get_balance() < CHECK_MIN)
+				trans = new Transaction (acct->get_id (),
+						BankFee, CHECK_FEE);
+			break;
+		case Savings:
+			if (acct->get_balance() < SAVNG_MIN)
+				trans = new Transaction (acct->get_id (),
+						BankFee, SAVNG_FEE);
+			break;
+		case MoneyMarket:
+			if (acct->get_balance() < MMRKT_MIN)
+				trans = new Transaction (acct->get_id (),
+						BankFee, MMRKT_FEE);
+	}
+
+	if (trans)
+	{
+		trans->process ();
+		delete trans;
+	}
+}
+
+void Bank::process_accounts ()
+{
+	Account* acct;
+
+	// Iterate through all accounts, no acct_no will be higher than the
+	// next one we'll create.
+	for (unsigned int i = 0; i < Account::get_last_account_id (); i++)
+	{
+		acct = Account::get_account_by_id (i);
+		if (acct == NULL)
+			continue;
+		add_interest (acct);
+		charge_fees (acct);
+		// archive month, prep new month
+
+		delete acct;
+	}
+}
+

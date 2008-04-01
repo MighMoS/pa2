@@ -1,7 +1,7 @@
 #ifndef TRANSACTION
 #define TRANSACTION
 // XXX: This isn't all, is it?
-enum transaction_type {Deposit, Withdrawal, Check, Transfer};
+enum transaction_type {Deposit, Withdrawal, Check, Transfer, Interest, BankFee};
 
 // XXX: Is this needed? And should we do this or use a time_t object?
 
