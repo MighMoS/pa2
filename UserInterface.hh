@@ -1,5 +1,6 @@
 #ifndef USERINTERFACE
 #define USERINTERFACE
+#include "customer.hh"
 
 class UserInterface
 {

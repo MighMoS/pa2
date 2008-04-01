@@ -4,6 +4,7 @@
 
 #include "UserInterface.hh"
 #include "customer.hh"
+#include "Account.hh"
 
 using std::cout;
 using std::cin;
@@ -247,7 +248,7 @@ void UserInterface::customer_lookup()
 	}
 }
 
-void create_account(Customer &cust)
+void UserInterface::create_account(Customer &cust)
 {
 	account_type typeofaccount;
 	float balance;
@@ -255,12 +256,12 @@ void create_account(Customer &cust)
 	bool done=false;
 	while (!done)
 	{
-		clearscreen();
+		clearScreen();
 		cout << "Which type of account would you like?" << endl;
-		cout << "\t         1. Checking"
-		cout << "\t         2. Savings"
-		cout << "\t         3. Money Market"
-		cout << "\t         4. Cancel"
+		cout << "\t         1. Checking\n";
+		cout << "\t         2. Savings\n";
+		cout << "\t         3. Money Market\n";
+		cout << "\t         4. Cancel\n";
 		cin >> choice;
 		switch(choice)
 		{
@@ -285,19 +286,20 @@ void create_account(Customer &cust)
 			break;
 		}
 	}
-	if choice=4
-		break;
-	clearScreen();
-	cout << "Enter the intial Deposit for the account: "
-	cin >> balance;	
-	bloke.add_Account(typeofaccount,balance);
-	clearScreen();
-	cout << "Account Added Sucsessfully";
-	pressEnter();
+	if (choice!=4)
+	{
+		clearScreen();
+		cout << "Enter the intial Deposit for the account: ";
+		cin >> balance;	
+		cust.add_Account(typeofaccount,balance);
+		clearScreen();
+		cout << "Account Added Sucsessfully";
+		pressEnter();
+	}
 }
 
 void UserInterface::admin_duties()
 {
 	cout << "Admin noise!\n";
 	//Need to implement Monthly Interest and Fee accural.
-}		cout << "\t               8. Add Account\n";
+}

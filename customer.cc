@@ -1,6 +1,7 @@
 #include "Address.hh"
 #include "customer.hh"
 #include "UserInterface.hh"
+#include "Account.hh"
 
 #include <fstream>
 #include <iostream>
@@ -169,7 +170,7 @@ unsigned int Customer::getLastCustomerID (void)
 	return lastCustomerID;
 }
 
-void add_Account(account_type type, float bal)
+void Customer::add_Account(account_type type, float bal)
 {
 	
 	
