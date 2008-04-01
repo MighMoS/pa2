@@ -13,9 +13,15 @@ unsigned int Account::last_account_id = 0;
 
 // Creates a new account, with ID based on previous last highest ID
 Account::Account (const float initial_balance, const account_type its_type) :
-	id (last_account_id++), type (its_type), balance (initial_balance)
+	id (++last_account_id), type (its_type), balance (initial_balance)
 {
 };	
+
+Account::Account (const unsigned int its_id, const account_type acct_type) :
+	id (its_id), type (acct_type)
+{
+	// LOAD ACCOUNT FROM FILE
+}
 
 // XXX: Should this really be handled here? I don't think so. Something higher
 // level like Bank ``might should'', so that we can more better handle things

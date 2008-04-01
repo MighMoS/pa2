@@ -153,6 +153,7 @@ void UserInterface::manage_customer(unsigned int ID)
 			break;
 		case 5:
 			create_account(bloke);
+			bloke.save();
 			break;
 		case 6:
 			clearScreen();

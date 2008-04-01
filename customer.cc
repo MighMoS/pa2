@@ -175,8 +175,26 @@ unsigned int Customer::getLastCustomerID (void)
 	return lastCustomerID;
 }
 
-void Customer::add_Account(account_type type, float bal)
+/* Adds an account assuming the customer doesn't already have one of the same type.
+ * Takes advantage of the fact that enums are numbers, and so we can use them as an 
+ * index
+ */
+bool Customer::add_Account(const account_type type, const float bal)
 {
+	Account* acct;
+	acct = new Account (bal, type);
+
+	if (has_account (type) || !acct)
+		return false;
+
+	Accounts[type] = acct->get_id();
+	acct->save();
 	
-	
+	delete acct;
+	return true;
+}
+
+bool Customer::has_account (const account_type type)
+{
+	return Accounts[type];
 }

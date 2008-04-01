@@ -38,9 +38,10 @@ public:
 	vector<int> get_Accounts(){return Accounts;}
 	
 	void get_customer_info();	
-	void add_Account(account_type type, float bal);
+	bool add_Account(const account_type type, const float bal);
 	void remove_Account(int acc);
 	int search_Accounts(int acc);
+	bool has_account(const account_type type);
 	
 	void transfer_money();
 	void withdraw_money();
