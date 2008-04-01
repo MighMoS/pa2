@@ -49,6 +49,8 @@ public:
 	void close_account();
 
 	bool delete_customer();
+
+	static unsigned int getLastCustomerID(void);
 };
 
 #endif

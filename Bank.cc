@@ -1,13 +1,17 @@
 #include <iostream>
 #include <fstream>
 
+#include "Account.hh"
 #include "Bank.hh"
+#include "customer.hh"
+
+using std::endl;
 
 void Bank::log_transaction (const unsigned int id, const account_type type,
 		const float amount)
 {
 	std::cout << "STUB: LOG_TRANSACTION. ID = " << id << ", amount = " << amount 
-		<< std::endl;
+		<< endl;
 }
 
 // XXX: I'm not even sure what parameters this would take.
@@ -22,10 +26,10 @@ void Bank::save_status ()
 	std::ofstream file;
 
 	file.open (bank);
-	if (!file.is_open)
+	if (!file.is_open())
 		std::cerr << "ERROR OPENING FILE: " << bank << endl;
-	file << Customer::lastCustomerId << endl;
-	file << Account::last_account_id << endl;
+	file << Customer::getLastCustomerID() << endl;
+	file << Account::get_last_account_id() << endl;
 
 	file.close();
 }

@@ -75,8 +75,8 @@ void Customer::save (void) const
 	file << Accounts.size();
 	for (unsigned int i = 0; i < Accounts.size(); i++)
 		cout << Accounts[i] << " ";
-	cout << endl;
-	cout << address << endl;
+	file << endl;
+	file << address << endl;
 
 	file.close();
 }
@@ -146,4 +146,9 @@ void Customer::get_customer_info ()
 	if (address != NULL)
 		cout << *address;
 	//If (has account) cout Account type and balance.   Do for all 3 account types.
+}
+
+unsigned int Customer::getLastCustomerID (void)
+{
+	return lastCustomerID;
 }
