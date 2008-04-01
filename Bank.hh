@@ -3,6 +3,7 @@
 #include <fstream>
 
 #include "Account.hh"
+#include "customer.hh"
 
 class Bank {
 public:
@@ -11,6 +12,11 @@ public:
 			const account_type type, 
 			const float amount);
 	static void write_customer_report (...);
+	static void save (void);
+	static bool init (void);
+
+	friend void Customer::setLastCustomerID(const unsigned int lastID);
+	friend void Account::set_last_account_id (const unsigned int lastID);
 };
 
 #endif // BANK
