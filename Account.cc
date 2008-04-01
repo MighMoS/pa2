@@ -31,8 +31,10 @@ Account::Account (const unsigned int its_id,
  */
 float Account::do_transaction (const float amount)
 {
-	return balance += amount;
+	balance += amount;
 	save();
+
+	return balance;
 }
 
 unsigned int Account::get_id (void) const
