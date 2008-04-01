@@ -15,7 +15,7 @@ unsigned int Customer::lastCustomerID = 0;
 Customer::Customer(unsigned int id)
 {
 	Accounts.resize(3);
-	Accounts[	0]=0;
+	Accounts[0]=0;
 	Accounts[1]=0;
 	Accounts[2]=0;
 
@@ -36,12 +36,11 @@ Customer::Customer(unsigned int id)
 		return;
 	}
 	file >> F_Name >> L_Name;
-	file >> numbofacc;
-	for (int i=0;i<numbofacc;i++)
+	for (int i=0;i<3;i++)
 	{
 		file >> temp;
 		Accounts.clear();
-		Accounts.push_back(temp);
+		Accounts[i]=temp;
 	}
 	file.sync();
 	file.get();
@@ -88,14 +87,12 @@ void Customer::save (void) const
 	file.open (path.c_str()); 
 
 	/* Format is:
-	 * Bob Jenkins
-	 * 2
-	 * 30 50
-	 * 1003 Some St, Somewhere, CA, 23412
+	 * Bob Jenkins   (Name)
+	 * 20 30 50  (the 3 account Numbers)
+	 * 1003 Some St, Somewhere, CA, 23412  (Address)
 	 */
 	file << F_Name << " " << L_Name << endl;
-	file << Accounts.size();
-	for (unsigned int i = 0; i < Accounts.size(); i++)
+	for (unsigned int i = 0; i < 3; i++)
 		file << " " << Accounts[i];
 	file << endl;
 	file << *address << endl;
