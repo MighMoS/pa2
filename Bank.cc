@@ -16,6 +16,20 @@ void Bank::write_customer_report (...)
 	std::cout << "STUB: WRITE CUSTOMER REPORT\n";
 }
 
+void Bank::save_status ()
+{
+	const static char bank[] = "bank.txt";
+	std::ofstream file;
+
+	file.open (bank);
+	if (!file.is_open)
+		std::cerr << "ERROR OPENING FILE: " << bank << endl;
+	file << Customer::lastCustomerId << endl;
+	file << Account::last_account_id << endl;
+
+	file.close();
+}
+
 Transaction::Transaction (const unsigned int account_id,
 		const transaction_type its_type,
 		const float the_amount,
