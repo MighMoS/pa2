@@ -150,21 +150,21 @@ static void charge_fees (Account* acct)
  */
 bool Bank::process_accounts ()
 {
-	Account* acct;
+	vector <Account*> all_accounts;
+
+	all_accounts = Account::get_all_accounts ();
 
 	// Iterate through all accounts, no acct_no will be higher than the
 	// next one we'll create.
-	for (unsigned int i = 0; i < Account::get_last_account_id (); i++)
+	for (unsigned int i = 0; i < all_accounts.size (); i++)
 	{
-		acct = Account::get_account_by_id (i);
-		if (acct == NULL)
-			continue;
-		add_interest (acct);
-		charge_fees (acct);
+		add_interest (all_accounts[i]);
+		charge_fees (all_accounts[i]);
 		// archive month, prep new month
 
-		delete acct;
+		delete all_accounts[i]; // Delete each handle as we go
 	}
+
 	return true;
 }
 
