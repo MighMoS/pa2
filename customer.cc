@@ -39,7 +39,6 @@ Customer::Customer(unsigned int id)
 	for (int i=0;i<3;i++)
 	{
 		file >> temp;
-		Accounts.clear();
 		Accounts[i]=temp;
 	}
 	file.sync();
