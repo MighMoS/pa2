@@ -29,7 +29,7 @@ std::ofstream file;
 
 	cin.sync();
 	cout << endl;
-	//ch = cin.get();
+	ch = cin.get();
 	ch = cin.get();
 
 } // pressEnter ()
@@ -437,7 +437,6 @@ void UserInterface::ListAllAccounts (void)
 	for (unsigned int i = 0; i < all_accts.size (); i++)
 	{
 		cout << *(all_accts[i]);
-		delete all_accts[i];
 
 		if (i % 2 == 0)
 		{
@@ -448,7 +447,9 @@ void UserInterface::ListAllAccounts (void)
 			} while (input[0] != 'n' && input[0] != 'N' &&
 					input[0] != 'q' && input[0] != 'Q');
 			if (input [0] == 'Q' || input[0] == 'q')
-				return;
+				break;
 		}
 	}
+	for (unsigned int i = 0; i < all_accts.size (); i++)
+		delete all_accts[i];
 }
