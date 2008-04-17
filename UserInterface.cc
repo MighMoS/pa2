@@ -117,10 +117,9 @@ unsigned int UserInterface::obtainCustomerID()
 	return ID;
 }
 
-void UserInterface::manage_customer(unsigned int ID)
+void UserInterface::manage_customer(const unsigned int ID)
 {
 	Customer bloke(ID);
-	//if Customer == NULL, break.
 	bool done=false;
 	int choice;
 
@@ -207,11 +206,11 @@ void UserInterface::create_new_customer()
 #endif
 	getline (cin, street);
 	cout << "\tcity: ";
-	cin >> city;
+	getline (cin, city);
 	cout << "\tstate: ";
-	cin >> state;
+	getline (cin, state);
 	cout << "\tzip: ";
-	cin >> zip;
+	getline (cin, zip);
 	
 	addr = new Address (street, city, state, zip);
 	
@@ -323,7 +322,7 @@ void UserInterface::create_account(Customer &cust)
  * NOTES:
  *   Transfers are TO acct_no FROM acct_no; this is stored in two transactions
  */
-void UserInterface::move_money(Customer& cust, transaction_type type)
+void UserInterface::move_money(Customer& cust, const transaction_type type)
 {
 	vector<unsigned int> cust_accounts;
 	unsigned int first_acct, second_acct;
@@ -442,7 +441,7 @@ void UserInterface::ListAllAccounts (void)
 	{
 		cout << *(all_accts[i]);
 
-		if (i % 2 == 0)
+		if (i % 2 == 1)
 		{
 			do
 			{
