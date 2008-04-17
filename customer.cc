@@ -6,25 +6,25 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+
 using std::cout;
 using std::endl;
 using std::cin;
 
 unsigned int Customer::lastCustomerID = 0;
 
-Customer::Customer(unsigned int id)
+Customer::Customer(const unsigned int id) : ID (id)
 {
-	Accounts.resize(3);
-	Accounts[0]=0;
-	Accounts[1]=0;
-	Accounts[2]=0;
-
 	unsigned int temp;
-	ID=id;
 	string path;
 	string street,city,state,zip;
 	std::stringstream stream; // Used for converting int to string
 	std::ifstream file;
+
+	Accounts.resize(3);
+	Accounts[0]=0;
+	Accounts[1]=0;
+	Accounts[2]=0;
 
 	stream << ID;
 
@@ -52,14 +52,13 @@ Customer::Customer(unsigned int id)
 	file.close();
 }
 
-Customer::Customer(string firstn, string lastn, Address* addr) :
-	F_Name (firstn), L_Name (lastn), address (addr)
+Customer::Customer(const string firstn, const string lastn, Address* addr) :
+	F_Name (firstn), L_Name (lastn), address (addr), ID(++lastCustomerID)
 {
 	Accounts.resize(3);
 	Accounts[0]=0;
 	Accounts[1]=0;
 	Accounts[2]=0;
-	ID = ++lastCustomerID;
 }
 
 Customer::~Customer()
@@ -93,8 +92,10 @@ void Customer::save (void) const
 	 * 1003 Some St, Somewhere, CA, 23412  (Address)
 	 */
 	file << F_Name << " " << L_Name << endl;
+
 	for (unsigned int i = 0; i < 3; i++)
 		file << " " << Accounts[i];
+
 	file << endl;
 	file << *address << endl;
 
@@ -226,25 +227,21 @@ void Customer::get_customer_info ()
 		acct = Account::get_account_by_id (Accounts[0]);
 		cout << "Checking account number: " << acct->get_id () <<
 			endl << "Account Balance: " << acct->get_balance () << endl;
-
-		delete acct;
 	}
 	if (has_account(Savings))
 	{
 		acct = Account::get_account_by_id (Accounts[1]);
 		cout << "Savings account number: " << acct->get_id () <<
 			endl << "Account Balance: " << acct->get_balance () << endl;
-
-		delete acct;
 	}
 	if (has_account(MoneyMarket))
 	{
 		acct = Account::get_account_by_id (Accounts[2]);
 		cout << "Money Market account number: " << acct->get_id () <<
 			endl << "Account Balance: " << acct->get_balance () << endl;
-
-		delete acct;
 	}
+
+	delete acct;
 }
 
 void Customer::setLastCustomerID (const unsigned int lastID)
@@ -263,9 +260,11 @@ unsigned int Customer::getLastCustomerID (void)
  */
 bool Customer::add_Account(const account_type type, const float bal)
 {
+	Account* acct;
+
 	if (has_account(type))
 		return false;
-	Account* acct;
+
 	acct = new Account (bal, type);
 
 	if (!acct)
@@ -274,10 +273,11 @@ bool Customer::add_Account(const account_type type, const float bal)
 	Accounts[type] = acct->get_id();
 	acct->save();
 	delete acct;
+
 	return true;
 }
 
-bool Customer::has_account (const account_type type)
+bool Customer::has_account (const account_type type) const
 {
 	return Accounts[type];
 }

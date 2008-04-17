@@ -17,12 +17,12 @@ private:
 	string F_Name;
 	string L_Name;
 	Address* address;
-	int ID;
+	const int ID;
 
 	static unsigned int lastCustomerID;
 public:
-	Customer(unsigned int id);  //Initialize customer off of their ID from a file.
-	Customer(string firstn, string lastn, Address* addr);
+	Customer(const unsigned int id);  //Initialize customer off of their ID from a file.
+	Customer(const string firstn, const string lastn, Address* addr);
 	~Customer();
 
 	void save(void) const;
@@ -41,7 +41,7 @@ public:
 	bool add_Account(const account_type type, const float bal);
 	void remove_Account(int acc);
 	int search_Accounts(int acc);
-	bool has_account(const account_type type);
+	bool has_account(const account_type type) const;
 	
 	void transfer_money();
 	void withdraw_money();
