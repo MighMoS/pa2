@@ -29,14 +29,15 @@ std::ofstream file;
 
 	cin.sync();
 	cout << endl;
-	ch = cin.get();
+	//ch = cin.get();
 	ch = cin.get();
 
 } // pressEnter ()
 
 
 
-void UserInterface::displayMainMenu (){
+void UserInterface::displayMainMenu ()
+{
   
       	bool done = false;
 	int  choice;
@@ -84,18 +85,19 @@ void UserInterface::displayMainMenu (){
 			cout << "\nNot a valid choice\n";
           	pressEnter();
 			break;
-		}	}
+		}
+	}
 }
 
 unsigned int UserInterface::obtainCustomerID()
 {
 	bool working=true;
 	std::ifstream file;
-	std::stringstream stream;
 	string temp;
 	unsigned int ID;
 	do
 	{
+		std::stringstream stream;
 		clearScreen();
 		if (!working)
 			cout << "Incorrect User ID.  Customer may not Exist.\n";

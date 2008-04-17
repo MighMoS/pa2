@@ -19,7 +19,7 @@ Customer::Customer(unsigned int id)
 	Accounts[1]=0;
 	Accounts[2]=0;
 
-	int temp;
+	unsigned int temp;
 	ID=id;
 	string path;
 	string street,city,state,zip;
@@ -177,6 +177,7 @@ void Customer::close_account()
 		if (choice == Accounts[2])
 			Accounts[2]=0;
 	}
+	save();
 
 }
 
