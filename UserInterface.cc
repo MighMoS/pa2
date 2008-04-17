@@ -11,10 +11,11 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+/* UserInterface::clearScreen ()
+ *
+ * Clears the screen by writing 40 blank lines
+ */
 void UserInterface::clearScreen ()
-//
-// clears the screen
-//
 {
 
 	for (int i = 0; i < 40; i++)
@@ -22,6 +23,12 @@ void UserInterface::clearScreen ()
 }  // clearScreen ()
 
 
+/* UserInterface::pressEnter
+ *
+ * Waits until the user presses enter.
+ *
+ * NOTES: Implementation depends on the platform.
+ */
 void UserInterface::pressEnter()
 {
 std::ofstream file;
@@ -189,6 +196,14 @@ void UserInterface::manage_customer(const unsigned int ID)
 		}
 	}
 }
+
+/* UserInterface::create_new_customer
+ *
+ * Prompts the user to enter the new customer's information.
+ *
+ * NOTES: Can not fail.
+ *
+ */
 void UserInterface::create_new_customer()
 {
 	string first, last, street, city, state, zip;
@@ -264,6 +279,17 @@ void UserInterface::customer_lookup()
 	}
 }
 
+/* UserInterface::create_account
+ * 
+ * Asks the user which type of account they would like created, and how much
+ *   money will be initially deposited.
+ *
+ * PARAMETERS: A customer for whom the account will be created.
+ *
+ * NOTES: Creation of the account will FAIL if the user already has an account
+ *   of that type. In this case the user will be notified and prompted for a
+ *   different account type.
+ */
 void UserInterface::create_account(Customer &cust)
 {
 	account_type typeofaccount;
@@ -318,6 +344,9 @@ void UserInterface::create_account(Customer &cust)
 
 /* UserInterface::move_money
  *   Asks the customer what they'd like to deposit or withdraw to / from
+ *
+ * PARAMETERS: A Customer for whom we're dealing with, and a transaction_type
+ *   for what type of transaction is occurring
  *
  * NOTES:
  *   Transfers are TO acct_no FROM acct_no; this is stored in two transactions
