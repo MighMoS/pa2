@@ -29,7 +29,9 @@ std::ofstream file;
 
 	cin.sync();
 	cout << endl;
+#ifndef WINDOWS
 	ch = cin.get();
+#endif
 	ch = cin.get();
 
 } // pressEnter ()
@@ -200,7 +202,9 @@ void UserInterface::create_new_customer()
 	cout << "Enter the customer's address\n";
 	cout << "\tstreet: ";
 	cin.sync();
+#ifndef WINDOWS
 	cin.get();
+#endif
 	getline (cin, street);
 	cout << "\tcity: ";
 	cin >> city;

@@ -41,7 +41,9 @@ Customer::Customer(unsigned int id)
 		file >> temp;
 		Accounts[i]=temp;
 	}
+#ifndef WINDOWS
 	file.sync();
+#endif
 	file.get();
 	getline(file, street);
 	file >>city >> state >> zip;
@@ -119,7 +121,9 @@ void Customer::change_customer_info()
 	cin >> newlastname;
 	cout << "Street Address: ";
 	cin.sync();
+#ifndef WINDOWS
 	cin.get();
+#endif
 	getline(cin, newadd);
 	cout << "City: ";
 	cin >> newcit;
