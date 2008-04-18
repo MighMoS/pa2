@@ -4,6 +4,7 @@
 
 #include "Account.hh"
 #include "Bank.hh"
+#include "common.hh"
 #include "customer.hh"
 #include "UserInterface.hh"
 
