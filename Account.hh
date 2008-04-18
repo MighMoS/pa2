@@ -1,9 +1,7 @@
 #ifndef ACCOUNT
 #define ACCOUNT
-#include <iostream>
+#include <ostream>
 #include <vector>
-
-#include "Transaction.hh"
 
 // We have three account types
 enum account_type {Checking, Savings, MoneyMarket};

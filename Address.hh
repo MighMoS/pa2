@@ -1,7 +1,8 @@
 #ifndef ADDRESS
 #define ADDRESS
-#include <iostream>
+#include <ostream>
 #include <string>
+
 using std::string;
 
 class Address

@@ -7,6 +7,7 @@
 #include "Bank.hh"
 #include "common.hh"
 #include "customer.hh"
+#include "Transaction.hh"
 #include "UserInterface.hh"
 
 using std::cout;

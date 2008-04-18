@@ -1,6 +1,7 @@
 #ifndef USERINTERFACE
 #define USERINTERFACE
 #include "customer.hh"
+#include "Transaction.hh"
 
 class UserInterface
 {

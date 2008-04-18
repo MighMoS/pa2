@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Bank.hh"
+#include "Transaction.hh"
 #include "UserInterface.hh"
 
 using std::cout;
