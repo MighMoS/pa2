@@ -106,8 +106,7 @@ void UserInterface::manage_customer(const unsigned int ID)
 			break;
 		case 6:
 			clearScreen();
-			bloke.change_customer_info();
-			bloke.save();
+			change_customer_info (bloke);
 			clearScreen();
 			cout << "Customer Data Changed Successfully.";
 			pressEnter();
@@ -226,6 +225,76 @@ void UserInterface::admin_duties()
           	pressEnter();
 			break;
 		} 	
+	}
+}
+
+void UserInterface::change_customer_info(Customer& cust)
+{
+	unsigned int choice;
+	bool done = false;
+
+	while (!done)
+	{
+		clearScreen();
+		cout << "\t\t\tUpdate Customer information\n\n";
+		cout << "\t\t\tSPARTAN BANK\n\n";
+		cout << "\t\t\t1. Update customer name\n";
+		cout << "\t\t\t2. Update customer address\n";
+		cout << "\t\t\t3. Return to previous menu\n";
+		cout << "Enter your choice and press <ENTER>: ";
+		cin >> choice;
+
+		switch (choice)
+		{
+		case 1:
+		{
+			string newfirstname, newlastname;
+
+			cout << "Please enter Customers New Information.\n";
+			cout << "First Name: ";
+			cin >> newfirstname;
+			cout << "Last Name: ";
+			cin >> newlastname;
+			cust.change_name (newfirstname, newlastname);
+		}
+		case 2:
+		{
+			string newadd, newcit, newstat, newzip;
+			Address* newaddress;
+
+			cout << "Enter the street address: ";
+			cin.sync();
+#ifndef WINDOWS
+			cin.get();
+#endif
+			getline(cin, newadd);
+			cout << "City: ";
+			getline (cin,newcit);
+			cout << "State: ";
+			getline (cin, newstat);
+			cout << "Zip Code: ";
+			cin >> newzip;
+
+			newaddress= new Address(newadd,newcit,newstat,newzip);
+			if (newaddress)
+				cust.set_Address (newaddress);
+			else
+			{
+				std::cerr << "Unable to set address.\n";
+				pressEnter ();
+			}
+		}
+		case 3:
+		{
+			done = true;
+			break;
+		}
+		default:
+		{
+			cout << "Not a valid option.\n";
+			pressEnter();
+		}
+		}
 	}
 }
 

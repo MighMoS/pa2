@@ -184,7 +184,7 @@ void UserInterface::create_account(Customer &cust)
  * NOTES:
  *   Transfers are TO acct_no FROM acct_no; this is stored in two transactions
  */
-void UserInterface::move_money(Customer& cust, const transaction_type type)
+void UserInterface::move_money(const Customer& cust, const transaction_type type)
 {
 	vector<unsigned int> cust_accounts;
 	unsigned int first_acct, second_acct;

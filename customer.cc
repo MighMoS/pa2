@@ -68,6 +68,21 @@ Customer::~Customer()
 		delete address;
 }
 
+/* Customer::change_name
+ * Takes two strings: the first and last name.
+ *
+ * Notes:
+ *   Does not require a save afterwards
+ *   Can NOT fail.
+ */
+void Customer::change_name (const string& first, const string& last)
+{
+	F_Name = first;
+	L_Name = last;
+	
+	save ();
+}
+
 /* Customer::save. Save a customer to the disk.
  * Takes no parameters, does not alter customer.
  * Opens customers/_ID_.txt, and writes out the necessary info.
@@ -108,36 +123,6 @@ void Customer::set_Address(Address* new_add)
 	if (address)
 		delete address;
 	address=new_add;
-}
-
-
-// Should this be UserInterface:: ?
-void Customer::change_customer_info()
-{
-	string newfirstname, newlastname;
-	string newadd, newcit, newstat, newzip;
-	cout << "Please enter Customers New Information." << endl;
-	cout << "First Name: ";
-	cin >> newfirstname;
-	cout << "Last Name: ";
-	cin >> newlastname;
-	cout << "Street Address: ";
-	cin.sync();
-#ifndef WINDOWS
-	cin.get();
-#endif
-	getline(cin, newadd);
-	cout << "City: ";
-	cin >> newcit;
-	cout << "State: ";
-	cin >> newstat;
-	cout << "Zip Code: ";
-	cin >> newzip;
-	F_Name=newfirstname;
-	L_Name=newlastname;
-	Address* newaddress= new Address(newadd,newcit,newstat,newzip);
-	set_Address (newaddress);
-	save();
 }
 
 void Customer::close_account()
@@ -216,7 +201,7 @@ bool Customer::delete_customer()
 		return false;
 }
 
-void Customer::get_customer_info ()
+void Customer::get_customer_info () const
 {
 	Account* acct;
 	cout << F_Name << " " << L_Name << endl;

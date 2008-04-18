@@ -4,10 +4,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
 #include "Address.hh"
 #include "Account.hh"
-
-using std::string;
 
 /* Customer holds a pointer to an Address so that Address can be initialized later*/
 class Customer
@@ -27,28 +26,24 @@ public:
 
 	void save(void) const;
 
-	void set_First(string name){F_Name=name;}
-	void set_Last(string name){L_Name=name;}
 	void set_Address (Address* new_add);
+	void change_name (const string& first, const string& last);
 
 	int get_ID(){return ID;}
 	string get_FName(){return F_Name;}
 	string get_LName(){return L_Name;}
 	Address& get_Address(){return *address;}
-	std::vector<unsigned int> get_Accounts(){return Accounts;}
+	std::vector<unsigned int> get_Accounts() const {return Accounts;}
 	
-	void get_customer_info();	
+	void get_customer_info () const;
 	bool add_Account(const account_type type, const float bal);
-	void remove_Account(int acc);
-	int search_Accounts(int acc);
-	bool has_account(const account_type type) const;
+	void remove_Account (const unsigned int acc);
+	int search_Accounts (const unsigned int acc) const;
+	bool has_account (const account_type type) const;
 	
-	void transfer_money();
-	void withdraw_money();
-	void deposit_money();
 	void change_customer_info();
 	void close_account();
-	float get_account_balance(unsigned int accID);
+	float get_account_balance (const unsigned int accID);
 
 	bool delete_customer();
 
