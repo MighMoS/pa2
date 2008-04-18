@@ -18,9 +18,9 @@ class Log
 
 class TransactionManager
 {
-	const int id;
 	Log* monthLog;
 	Log* archiveLog;
+	const int id;
 
 	public:
 	TransactionManager (unsigned int owner_id);

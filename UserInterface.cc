@@ -105,7 +105,6 @@ void UserInterface::create_new_customer()
 	addr = new Address (street, city, state, zip);
 	
 	Customer customer (first, last, addr);
-	customer.save ();
 
 	clearScreen();
 	cout << "Customer Created Successfully." << endl << "Your customer ID is " << customer.get_ID();

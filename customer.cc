@@ -14,6 +14,7 @@ using std::cin;
 
 unsigned int Customer::lastCustomerID = 0;
 
+// Creates a Customer object from one already on disk
 Customer::Customer(const unsigned int id) : ID (id)
 {
 	unsigned int temp;
@@ -53,6 +54,7 @@ Customer::Customer(const unsigned int id) : ID (id)
 	file.close();
 }
 
+// Creates a new customer, and writes it out to the disk.
 Customer::Customer(const string firstn, const string lastn, Address* addr) :
 	F_Name (firstn), L_Name (lastn), address (addr), ID(++lastCustomerID)
 {
@@ -60,6 +62,8 @@ Customer::Customer(const string firstn, const string lastn, Address* addr) :
 	Accounts[0]=0;
 	Accounts[1]=0;
 	Accounts[2]=0;
+
+	save ();
 }
 
 Customer::~Customer()
@@ -123,6 +127,8 @@ void Customer::set_Address(Address* new_add)
 	if (address)
 		delete address;
 	address=new_add;
+
+	save ();
 }
 
 void Customer::close_account()
@@ -168,8 +174,8 @@ void Customer::close_account()
 		if (choice == Accounts[2])
 			Accounts[2]=0;
 	}
-	save();
 
+	save();
 }
 
 // Should this be UserInterface::delete_customer ?
@@ -197,8 +203,9 @@ bool Customer::delete_customer()
 		remove(path.c_str());
 		return true;	
 	}
-		cout << "Customer Still has Active accounts.  Close Customers Accounts before Removing the Customer." << endl;
-		return false;
+
+	cout << "Customer Still has Active accounts.  Close Customers Accounts before Removing the Customer." << endl;
+	return false;
 }
 
 void Customer::get_customer_info () const
@@ -257,9 +264,9 @@ bool Customer::add_Account(const account_type type, const float bal)
 		return false;
 
 	Accounts[type] = acct->get_id();
-	acct->save();
 	delete acct;
 
+	save ();
 	return true;
 }
 
