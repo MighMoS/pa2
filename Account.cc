@@ -2,12 +2,14 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <vector>
 
 #include "Account.hh"
 #include "Bank.hh"
 
-using std::string;
 using std::endl;
+using std::string;
+using std::vector;
 
 unsigned int Account::last_account_id = 0; 
 

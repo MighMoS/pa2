@@ -1,7 +1,11 @@
 #include <iostream>
+#include <string>
+
 #include "Address.hh"
+
 using std::cout;
 using std::endl;
+using std::string;
 
 std::ostream& operator << (std::ostream& os, const Address& rhs)
 {

@@ -5,8 +5,6 @@
 
 #include "Transaction.hh"
 
-using std::vector;
-
 // We have three account types
 enum account_type {Checking, Savings, MoneyMarket};
 
@@ -18,7 +16,9 @@ class Account {
 	//TransactionManager* tm;
 	
 	static unsigned int last_account_id;
+
 	friend std::ostream& operator << (std::ostream& os, const Account& rhs);
+
 public:
 	Account (const float initial_balance, const account_type its_type);
 	Account (const unsigned int id,
@@ -36,7 +36,7 @@ public:
 	static void set_last_account_id (const unsigned int lastID);
 	static unsigned int get_last_account_id (void);
 	static Account* get_account_by_id (const unsigned int accID);
-	static vector <Account*> get_all_accounts (void);
+	static std::vector <Account*> get_all_accounts (void);
 };
 
 #endif // ACCOUNT

@@ -5,11 +5,9 @@
 
 #include "Transaction.hh"
 
-using std::vector;
-
 class Log
 {
-	vector <Transaction> transactions;
+	std::vector <Transaction> transactions;
 	std::ofstream logFile;
 	unsigned int owner_id;
 

@@ -1,9 +1,6 @@
 #ifndef TRANSACTION
 #define TRANSACTION
-// XXX: This isn't all, is it?
 enum transaction_type {Deposit, Withdrawal, Check, Transfer, Interest, BankFee};
-
-// XXX: Is this needed? And should we do this or use a time_t object?
 
 class Transaction {
 	const unsigned int id;
@@ -16,7 +13,7 @@ class Transaction {
 	
 	unsigned int get_account_id (void) const;
 	float get_amount (void) const;
-	void save(std::ofstream& output);
+	void save(std::ofstream& output) const;
 
 	Transaction (const unsigned int account_id,
 			const transaction_type its_type,

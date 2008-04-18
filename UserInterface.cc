@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <vector>
 
 #include "Account.hh"
 #include "Bank.hh"
@@ -11,6 +12,7 @@
 using std::cout;
 using std::cin;
 using std::endl;
+using std::vector;
 
 /* UserInterface::clearScreen ()
  *
@@ -18,7 +20,6 @@ using std::endl;
  */
 void UserInterface::clearScreen ()
 {
-
 	for (int i = 0; i < 40; i++)
 		cout << endl;
 }  // clearScreen ()

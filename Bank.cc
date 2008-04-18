@@ -6,6 +6,7 @@
 #include "customer.hh"
 
 using std::endl;
+using std::vector;
 
 // I'm not sure if we want to do things like this anymore.
 // TODO: decide before pa3

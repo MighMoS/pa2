@@ -6,14 +6,14 @@
 #include <vector>
 #include "Address.hh"
 #include "Account.hh"
-using std::vector;
+
 using std::string;
 
 /* Customer holds a pointer to an Address so that Address can be initialized later*/
 class Customer
 {
 private:
-	vector<unsigned int> Accounts;
+	std::vector<unsigned int> Accounts;
 	string F_Name;
 	string L_Name;
 	Address* address;
@@ -35,7 +35,7 @@ public:
 	string get_FName(){return F_Name;}
 	string get_LName(){return L_Name;}
 	Address& get_Address(){return *address;}
-	vector<unsigned int> get_Accounts(){return Accounts;}
+	std::vector<unsigned int> get_Accounts(){return Accounts;}
 	
 	void get_customer_info();	
 	bool add_Account(const account_type type, const float bal);
