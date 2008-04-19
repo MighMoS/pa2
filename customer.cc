@@ -234,8 +234,8 @@ void Customer::get_customer_info () const
 		cout << "Money Market account number: " << acct->get_id () <<
 			endl << "Account Balance: " << acct->get_balance () << endl;
 	}
-
-	delete acct;
+	if(acct)
+		delete acct;
 }
 
 void Customer::setLastCustomerID (const unsigned int lastID)
@@ -259,7 +259,7 @@ bool Customer::add_Account(const account_type type, const float bal)
 	if (has_account(type))
 		return false;
 
-	acct = new Account (bal, type);
+	acct = new Account (bal, type, ID);
 
 	if (!acct)
 		return false;

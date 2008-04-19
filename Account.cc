@@ -15,10 +15,11 @@ unsigned int Account::last_account_id = 0;
 
 // Creates a new account, with ID based on previous last highest ID
 // Automatically saves itself.
-Account::Account (const float initial_balance, const account_type its_type) :
+Account::Account (const float initial_balance, const account_type its_type, const unsigned int custID) :
 	id (++last_account_id), 
 	balance (initial_balance),
-	type (its_type)
+	type (its_type),
+	owner (custID)
 {
 	save ();
 };	
@@ -26,8 +27,9 @@ Account::Account (const float initial_balance, const account_type its_type) :
 // Creates an Account object from one already on disk
 Account::Account (const unsigned int its_id,
 		const float init_bal, 
-		const account_type acct_type) :
-	id (its_id), balance (init_bal), type (acct_type)
+		const account_type acct_type,
+		const unsigned int custID) :
+	id (its_id), balance (init_bal), type (acct_type), owner (custID)
 {
 }
 
@@ -57,7 +59,7 @@ float Account::do_transaction (const float amount)
 }
 
 unsigned int Account::get_id (void) const
-{
+{http://www.google.com/
 	return id;
 }
 
@@ -69,6 +71,11 @@ account_type Account::get_type(void) const
 float Account::get_balance (void) const
 {
 	return balance;
+}
+
+unsigned int Account::get_owner(void) const
+{
+	return owner;
 }
 
 /* save. Save an account to the disk.
@@ -89,7 +96,13 @@ void Account::save (void) const
 
 	path = customer_s + stream.str() + txt;
 	file.open (path.c_str());
-
+	
+/* Format is:
+ * 81 (Owners customer ID)
+ * Checking (type of account)
+ * 25.02 (balance)
+ */
+ 	file << owner << endl;
 	file << type << endl;
 	file << balance << endl;
 
@@ -119,6 +132,7 @@ Account* Account::get_account_by_id (const unsigned int accID)
 	const static string customer_s = "accounts/";
 	const static string txt = ".txt";
 	unsigned int type; // Wrong, but works
+	unsigned int own;
 
 	string path;
 	std::stringstream stream; // Used for converting int to string
@@ -137,13 +151,13 @@ Account* Account::get_account_by_id (const unsigned int accID)
 		//std::cerr << "Invalid account id: " << accID << endl;
 		return NULL;
 	}
-
+	file >> own;
 	file >> type;
 	file >> bal;
 
 	file.close();
 
-	return new Account (accID, bal, (account_type) type);
+	return new Account (accID, bal, (account_type) type, own);
 }
 
 /* Account::get_all_accounts

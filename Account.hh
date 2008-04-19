@@ -11,6 +11,7 @@ class Account {
 	const unsigned int id;
 	float balance;
 	const account_type type;
+	const unsigned int owner;
 	//TransactionManager* tm;
 	
 	static unsigned int last_account_id;
@@ -18,16 +19,18 @@ class Account {
 	friend std::ostream& operator << (std::ostream& os, const Account& rhs);
 
 public:
-	Account (const float initial_balance, const account_type its_type);
+	Account (const float initial_balance, const account_type its_type, const unsigned int custID);
 	Account (const unsigned int id,
 			const float init_bal,
-			const account_type type);
+			const account_type type,
+			const unsigned int custID);
 
 	float do_transaction(const float amount);
 
 	unsigned int get_id (void) const;
 	account_type get_type(void) const;
 	float get_balance (void) const;
+	unsigned int get_owner(void) const;
 
 	void save(void) const;
 
