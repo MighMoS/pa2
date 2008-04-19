@@ -109,7 +109,8 @@ void Customer::save (void) const
 	/* Format is:
 	 * Bob Jenkins   (Name)
 	 * 20 30 50  (the 3 account Numbers)
-	 * 1003 Some St, Somewhere, CA, 23412  (Address)
+	 * 1003 Some St (Street Address)
+	 * Somewhere, CA, 23412  (City,State,Zip)
 	 */
 	file << F_Name << " " << L_Name << endl;
 
