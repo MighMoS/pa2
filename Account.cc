@@ -35,6 +35,7 @@ Account::Account (const unsigned int its_id,
 
 std::ostream& operator << (std::ostream& os, const Account& rhs)
 {
+	os << "Owners ID: " << rhs.owner << endl;
 	os << "Account ID: " << rhs.id << " (";
 	switch (rhs.get_type())
 	{
@@ -172,7 +173,7 @@ vector <Account*> Account::get_all_accounts (void)
 
 	// Iterate through all accounts, no acct_no will be higher than the
 	// next one we'll create.
-	for (unsigned int i = 0; i < Account::get_last_account_id (); i++)
+	for (unsigned int i = 0; i <= Account::get_last_account_id (); i++)
 	{
 		Account* acct = Account::get_account_by_id (i);
 		if (acct == NULL)

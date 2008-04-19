@@ -285,15 +285,16 @@ void UserInterface::move_money(const Customer& cust, const transaction_type type
 
 void UserInterface::ListAllAccounts (void)
 {
+	clearScreen();
 	vector<Account*> all_accts;
 	string input;
 
 	all_accts = Account::get_all_accounts ();
 	for (unsigned int i = 0; i < all_accts.size (); i++)
 	{
-		cout << *(all_accts[i]);
+		cout << *(all_accts[i]) << endl;
 
-		if (i % 2 == 1)
+		if (i % 3 == 2)
 		{
 			do
 			{
@@ -301,8 +302,14 @@ void UserInterface::ListAllAccounts (void)
 				cin >> input;
 			} while (input[0] != 'n' && input[0] != 'N' &&
 					input[0] != 'q' && input[0] != 'Q');
+			clearScreen();
 			if (input [0] == 'Q' || input[0] == 'q')
 				break;
+		}
+		if (i==all_accts.size()-1)
+		{
+			cout << "Press Enter to Continue";
+			pressEnter();
 		}
 	}
 	for (unsigned int i = 0; i < all_accts.size (); i++)
