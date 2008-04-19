@@ -59,7 +59,7 @@ float Account::do_transaction (const float amount)
 }
 
 unsigned int Account::get_id (void) const
-{http://www.google.com/
+{
 	return id;
 }
 
