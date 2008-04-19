@@ -1,6 +1,5 @@
 #ifndef BANK
 #define BANK
-#include <fstream>
 
 #include "Account.hh"
 #include "customer.hh"

@@ -7,6 +7,7 @@
 #include "Bank.hh"
 #include "common.hh"
 #include "customer.hh"
+#include "Date.hh"
 #include "Transaction.hh"
 #include "UserInterface.hh"
 
@@ -46,6 +47,49 @@ std::ofstream file;
 
 } // pressEnter ()
 
+
+/* UserInterface::set_date ()
+ * Asks the user what today's date is, and gets the bank to set it, after
+ * making sure that it's alright.
+ *
+ * NOTES: The new date can not be older than the current date.
+ */
+void UserInterface::set_date ()
+{
+	Date* todays_date;
+	Month valid_month;
+	unsigned short day, month, year;
+	bool valid = false;
+
+	do 
+	{
+		clearScreen ();
+		cout << "Today's year is (YYYY format): ";
+		cin >> year;
+
+		cout << "\t1. January\n\t2. February\n\t3. March\n";
+		cout << "\t4. April\n\t5. May\n\t6. June\n";
+		cout << "\t7.July\n\t8. August\n\t9. September\n";
+		cout << "\t10. October\n\t11. November\n\t12. December\n";
+		cout << "Select today's month: ";
+		cin >> month;
+
+		cout << "Enter the day of the month: ";
+		cin >> day;
+
+		//valid = Date::is_valid (year, month, day);
+		if (!valid)
+		{
+			cout << "That is not a correct date.\n";
+			pressEnter ();
+		}
+	} while (!valid);
+#if 0
+	valid_month = convert_to_month (month);
+	todays_date = new Date (year, valid_month, day);
+	Bank::set_date (todays_date);
+#endif
+}
 
 unsigned int UserInterface::obtainCustomerID()
 {

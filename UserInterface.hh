@@ -10,6 +10,8 @@ public:
 	static void clearScreen();
 	static void displayMainMenu ();
 
+	static void set_date ();
+
 	static unsigned int obtainCustomerID();
 	static void manage_customer(const unsigned int ID);
 	static void change_customer_info (Customer& cust);
