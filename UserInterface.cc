@@ -77,7 +77,7 @@ void UserInterface::set_date ()
 		cout << "Enter the day of the month: ";
 		cin >> day;
 
-		//valid = Date::is_valid (year, month, day);
+		//valid = Date::is_valid_date (year, valid_month, day);
 		if (!valid)
 		{
 			cout << "That is not a correct date.\n";

@@ -14,6 +14,9 @@ class Date {
 		const unsigned short i_day);
 
 	bool operator < (const Date& rhs) const;
+
+	static bool is_valid_date (const unsigned short i_yr, const Month i_mo,
+	const unsigned short i_day);
 };
 
 #endif
