@@ -1,5 +1,5 @@
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
 #include "Account.hh"
 #include "Bank.hh"
@@ -8,23 +8,6 @@
 
 using std::endl;
 using std::vector;
-
-// I'm not sure if we want to do things like this anymore.
-// TODO: decide before pa3
-#if 0
-void Bank::log_transaction (const unsigned int id, const account_type type,
-		const float amount)
-{
-	std::cout << "STUB: LOG_TRANSACTION. ID = " << id << ", amount = " << amount 
-		<< endl;
-}
-#endif
-
-// XXX: I'm not even sure what parameters this would take.
-void Bank::write_customer_report (...)
-{
-	std::cout << "STUB: WRITE CUSTOMER REPORT\n";
-}
 
 void Bank::save (void)
 {
