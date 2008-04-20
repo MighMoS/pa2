@@ -73,22 +73,33 @@ void UserInterface::set_date ()
 		cout << "\t10. October\n\t11. November\n\t12. December\n";
 		cout << "Select today's month: ";
 		cin >> month;
+		if (month > 12)
+		{
+			cout << "That is not a valid choice.\n";
+			pressEnter ();
+			continue;
+		}
+		valid_month = Month (month - 1); // Adjust for 0 base
 
 		cout << "Enter the day of the month: ";
 		cin >> day;
 
-		//valid = Date::is_valid_date (year, valid_month, day);
+		valid = Date::is_valid_date (year, valid_month, day);
 		if (!valid)
 		{
 			cout << "That is not a correct date.\n";
 			pressEnter ();
 		}
 	} while (!valid);
-#if 0
-	valid_month = convert_to_month (month);
+
 	todays_date = new Date (year, valid_month, day);
+	if (!todays_date)
+	{
+		std::cerr << "Error allocating today's date.\n";
+		exit (1);
+	}
 	Bank::set_date (todays_date);
-#endif
+	delete todays_date;
 }
 
 unsigned int UserInterface::obtainCustomerID()

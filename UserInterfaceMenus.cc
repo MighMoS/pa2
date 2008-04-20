@@ -20,8 +20,9 @@ void UserInterface::displayMainMenu ()
 
 		clearScreen ();
 
-		cout << "\t               MAIN MENU\n\n";
-		cout << "\t              SPARTAN BANK\n\n";
+		cout << "\t               MAIN MENU\n";
+		cout << "\t              SPARTAN BANK\n";
+		cout << "\t            " << *Bank::get_date () << endl << endl;
 		cout << "\t            1. Manage Customer\n";
 		cout << "\t            2. New Customer\n";
 		cout << "\t            3. Look up Customer\n";
@@ -72,6 +73,7 @@ void UserInterface::manage_customer(const unsigned int ID)
 		clearScreen();
 		cout << "\t               Manage Customer\n\n";
 		cout << "\t                SPARTAN BANK\n\n";
+		cout << "\t               " << *Bank::get_date () << endl << endl;
 		cout << "\t               1. List Customer Information\n";
 		cout << "\t               2. Transfer Money\n";
 		cout << "\t               3. Withdraw Money\n";
@@ -142,6 +144,7 @@ void UserInterface::customer_lookup()
 		clearScreen();
 		cout << "\t               Lookup Customer \n\n";
 		cout << "\t                SPARTAN BANK\n\n";
+		cout << "\t            " << *Bank::get_date () << endl << endl;
 		cout << "\t               1. By Customer Name\n";
 		cout << "\t               2. By Customer Address\n";
 		cout << "\t               3. List all Accounts\n";
@@ -184,11 +187,13 @@ void UserInterface::admin_duties()
 		clearScreen();
 		cout << "\t               Administrative Functions \n\n";
 		cout << "\t                SPARTAN BANK\n\n";
+		cout << "\t            " << *Bank::get_date () << endl << endl;
 		cout << "\t               1. Monthly Process Accounts\n";
 		cout << "\t               2. Write Financial Report\n";
 		cout << "\t               3. Write Accounts Report\n";
 		cout << "\t               4. Write Customer Report\n";
-		cout << "\t               5. Return to Main Menu\n";
+		cout << "\t               5. Set current date\n";
+		cout << "\t               6. Return to Main Menu\n";
 		cout << "Enter your choice and press <ENTER>: ";
 		cin >> choice;
 		
@@ -219,6 +224,9 @@ void UserInterface::admin_duties()
 			pressEnter();
 			break;
 		case 5:
+			UserInterface::set_date ();
+			break;
+		case 6:
 			done=true;
 			break;
 		default:
@@ -239,6 +247,7 @@ void UserInterface::change_customer_info(Customer& cust)
 		clearScreen();
 		cout << "\t\t\tUpdate Customer information\n\n";
 		cout << "\t\t\tSPARTAN BANK\n\n";
+		cout << "\t\t\t" << *Bank::get_date () << endl << endl;
 		cout << "\t\t\t1. Update customer name\n";
 		cout << "\t\t\t2. Update customer address\n";
 		cout << "\t\t\t3. Return to previous menu\n";

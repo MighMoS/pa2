@@ -92,6 +92,8 @@ string Date::month_to_string (const Month mo)
 		case November: return string("November");
 		case December: return string("December");
 	}
+	// Should never happen
+	return string ("January");
 }
 
 /* Date::string_to_month

@@ -205,6 +205,12 @@ bool Bank::set_date (Date* newday, const bool override)
 		return false;
 	delete today;
 	today = newday;
+	save ();
 
 	return true;
+}
+
+const Date* Bank::get_date (void)
+{
+	return today;
 }

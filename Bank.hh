@@ -8,7 +8,6 @@
 class Bank {
 	static Date* today;
 public:
-	static void save_status (void);
 	static void log_transaction (const unsigned int id,
 			const account_type type, 
 			const float amount);
@@ -18,6 +17,7 @@ public:
 	static bool process_accounts ();
 
 	static bool set_date (Date* newday, const bool override = false);
+	static const Date* get_date (void);
 
 	friend void Customer::setLastCustomerID(const unsigned int lastID);
 	friend void Account::set_last_account_id (const unsigned int lastID);
