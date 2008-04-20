@@ -13,7 +13,6 @@ class Date {
 
 	friend std::ostream& operator << (std::ostream& os, const Date& rhs);
 	friend std::istream& operator >> (std::istream& is, Date& rhs);
-	friend std::istream& operator >> (std::istream& is, Date* rhs);
 
 	public:
 	Date (const unsigned short i_year, const Month i_month,
