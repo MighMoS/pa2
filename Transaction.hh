@@ -7,7 +7,7 @@ class Transaction {
 	const float amount;
 	const transaction_type type;
 
-	//const short year, month, day;
+	//const Date date;
 
 	public:
 	
@@ -19,9 +19,7 @@ class Transaction {
 			const transaction_type its_type,
 			const float the_amount);
 #if 0
-			const short its_year,
-			const short its_month,
-			const short its_day);
+			const Date its_date);
 #endif
 	// Fires off the transaction to happen
 	void process (void);
