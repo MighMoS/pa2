@@ -89,17 +89,43 @@ void UserInterface::set_date ()
 		{
 			cout << "That is not a correct date.\n";
 			pressEnter ();
+			continue;
+		}
+		else
+		{
+			todays_date = new Date (year, valid_month, day);
+			if (!todays_date)
+			{
+				std::cerr << "Error allocating today's date.\n";
+				exit (1);
+			}
+		}
+			
+		// Date should not be freed -- or interesting things will happen
+		valid = Bank::set_date (todays_date);
+		if (!valid)
+		{
+			bool sane = false;
+			while (!sane)
+			{
+				string input;
+				cout << "That date is older than the current one!\n";
+				cout << "Override? (Y/N): ";
+				cin >> input; // I'ma use this because its already here.
+				if (input[0] == 'Y' || 'y')
+				{
+					sane = true;
+					Bank::set_date (todays_date, true);
+				}
+				else if (input[0] == 'N' || 'n')
+				{
+					sane = true;
+					continue;
+				}
+			}
 		}
 	} while (!valid);
 
-	todays_date = new Date (year, valid_month, day);
-	if (!todays_date)
-	{
-		std::cerr << "Error allocating today's date.\n";
-		exit (1);
-	}
-	Bank::set_date (todays_date);
-	delete todays_date;
 }
 
 unsigned int UserInterface::obtainCustomerID()
