@@ -2,7 +2,7 @@
 #define TRANSACTION
 #include "Date.hh"
 
-enum transaction_type {Deposit, Withdrawal, Check, Transfer, Interest, BankFee};
+enum transaction_type {Deposit, Withdrawal, Check, Transfer, Interest, BankFee, InitialDeposit};
 
 class Transaction {
 	const unsigned int id;

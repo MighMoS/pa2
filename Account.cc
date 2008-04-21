@@ -6,6 +6,7 @@
 
 #include "Account.hh"
 #include "Bank.hh"
+#include "Transaction.hh"
 
 using std::endl;
 using std::string;
@@ -14,14 +15,19 @@ using std::vector;
 unsigned int Account::last_account_id = 0; 
 
 // Creates a new account, with ID based on previous last highest ID
+// The first transaction is the "Initial Deposit"
 // Automatically saves itself.
 Account::Account (const float initial_balance, const account_type its_type, const unsigned int custID) :
 	id (++last_account_id), 
-	balance (initial_balance),
+	balance (0),
 	type (its_type),
 	owner (custID)
 {
+	Transaction trns (id, InitialDeposit, initial_balance, *Bank::get_date());
+	// We must save to the disk first,
+	//   or Transaction will be unable to find us
 	save ();
+	trns.process();
 };	
 
 // Creates an Account object from one already on disk

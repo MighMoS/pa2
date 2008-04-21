@@ -1,13 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <string>
 
 #include "Account.hh"
 #include "Transaction.hh"
 
 using std::endl;
-using std::string;
 
 Transaction::Transaction (const unsigned int account_id,
 		const transaction_type its_type,
@@ -31,7 +29,7 @@ void Transaction::process (void)
 	// add/subtract money. Also, the amount is presigned (negative if needed)
 	acct->do_transaction (amount);
 
-	// save ();
+	save ();
 
 	delete acct;
 }
@@ -40,7 +38,6 @@ void Transaction::save() const
 {
 	std::ofstream file;
 	std::stringstream stream;
-	string path;
 	Account* acct;
 	static const char logs[] = "logs/";
 	static const char txt[] = ".txt";
@@ -53,19 +50,17 @@ void Transaction::save() const
 		exit (1);
 	}
 
-	stream << id;
-	
 	// Open logs/c1.txt for example: current log for account 1
-	path = logs + 'c' + stream.str() + txt;
-
+	stream << logs << 'c' << id << txt;
+	
 	// We always append to the file.
-	file.open (path.c_str(), std::ios::app);
+	file.open (stream.str().c_str(), std::ios::app);
 	if (!file.is_open())
 	{
-		std::cerr << "Could not open " << path << " for writing.\nCheck\
+		std::cerr << "Could not open " << stream.str() << " for writing.\nCheck\
 		check to make sure that the folder exists, and that your\
 		permissions are correct.\n";
 		exit (1);
 	}
-	file << date << endl << type << sep << amount << endl;
+	file << date << endl << type << sep << amount << endl << endl;
 }
