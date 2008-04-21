@@ -214,10 +214,10 @@ void UserInterface::create_account(Customer &cust)
 	{
 		clearScreen();
 		cout << "Which type of account would you like?" << endl;
-		cout << "\t         1. Checking\n";
-		cout << "\t         2. Savings\n";
-		cout << "\t         3. Money Market\n";
-		cout << "\t         4. Cancel\n";
+		cout << "\t\t1. Checking\n";
+		cout << "\t\t2. Savings\n";
+		cout << "\t\t3. Money Market\n";
+		cout << "\t\t4. Cancel\n";
 		cin >> choice;
 		switch(choice)
 		{
