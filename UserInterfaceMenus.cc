@@ -20,14 +20,14 @@ void UserInterface::displayMainMenu ()
 
 		clearScreen ();
 
-		cout << "\t               MAIN MENU\n";
-		cout << "\t              SPARTAN BANK\n";
-		cout << "\t            " << *Bank::get_date () << endl << endl;
-		cout << "\t            1. Manage Customer\n";
-		cout << "\t            2. New Customer\n";
-		cout << "\t            3. Look up Customer\n";
-		cout << "\t            4. Preform Administrative Duties\n";
-		cout << "\t            5. Exit\n";
+		cout << "\t\t\t\tMAIN MENU\n";
+		cout << "\t\t\t\tSPARTAN BANK\n";
+		cout << "\t\t\t\t" << *Bank::get_date () << endl << endl;
+		cout << "\t\t\t1. Manage Customer\n";
+		cout << "\t\t\t2. New Customer\n";
+		cout << "\t\t\t3. Look up Customer\n";
+		cout << "\t\t\t4. Preform Administrative Duties\n";
+		cout << "\t\t\t5. Exit\n";
 		cout << "Enter your choice and press <ENTER>: ";
 		cin >> choice;
 
@@ -71,18 +71,22 @@ void UserInterface::manage_customer(const unsigned int ID)
 	while (!done)
 	{
 		clearScreen();
-		cout << "\t               Manage Customer\n\n";
-		cout << "\t                SPARTAN BANK\n\n";
-		cout << "\t               " << *Bank::get_date () << endl << endl;
-		cout << "\t               1. List Customer Information\n";
-		cout << "\t               2. Transfer Money\n";
-		cout << "\t               3. Withdraw Money\n";
-		cout << "\t               4. Deposit Money\n";
-		cout << "\t               5. Add Account\n";
-		cout << "\t               6. Change Customer Information\n";
-		cout << "\t               7. Close account\n";
-		cout << "\t               8. Remove Customer\n";
-		cout << "\t               9. Return to Main Menu\n";
+		cout << "\t\t\t\tManage Customer\n";
+		cout << "\t\t\t\t SPARTAN BANK\n";
+		cout << "\t\t\t\t" << *Bank::get_date () << endl << endl;
+		cout << "\t\t\t  Customer ID " << ID << ": "
+			<< bloke.get_LName() << ", "
+			<< bloke.get_FName() << endl << endl;
+
+		cout << "\t\t\t1. List Customer Information\n";
+		cout << "\t\t\t2. Transfer Money\n";
+		cout << "\t\t\t3. Withdraw Money\n";
+		cout << "\t\t\t4. Deposit Money\n";
+		cout << "\t\t\t5. Add Account\n";
+		cout << "\t\t\t6. Change Customer Information\n";
+		cout << "\t\t\t7. Close account\n";
+		cout << "\t\t\t8. Remove Customer\n";
+		cout << "\t\t\t9. Return to Main Menu\n";
 		cout << "Enter your choice and press <ENTER>: ";
 		cin >> choice;
 		
@@ -142,13 +146,13 @@ void UserInterface::customer_lookup()
 	while(!done)
 	{
 		clearScreen();
-		cout << "\t               Lookup Customer \n\n";
-		cout << "\t                SPARTAN BANK\n\n";
-		cout << "\t            " << *Bank::get_date () << endl << endl;
-		cout << "\t               1. By Customer Name\n";
-		cout << "\t               2. By Customer Address\n";
-		cout << "\t               3. List all Accounts\n";
-		cout << "\t               4. Return to Main Menu\n";
+		cout << "\t\t\t\tLookup Customer\n";
+		cout << "\t\t\t\t SPARTAN BANK\n";
+		cout << "\t\t\t\t" << *Bank::get_date () << endl << endl;
+		cout << "\t\t\t1. By Customer Name\n";
+		cout << "\t\t\t2. By Customer Address\n";
+		cout << "\t\t\t3. List all Accounts\n";
+		cout << "\t\t\t4. Return to Main Menu\n";
 		cout << "Enter your choice and press <ENTER>: ";
 		cin >> choice;
 		
@@ -185,15 +189,15 @@ void UserInterface::admin_duties()
 	while(!done)
 	{
 		clearScreen();
-		cout << "\t               Administrative Functions \n\n";
-		cout << "\t                SPARTAN BANK\n\n";
-		cout << "\t            " << *Bank::get_date () << endl << endl;
-		cout << "\t               1. Monthly Process Accounts\n";
-		cout << "\t               2. Write Financial Report\n";
-		cout << "\t               3. Write Accounts Report\n";
-		cout << "\t               4. Write Customer Report\n";
-		cout << "\t               5. Set current date\n";
-		cout << "\t               6. Return to Main Menu\n";
+		cout << "\t\t\t\tAdministrative Functions\n";
+		cout << "\t\t\t\tSPARTAN BANK\n";
+		cout << "\t\t\t\t" << *Bank::get_date () << endl << endl;
+		cout << "\t\t\t1. Monthly Process Accounts\n";
+		cout << "\t\t\t2. Write Financial Report\n";
+		cout << "\t\t\t3. Write Accounts Report\n";
+		cout << "\t\t\t4. Write Customer Report\n";
+		cout << "\t\t\t5. Set current date\n";
+		cout << "\t\t\t6. Return to Main Menu\n";
 		cout << "Enter your choice and press <ENTER>: ";
 		cin >> choice;
 		
@@ -245,9 +249,9 @@ void UserInterface::change_customer_info(Customer& cust)
 	while (!done)
 	{
 		clearScreen();
-		cout << "\t\t\tUpdate Customer information\n\n";
-		cout << "\t\t\tSPARTAN BANK\n\n";
-		cout << "\t\t\t" << *Bank::get_date () << endl << endl;
+		cout << "\t\t\t\tUpdate Customer information\n";
+		cout << "\t\t\t\tSPARTAN BANK\n\n";
+		cout << "\t\t\t\t" << *Bank::get_date () << endl << endl;
 		cout << "\t\t\t1. Update customer name\n";
 		cout << "\t\t\t2. Update customer address\n";
 		cout << "\t\t\t3. Return to previous menu\n";
