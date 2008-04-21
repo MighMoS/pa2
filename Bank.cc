@@ -21,7 +21,7 @@ void Bank::save (void)
 	if (!file.is_open())
 	{
 		std::cerr << "ERROR OPENING FILE: " << bank << endl;
-		return;
+		exit (1);
 	}
 	file << Customer::getLastCustomerID() << endl;
 	file << Account::get_last_account_id() << endl;
