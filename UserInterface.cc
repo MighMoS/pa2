@@ -308,13 +308,14 @@ void UserInterface::move_money(const Customer& cust, const transaction_type type
 	if (type == Withdrawal)
 		money *= -1;
 
-	cust_trans = new Transaction (first_acct, type, money);
+	cust_trans = new Transaction (first_acct, type, money, *Bank::get_date());
 	cust_trans->process();
 	delete cust_trans;
 	if (type == Transfer)
 	{
 		// This is a withdraw, so subtract money
-		cust_trans = new Transaction (second_acct, type, money * -1);
+		cust_trans = new Transaction (second_acct, type,
+				money * -1, *Bank::get_date());
 		cust_trans->process();
 		delete cust_trans;
 	}

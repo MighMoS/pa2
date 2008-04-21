@@ -94,7 +94,8 @@ static void add_interest (Account* acct)
 		interest_earned = acct->get_balance ()
 			* moneymkt_monthly_interest_rate;
 
-	trans = new Transaction (acct->get_id (), Interest, interest_earned);
+	trans = new Transaction (acct->get_id (), Interest,
+			interest_earned, *Bank::get_date());
 	trans->process ();
 	delete trans;
 }
@@ -132,17 +133,20 @@ static void charge_fees (Account* acct)
 		case Checking:
 			if (acct->get_balance() < CHECK_MIN)
 				trans = new Transaction (acct->get_id (),
-						BankFee, CHECK_FEE);
+						BankFee, CHECK_FEE,
+						*Bank::get_date());
 			break;
 		case Savings:
 			if (acct->get_balance() < SAVNG_MIN)
 				trans = new Transaction (acct->get_id (),
-						BankFee, SAVNG_FEE);
+						BankFee, SAVNG_FEE,
+						*Bank::get_date());
 			break;
 		case MoneyMarket:
 			if (acct->get_balance() < MMRKT_MIN)
 				trans = new Transaction (acct->get_id (),
-						BankFee, MMRKT_FEE);
+						BankFee, MMRKT_FEE,
+						*Bank::get_date());
 	}
 
 	if (trans)

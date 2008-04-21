@@ -1,17 +1,19 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 
 #include "Account.hh"
 #include "Transaction.hh"
 
+using std::endl;
+using std::string;
+
 Transaction::Transaction (const unsigned int account_id,
 		const transaction_type its_type,
-		const float the_amount) :
-#if 0
-		const Date its_date) :
-		date (its_date),
-
-#endif
-	id (account_id), amount (the_amount), type (its_type)
+		const float the_amount,
+		const Date& its_date) :
+	id (account_id), amount (the_amount), type (its_type), date (its_date) 
 {
 }
 
@@ -34,13 +36,36 @@ void Transaction::process (void)
 	delete acct;
 }
 
-#if 0
-// Rough Sketch of what it should do. In this plan save doesn't care where
-// its writing, because some higher level method can worry about that.
-void Transaction::save()
+void Transaction::save() const
 {
+	std::ofstream file;
+	std::stringstream stream;
+	string path;
+	Account* acct;
+	static const char logs[] = "logs/";
+	static const char txt[] = ".txt";
 	static const char sep = ' ';
-	output << year << sep << month << sep << day << sep << type << amount
-		<< std::endl;
+
+	acct = Account::get_account_by_id (id);
+	if (!acct)
+	{
+		std::cerr << "error allocating account\n";
+		exit (1);
+	}
+
+	stream << id;
+	
+	// Open logs/c1.txt for example: current log for account 1
+	path = logs + 'c' + stream.str() + txt;
+
+	// We always append to the file.
+	file.open (path.c_str(), std::ios::app);
+	if (!file.is_open())
+	{
+		std::cerr << "Could not open " << path << " for writing.\nCheck\
+		check to make sure that the folder exists, and that your\
+		permissions are correct.\n";
+		exit (1);
+	}
+	file << date << endl << type << sep << amount << endl;
 }
-#endif
