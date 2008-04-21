@@ -219,7 +219,7 @@ bool Customer::delete_customer()
 
 void Customer::get_customer_info () const
 {
-	Account* acct;
+	Account* acct = NULL;
 	cout << F_Name << " " << L_Name << endl;
 	if (address != NULL)
 		cout << *address << endl;
@@ -242,7 +242,7 @@ void Customer::get_customer_info () const
 		cout << "Money Market account number: " << acct->get_id () <<
 			endl << "Account Balance: " << acct->get_balance () << endl;
 	}
-	if(acct)
+	if (acct)
 		delete acct;
 }
 
