@@ -28,10 +28,10 @@ public:
 	void set_Address (Address* new_add);
 	void change_name (const string& first, const string& last);
 
-	int get_ID(){return ID;}
-	string get_FName(){return F_Name;}
-	string get_LName(){return L_Name;}
-	Address& get_Address(){return *address;}
+	int get_ID() const {return ID;}
+	string get_FName() const {return F_Name;}
+	string get_LName() const {return L_Name;}
+	Address& get_Address() const {return *address;}
 	std::vector<unsigned int> get_Accounts() const {return Accounts;}
 	
 	void get_customer_info () const;
@@ -42,7 +42,6 @@ public:
 	
 	void change_customer_info();
 	void close_account();
-	float get_account_balance (const unsigned int accID);
 
 	bool delete_customer();
 

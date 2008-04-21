@@ -139,6 +139,7 @@ void Customer::set_Address(Address* new_add)
 	save ();
 }
 
+// Should probably be moved to UserInterface
 void Customer::close_account()
 {
 	bool repeat=true;
