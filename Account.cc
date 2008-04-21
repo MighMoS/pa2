@@ -97,6 +97,13 @@ void Account::save (void) const
 
 	path = customer_s + stream.str() + txt;
 	file.open (path.c_str());
+	if (!file.is_open)
+	{
+		std::cerr << "Could not open " << path << " for writing.\n\
+		Check to make sure that the directory exists, and that your\
+		permissions are correct.\n";
+		exit (1);
+	}
 	
 /* Format is:
  * 81 (Owners customer ID)
