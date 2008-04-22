@@ -1,11 +1,11 @@
-#include <ifstream>
+#include <fstream>
 #include <sstream>
 
 #include "Transaction.hh"
 #include "TransactionManager.hh"
 
 TransactionManager::TransactionManager (const unsigned int owner_id,
-	const account_type its_type) : id (owner_id), type (its_type)
+	const account_type its_type) : acct_id (owner_id), type (its_type)
 {
 }
 
@@ -27,7 +27,7 @@ void TransactionManager::apply_fines ()
 	ifile.open (ss.str().c_str());
 	if (!ifile.is_open())
 	{
-		std::cerr << "Error opening file " << ss.str().c_str() << ".\n"
+		std::cerr << "Error opening file " << ss.str().c_str() << ".\n";
 		exit (1);
 	}
 
