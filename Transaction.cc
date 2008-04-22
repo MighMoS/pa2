@@ -65,4 +65,5 @@ void Transaction::save() const
 	file << date << endl << type << sep << amount << endl << endl;
 
 	if (acct) delete acct;
+	file.close();
 }

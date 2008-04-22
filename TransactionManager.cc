@@ -1,6 +1,11 @@
+#include <ifstream>
+#include <sstream>
+
+#include "Transaction.hh"
 #include "TransactionManager.hh"
 
-TransactionManager::TransactionManager (unsigned int owner_id) : id (owner_id)
+TransactionManager::TransactionManager (const unsigned int owner_id,
+	const account_type its_type) : id (owner_id), type (its_type)
 {
 }
 
@@ -8,11 +13,32 @@ void TransactionManager::archive_this_month ()
 {
 }
 
-void TransactionManager::record_transaction (Transaction *t)
+/* Do we even need a vector of transactions? We could just dump everything but
+ * the amount of the transaction (the 5th thing written out)
+ */
+void TransactionManager::apply_fines ()
 {
-}
+	bool fined = false;
+	float curr_balance;
+	std::ifstream ifile;
+	std::stringstream ss;
 
-bool TransactionManager::check_for_fines ()
-{
-	return false;
+	ss << "logs/c" << acct_id << ".txt";
+	ifile.open (ss.str().c_str());
+	if (!ifile.is_open())
+	{
+		std::cerr << "Error opening file " << ss.str().c_str() << ".\n"
+		exit (1);
+	}
+
+	// fill up transactions
+	// forall (trans)
+	// 	curr_balance += amount;
+	// 	if (curr_balance < min)
+	// 	  apply_correct_fine ()
+	// 	  fined = true; // Don't fine multiple times for the same infraction
+	// 	else
+	// 	  fined = false; // We're above min, start fining again
+
+	ifile.close ();
 }

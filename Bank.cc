@@ -77,6 +77,7 @@ bool Bank::init (void)
  * POSTCONDITION:
  *    (if it was not a checking acct) acct will have more money in it
  */
+// TODO Should be moved to TM
 static void add_interest (Account* acct)
 {
 	static const float savings_monthly_interest_rate = 0.015;
@@ -117,6 +118,7 @@ static void add_interest (Account* acct)
  * POSTCONDITIONS:
  *   acct may have less $$ in it if rules were violated.
  */
+// TODO Should be moved to TM
 static void charge_fees (Account* acct)
 {
 	const static float CHECK_MIN = 100;
@@ -163,6 +165,7 @@ static void charge_fees (Account* acct)
  *   Currently always returns true, but could return false in the future in
  *   case of error
  */
+// TODO: Should just forward to TM
 bool Bank::process_accounts ()
 {
 	vector <Account*> all_accounts;
