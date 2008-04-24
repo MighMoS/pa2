@@ -369,14 +369,15 @@ void UserInterface::lookup_by_name()
 	clearScreen();
 	for(unsigned int i=0;i<all_custs.size();i++)
 	{
-		if (*(all_custs[i]).testName(search))
-			results.push_back(*(all_custs[i]));
+		if (all_custs[i]->testName(search))
+			results.push_back(all_custs[i]);
 	}
 	
 	for (unsigned int i = 0; i < results.size (); i++)
 	{
-		cout << "Customer " << results[i].get_ID() << endl;
-		cout << "Name: " << results[i].get_FName() << " " << results[i].get_LName() << endl << endl;
+		cout << "Customer " << results[i]->get_ID() << endl;
+		cout << "Name: " << results[i]->get_FName() << " "
+			<< results[i]->get_LName() << endl << endl;
 
 		if (i % 5 == 4)
 		{
@@ -419,18 +420,19 @@ void UserInterface::lookup_by_address()
 	cin.get();
 #endif
 	cin.get();
-	cin.getline(search);
+	getline(cin, search);
 	clearScreen();
 	for(unsigned int i=0;i<all_custs.size();i++)
 	{
-		if (*(all_custs[i]).testAddress(search))
-			results.push_back(*(all_custs[i]));
+		if (all_custs[i]->testAddress(search))
+			results.push_back(all_custs[i]);
 	}
 	
 	for (unsigned int i = 0; i < results.size (); i++)
 	{
-		cout << "Customer " << results[i].get_ID() << endl;
-		cout << "Name: " << results[i].get_FName() << " " << results[i].get_LName() << endl << endl;
+		cout << "Customer " << results[i]->get_ID() << endl;
+		cout << "Name: " << results[i]->get_FName() << " "
+			<< results[i]->get_LName() << endl << endl;
 
 		if (i % 5 == 4)
 		{

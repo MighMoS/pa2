@@ -36,7 +36,6 @@ Customer::Customer(const unsigned int id) : ID (id)
 	file.open (path.c_str());
 	if (!file.is_open())
 	{
-		std::cerr << "Could not open file: " << path << endl;
 		return;
 	}
 	file >> F_Name >> L_Name;
