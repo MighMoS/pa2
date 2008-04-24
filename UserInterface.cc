@@ -397,6 +397,11 @@ void UserInterface::lookup_by_name()
 			pressEnter();
 		}
 	}
+	if (results.size()==0)
+	{
+		cout << "No Customers found with matching data." << endl;
+		pressEnter();
+	}
 	
 		for (unsigned int i = 0; i < all_custs.size (); i++)
 		delete all_custs[i];
@@ -421,6 +426,7 @@ void UserInterface::lookup_by_address()
 #endif
 	cin.get();
 	getline(cin, search);
+	cin.putback('a');
 	clearScreen();
 	for(unsigned int i=0;i<all_custs.size();i++)
 	{
@@ -451,6 +457,11 @@ void UserInterface::lookup_by_address()
 			cout << "Press Enter to Continue";
 			pressEnter();
 		}
+	}
+	if (results.size()==0)
+	{
+		cout << "No Customers found with matching data." << endl;
+		pressEnter();
 	}
 	
 		for (unsigned int i = 0; i < all_custs.size (); i++)

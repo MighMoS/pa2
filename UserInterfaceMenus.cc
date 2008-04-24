@@ -85,7 +85,7 @@ void UserInterface::manage_customer(const unsigned int ID)
 		cout << "\t\t\t5. Add Account\n";
 		cout << "\t\t\t6. Change Customer Information\n";
 		cout << "\t\t\t7. Close account\n";
-		cout << "\t\t\t8. Remove Customer\n";
+		cout << "\t\t\t8. Remove this Customer\n";
 		cout << "\t\t\t9. Return to Main Menu\n";
 		cout << "Enter your choice and press <ENTER>: ";
 		cin >> choice;
