@@ -18,6 +18,8 @@ class Address
 	Address (const string& str, const string& cty, const string& ste, const string& zip);
 			
 	void set (const string& str, const string& cty, const string& ste, const string& zip);
+	
+	string get_street(){return street;}
 
 };
 #endif

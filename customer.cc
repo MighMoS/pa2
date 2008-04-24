@@ -7,10 +7,12 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 using std::cout;
 using std::endl;
 using std::cin;
+using std::vector;
 
 unsigned int Customer::lastCustomerID = 0;
 
@@ -284,3 +286,41 @@ bool Customer::has_account (const account_type type) const
 	return Accounts[type];
 }
 
+vector<Customer*> Customer::get_all_custs()
+{
+	vector <Customer*> all_custs;
+
+	// Iterate through all Customers, no Customer ID will be higher than the
+	// next one we'll create.
+	for (unsigned int i = 0; i <= Customer::getLastCustomerID(); i++)
+	{
+		Customer* cust = new Customer(i);
+		if (cust->F_Name=="" && cust->L_Name=="")
+			continue;
+		all_custs.push_back (cust);
+	}
+
+	return all_custs;
+}
+
+bool Customer::testName(string name)
+{
+	string::size_type loc = F_Name.find( name ,0 );
+	if( loc != string::npos )
+		return true;
+	else
+		loc = L_Name.find( name ,0 );
+	if( loc != string::npos )
+		return true;
+	
+	return false;
+}
+
+bool Customer::testAddress(string add)
+{
+	string::size_type loc = address->get_street().find( add ,0 );
+	if( loc != string::npos )
+		return true;
+	else
+		return false;
+}

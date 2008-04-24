@@ -353,3 +353,107 @@ void UserInterface::ListAllAccounts (void)
 	for (unsigned int i = 0; i < all_accts.size (); i++)
 		delete all_accts[i];
 }
+
+void UserInterface::lookup_by_name()
+{
+	clearScreen();
+	vector<Customer*> all_custs;
+	all_custs= Customer::get_all_custs();
+	vector<Customer*> results;
+	string search;
+	string input;
+	Customer temp;
+	
+	
+	cout << "Enter the Name of the Customer you are looking for: ";
+	cin >> search;
+	clearScreen();
+	for(unsigned int i=0;i<all_custs.size();i++)
+	{
+		temp=(*(all_custs[i]));
+		if (temp.testName(search))
+			results.push_back(temp);
+	}
+	
+	for (unsigned int i = 0; i < results.size (); i++)
+	{
+		cout << "Customer " << results[i].get_ID() << endl;
+		cout << "Name: " << results[i].get_FName() << " " << results[i].get_LName() << endl << endl;
+
+		if (i % 5 == 4)
+		{
+			do
+			{
+				cout << "Enter  n for Next, or q for Quit: ";
+				cin >> input;
+			} while (input[0] != 'n' && input[0] != 'N' &&
+					input[0] != 'q' && input[0] != 'Q');
+			clearScreen();
+			if (input [0] == 'Q' || input[0] == 'q')
+				break;
+		}
+		if (i==results.size()-1)
+		{
+			cout << "Press Enter to Continue";
+			pressEnter();
+		}
+	}
+	
+		for (unsigned int i = 0; i < all_custs.size (); i++)
+		delete all_custs[i];
+
+}
+
+void UserInterface::lookup_by_address()
+{
+	
+	clearScreen();
+	vector<Customer*> all_custs;
+	all_custs= Customer::get_all_custs();
+	vector<Customer*> results;
+	string search;
+	string input;
+	
+	
+	cout << "Enter part of the Address of the Customer you are looking for: ";
+#ifndef WINDOWS
+	cin.sync();
+	cin.get();
+#endif
+	cin.get();
+	cin.getline(search);
+	clearScreen();
+	for(unsigned int i=0;i<all_custs.size();i++)
+	{
+		if (*(all_custs[i]).testAddress(search))
+			results.push_back(*(all_custs[i]));
+	}
+	
+	for (unsigned int i = 0; i < results.size (); i++)
+	{
+		cout << "Customer " << results[i].get_ID() << endl;
+		cout << "Name: " << results[i].get_FName() << " " << results[i].get_LName() << endl << endl;
+
+		if (i % 5 == 4)
+		{
+			do
+			{
+				cout << "Enter  n for Next, or q for Quit: ";
+				cin >> input;
+			} while (input[0] != 'n' && input[0] != 'N' &&
+					input[0] != 'q' && input[0] != 'Q');
+			clearScreen();
+			if (input [0] == 'Q' || input[0] == 'q')
+				break;
+		}
+		if (i==results.size()-1)
+		{
+			cout << "Press Enter to Continue";
+			pressEnter();
+		}
+	}
+	
+		for (unsigned int i = 0; i < all_custs.size (); i++)
+		delete all_custs[i];
+
+}

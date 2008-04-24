@@ -47,6 +47,10 @@ public:
 
 	static void setLastCustomerID(const unsigned int lastID);
 	static unsigned int getLastCustomerID(void);
+	static std::vector<Customer*> get_all_custs();
+	
+	bool testName(string name);
+	bool testAddress(string add);
 };
 
 #endif

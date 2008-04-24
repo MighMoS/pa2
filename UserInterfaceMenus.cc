@@ -159,14 +159,10 @@ void UserInterface::customer_lookup()
 		switch(choice)
 		{
 		case 1:
-			//lookup_by_name();
-			cout << "Not implemented in this version.\n";
-			pressEnter ();
+			lookup_by_name();
 			break;
 		case 2:
-			cout << "Not implemented in this version.\n";
-			pressEnter ();
-			//lookup_by_address();
+			lookup_by_address();
 			break;
 		case 3:
 			ListAllAccounts ();

@@ -17,6 +17,9 @@ public:
 	static void change_customer_info (Customer& cust);
 	static void create_new_customer();
 	static void customer_lookup();
+	
+	static void lookup_by_name();
+	static void lookup_by_address();
 
 	// For dealing with accounts
 	static void create_account(Customer &cust);
