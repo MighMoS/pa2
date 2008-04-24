@@ -362,7 +362,6 @@ void UserInterface::lookup_by_name()
 	vector<Customer*> results;
 	string search;
 	string input;
-	Customer temp;
 	
 	
 	cout << "Enter the Name of the Customer you are looking for: ";
@@ -370,9 +369,8 @@ void UserInterface::lookup_by_name()
 	clearScreen();
 	for(unsigned int i=0;i<all_custs.size();i++)
 	{
-		temp=(*(all_custs[i]));
-		if (temp.testName(search))
-			results.push_back(temp);
+		if (*(all_custs[i]).testName(search))
+			results.push_back(*(all_custs[i]));
 	}
 	
 	for (unsigned int i = 0; i < results.size (); i++)
