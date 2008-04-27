@@ -23,10 +23,12 @@ Account::Account (const float initial_balance, const account_type its_type, cons
 	type (its_type),
 	owner (custID)
 {
-	Transaction trns (id, InitialDeposit, initial_balance, *Bank::get_date());
+	Transaction trns (id, InitialDeposit, initial_balance,
+				*Bank::get_date());
 	// We must save to the disk first,
 	//   or Transaction will be unable to find us
 	save ();
+	Bank::save ();
 	trns.process();
 };	
 

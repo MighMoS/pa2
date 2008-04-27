@@ -1,5 +1,6 @@
 #include "Account.hh"
 #include "Address.hh"
+#include "Bank.hh"
 #include "common.hh"
 #include "customer.hh"
 #include "UserInterface.hh"
@@ -65,6 +66,7 @@ Customer::Customer(const string firstn, const string lastn, Address* addr) :
 	Accounts[2]=0;
 
 	save ();
+	Bank::save ();
 }
 
 Customer::~Customer()
