@@ -67,3 +67,8 @@ void Transaction::save() const
 	if (acct) delete acct;
 	file.close();
 }
+
+float Transaction::get_amount (void) const
+{
+	return amount;
+}

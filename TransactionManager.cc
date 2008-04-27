@@ -1,11 +1,17 @@
 #include <fstream>
 #include <sstream>
 
+#ifdef DEBUG
+#include <iostream>
+#endif
+
+#include "Bank.hh"
+#include "Date.hh"
 #include "Transaction.hh"
 #include "TransactionManager.hh"
 
-TransactionManager::TransactionManager (const unsigned int owner_id,
-	const account_type its_type) : acct_id (owner_id), type (its_type)
+TransactionManager::TransactionManager (const unsigned int owner_id) :
+	acct_id (owner_id)
 {
 }
 

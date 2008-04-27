@@ -21,12 +21,14 @@ Account::Account (const float initial_balance, const account_type its_type, cons
 	id (++last_account_id), 
 	balance (0),
 	type (its_type),
-	owner (custID)
+	owner (custID),
+	fined (false)
 {
 	Transaction trns (id, InitialDeposit, initial_balance,
 				*Bank::get_date());
 	// We must save to the disk first,
 	//   or Transaction will be unable to find us
+	tm = new TransactionManager (id);
 	save ();
 	Bank::save ();
 	trns.process();
@@ -37,8 +39,10 @@ Account::Account (const unsigned int its_id,
 		const float init_bal, 
 		const account_type acct_type,
 		const unsigned int custID) :
-	id (its_id), balance (init_bal), type (acct_type), owner (custID)
+	id (its_id), balance (init_bal), type (acct_type),
+	owner (custID), fined (false)
 {
+	tm = new TransactionManager (id);
 }
 
 std::ostream& operator << (std::ostream& os, const Account& rhs)
@@ -85,6 +89,11 @@ float Account::get_balance (void) const
 unsigned int Account::get_owner(void) const
 {
 	return owner;
+}
+
+void Account::apply_fines (void)
+{
+	tm->apply_fines ();
 }
 
 /* save. Save an account to the disk.

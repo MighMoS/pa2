@@ -3,6 +3,8 @@
 #include <ostream>
 #include <vector>
 
+#include "TransactionManager.hh"
+
 // We have three account types
 enum account_type {Checking, Savings, MoneyMarket};
 
@@ -12,7 +14,9 @@ class Account {
 	float balance;
 	const account_type type;
 	const unsigned int owner;
-	//TransactionManager* tm;
+
+	bool fined;
+	TransactionManager* tm;
 	
 	static unsigned int last_account_id;
 
@@ -31,6 +35,11 @@ public:
 	account_type get_type(void) const;
 	float get_balance (void) const;
 	unsigned int get_owner(void) const;
+
+	void apply_fines (void);
+	void set_unfined (void) {fined = false;};
+	void set_fined (void) {fined = true;};
+	bool is_fined (void) {return fined;};
 
 	void save(void) const;
 
