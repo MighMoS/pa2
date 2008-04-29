@@ -48,6 +48,7 @@ static void output_interest_and_fees ()
 static void test_process_accounts ()
 {
 	Account* acct;
+	bool failed_any_tests = false;
 	Bank::process_accounts ();
 	// Customer 1 is Mickey Mouse, his accounts are 1 (checking) and 2 (savings)
 	// Customer 2 is Daffy Duck; his accounts are 3 (checking) and 4 (money market)
@@ -60,7 +61,64 @@ static void test_process_accounts ()
 	acct = Account::get_account_by_id (1);
 	// acct 1 had 100 - 75 = 25 - 5 = 20 + 1000000 = 1000020
 	if (!(acct->get_balance() == 999995))
+	{
 		cout << "Account 1 had " << acct->get_balance() << ". Expected 999995.\n";
+		failed_any_tests = true;
+	}
 	else
 		cout << "Account 1: OK\n";
+	delete acct;
+	acct = Account::get_account_by_id (2);
+	if (!(acct->get_balance() == -5))
+	{
+		cout << "Account 2 had " << acct->get_balance() << ". Expected -5\n";
+		failed_any_tests = true;
+	}
+	else
+	{
+		cout << "Account 2: OK\n";
+	}
+	delete acct;
+	acct = Account::get_account_by_id (3);
+	if (!(acct->get_balance() == 100))
+	{
+		cout << "Account 3 had " << acct->get_balance () << ". Expected 100\n";
+		failed_any_tests = true;
+	}
+	else
+	{
+		cout << "Account 3: OK\n";
+	}
+	delete acct;
+
+	// Account 4 should not exist.
+	acct = NULL;
+	acct = Account::get_account_by_id (4);
+	if (acct)
+	{
+		cout << "Account 4 exists with balance of " << acct->get_balance() << ". Expected Account 4 to be non-existant.\n";
+		failed_any_tests = true;
+	}
+	else
+	{
+		cout << "Account 4: OK\n";
+	}
+	delete acct; // Should be safe
+	acct = Account::get_account_by_id (5);
+	if (!(acct->get_balance() == 100))
+	{
+		cout << "Account 5 had " << acct->get_balance () << ". Expected 100\n";
+		failed_any_tests = true;
+	}
+	else
+	{
+		cout << "Account 5: OK\n";
+	}
+	
+	if (failed_any_tests)
+	{
+		cout << "\n\n\tTHERE WERE ERRORS IN TESTING process_accounts\n";
+	}
+	else
+		cout << "\n\n\tProcess accounts passed successfully\n";
 }
