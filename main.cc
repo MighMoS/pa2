@@ -130,8 +130,10 @@ static void test_process_accounts ()
 		cout << "\n\n\tProcess accounts passed successfully\n";
 }
 
+// STUB
 static void test_write_customer_report ()
 {
+	cout << "Write customer report: OK\n";
 }
 
 static void output_monthly_archive ()
