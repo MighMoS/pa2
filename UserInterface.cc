@@ -526,7 +526,7 @@ void UserInterface::write_account_report()
 	
 	all_accts = Account::get_all_accounts ();
 	
-	for(int i=0;i<all_accts.size();i++)
+	for(unsigned int i=0;i<all_accts.size();i++)
 	{
 		if (!(*all_accts[i]).is_active())
 			inactive.push_back(all_accts[i]);
@@ -538,17 +538,17 @@ void UserInterface::write_account_report()
 		type = (*all_accts[i]).get_type();
 		switch(type)
 		{
-			case 0:
+			case Checking:
 				if( (*all_accts[i]).get_balance()<100)
 					below.push_back(all_accts[i]);
 				check++;
 				break;
-			case 1:
+			case Savings:
 				if( (*all_accts[i]).get_balance()<1000)
 					below.push_back(all_accts[i]);
 				save++;
 				break;
-			case 2:
+			case MoneyMarket:
 				if( (*all_accts[i]).get_balance()<10000)
 					below.push_back(all_accts[i]);
 				mon++;
@@ -574,13 +574,13 @@ void UserInterface::write_account_report()
 	file << "Number of Savings Accounts: " << save << endl;
 	file << "Number of Money Market Accounts: " << mon << endl << endl;
 	file << "All Accounts Under the Minimum Balance: " << endl;
-	for(int i=0;i<below.size();i++)
+	for(unsigned int i=0;i<below.size();i++)
 		file << (*below[i]) << endl;
 	file << endl <<"All Accounts over the FDIC Maximum Balance: " << endl;
-	for(int i=0;i<above.size();i++)
+	for(unsigned int i=0;i<above.size();i++)
 		file << (*above[i]) << endl;
 	file << endl <<"All Customers with accounts over the FDIC Maximum Balance: " << endl;
-	for(int i=0;i<custs.size();i++)
+	for(unsigned int i=0;i<custs.size();i++)
 	{
 		Customer cust(custs[i]);
 		file << "Customer " << cust.get_ID() << endl;
@@ -588,9 +588,6 @@ void UserInterface::write_account_report()
 		file << (cust.get_Address()) << endl;
 	}	
 	file.close();
-	for (unsigned int i = 0; i < all_accts.size (); i++)
-		delete all_accts[i];
-	
 	for (unsigned int i = 0; i < all_accts.size (); i++)
 		delete all_accts[i];
 }
