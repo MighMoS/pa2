@@ -147,7 +147,9 @@ static void output_monthly_archive ()
 		file.open (ss.str().c_str());
 		while (!file.eof())
 		{
-			cout << file;
+			std::string somest;
+			getline (file, somest);
+			cout << somest << endl;
 		}
 		file.close();
 	}
