@@ -1,4 +1,6 @@
+#include <fstream>
 #include <iostream>
+#include <sstream>
 
 #include "Bank.hh"
 #include "common.hh"
@@ -10,6 +12,7 @@ using std::endl;
 static void output_interest_and_fees ();
 static void test_process_accounts ();
 static void test_write_customer_report ();
+static void output_monthly_archive ();
 
 int main ()
 {
@@ -30,6 +33,7 @@ int main ()
 	output_interest_and_fees ();
 	test_process_accounts ();
 	test_write_customer_report ();
+	output_monthly_archive ();
 #endif
 
 	Bank::save (); // Save all statuses to disk
@@ -128,4 +132,21 @@ static void test_process_accounts ()
 
 static void test_write_customer_report ()
 {
+}
+
+static void output_monthly_archive ()
+{
+	std::stringstream ss;
+	std::ifstream file;
+	for (unsigned int i = 1; i <= 5; i++)
+	{
+		ss.clear();
+		ss << "logs/a" << i << ".txt";
+		file.open (ss.str().c_str());
+		while (!file.eof())
+		{
+			cout << file;
+		}
+		file.close();
+	}
 }
