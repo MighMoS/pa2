@@ -151,7 +151,7 @@ void TransactionManager::apply_fines ()
  * POSTCONDITION:
  *    (if it was not a checking acct) acct will have more money in it
  */
-unsigned int TransactionManager::apply_interest ()
+float TransactionManager::apply_interest ()
 {
 	static const float savings_monthly_interest_rate = 0.015;
 	static const float moneymkt_monthly_interest_rate = 0.030;

@@ -11,6 +11,7 @@ using std::endl;
 using std::vector;
 
 Date* Bank::today = NULL;
+float Bank::last_interest = 0;
 
 void Bank::save (void)
 {
@@ -23,6 +24,7 @@ void Bank::save (void)
 		std::cerr << "ERROR OPENING FILE: " << bank << endl;
 		exit (1);
 	}
+	file << last_interest << endl;
 	file << Customer::getLastCustomerID() << endl;
 	file << Account::get_last_account_id() << endl;
 	file << *today;
@@ -44,6 +46,7 @@ bool Bank::init (void)
 	if (!file.is_open())
 		return false;
 
+	file >> last_interest;
 	file >> lastCust >> lastAcct;
 
 	/* Do this manually */
@@ -77,6 +80,7 @@ bool Bank::init (void)
  */
 bool Bank::process_accounts ()
 {
+	float total_interest = 0;
 	vector <Account*> all_accounts;
 
 	all_accounts = Account::get_all_accounts ();
@@ -85,12 +89,14 @@ bool Bank::process_accounts ()
 	// next one we'll create.
 	for (unsigned int i = 0; i < all_accounts.size (); i++)
 	{
-		all_accounts[i]->apply_interest ();
+		total_interest += all_accounts[i]->apply_interest ();
 		all_accounts[i]->apply_fines();
 		// TODO archive month, prep new month
 
 		delete all_accounts[i]; // Delete each handle as we go
 	}
+
+	set_last_interest (total_interest);
 
 	return true;
 }
@@ -129,4 +135,14 @@ bool Bank::set_date (Date* newday, const bool override)
 const Date* Bank::get_date (void)
 {
 	return today;
+}
+
+void Bank::set_last_interest (const float interest)
+{
+	last_interest = interest;
+}
+
+float Bank::get_last_interest (void)
+{
+	return last_interest;
 }
