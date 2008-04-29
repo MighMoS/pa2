@@ -43,6 +43,7 @@ public:
 	 */
 	float apply_interest (void);
 	void apply_fines (void);
+	void archive (void);
 	void set_unfined (void) {fined = false;};
 	void set_fined (void) {fined = true;save();};
 	bool is_fined (void) {return fined;};

@@ -90,14 +90,8 @@ bool Bank::process_accounts ()
 	for (unsigned int i = 0; i < all_accounts.size (); i++)
 	{
 		total_interest += all_accounts[i]->apply_interest ();
-		// TODO archive month, prep new month
-		delete all_accounts[i]; // Delete each handle as we go
-	}
-	all_accounts.clear();
-	all_accounts = Account::get_all_accounts ();
-	for (unsigned int i = 0; i < all_accounts.size (); i++)
-	{
 		all_accounts[i]->apply_fines();
+		all_accounts[i]->archive ();
 		delete all_accounts[i];
 	}
 

@@ -2,9 +2,7 @@
 #include <sstream>
 #include <string>
 
-#ifdef DEBUG
 #include <iostream>
-#endif
 
 #include "Bank.hh"
 #include "Date.hh"
@@ -18,6 +16,27 @@ TransactionManager::TransactionManager (const unsigned int owner_id) :
 
 void TransactionManager::archive_this_month ()
 {
+	Account* acct;
+	std::ofstream file;
+	std::stringstream ss;
+	
+	ss << "logs/a" << acct_id << ".txt";
+	file.open (ss.str().c_str(), std::ios::app);
+	if (!file.is_open())
+	{
+		std::cerr << "Error opening file " << ss.str().c_str() << std::endl;
+		exit (1);
+	}
+
+	acct = Account::get_account_by_id (acct_id);
+	file << *Bank::get_date() << std::endl << acct->get_balance () << std::endl;
+	file.close ();
+
+	ss.clear();
+	ss << "logs/c" << acct_id << ".txt";
+	file.open (ss.str().c_str(), std::ios::out | std::ios::trunc);
+	file << std::endl;
+	file.close ();
 }
 
 /* PRECONDITION:

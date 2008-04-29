@@ -95,13 +95,21 @@ unsigned int Account::get_owner(void) const
 
 float Account::apply_interest (void)
 {
-	return tm->apply_interest ();
+	float interest;
+	interest = tm->apply_interest ();
+	save ();
+	return interest;
 }
 
 void Account::apply_fines (void)
 {
 	tm->apply_fines ();
 	save();
+}
+
+void Account::archive (void)
+{
+	tm->archive_this_month ();
 }
 
 /* save. Save an account to the disk.
