@@ -242,10 +242,9 @@ float Account::get_beggining_balance()
 {
 	vector<Transaction*> transactions;
 	transactions=tm->get_all_transactions();
-	float oldbal=balance;
+	float oldbal= transactions[0]->get_amount();
 	for(unsigned int i=0;i<transactions.size();i++)
 	{
-		oldbal-= transactions[i]->get_amount();
 		delete transactions[i];
 	}
 	return oldbal;
