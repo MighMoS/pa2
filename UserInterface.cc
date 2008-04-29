@@ -468,3 +468,49 @@ void UserInterface::lookup_by_address()
 		delete all_custs[i];
 
 }
+
+
+void UserInterface::write_financial_report()
+{
+	clearScreen();
+	vector<Account*> all_accts;
+	float total_money;
+	float estimate_interest;
+	account_type type;
+	
+	all_accts = Account::get_all_accounts ();
+	
+	for(int i=0;i<all_accts.size();i++)
+	{
+		total_money+=(*all_accts[i]).get_balance();
+		type = (*all_accts[i]).get_type();
+		switch(type)
+		{
+			case 1:
+				estimate_interest+= ((*all_accts[i]).get_balance() * .015);
+				break;
+			case 2:
+				estimate_interest+= ((*all_accts[i]).get_balance() * .030);
+			default:
+				break;
+		}
+	}
+	std::stringstream stream;
+	std::ofstream file;
+	stream << "reports/F_" <<((*Bank::get_date()).get_month()) << '_' << ((*Bank::get_date()).get_year());
+	file.open(stream.str().c_str());
+	if (!file.is_open())
+	{
+		std::cerr << "Could not open " << stream.str() << " for writing.\nCheck\
+		check to make sure that the folder exists, and that your\
+		permissions are correct.\n";
+		exit (1);
+	}
+	
+	file << "Total Money in Bank: " << total_money << endl;
+	file << "Previous Months Interest: " << (Bank::get_last_interest()) << endl;
+	file << "Estimate of This Months interest: " << estimate_interest;
+	file.close();
+	for (unsigned int i = 0; i < all_accts.size (); i++)
+		delete all_accts[i];
+}

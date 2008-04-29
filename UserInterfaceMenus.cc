@@ -212,7 +212,8 @@ void UserInterface::admin_duties()
 			}
 			break;
 		case 2:
-			cout << "Write financial report is not implemented in this version.\n";
+			UserInterface::write_financial_report();
+			cout << "Report Written.\n";
 			pressEnter();
 			break;
 		case 3:
