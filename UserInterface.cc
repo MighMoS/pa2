@@ -480,16 +480,16 @@ void UserInterface::write_financial_report()
 	
 	all_accts = Account::get_all_accounts ();
 	
-	for(int i=0;i<all_accts.size();i++)
+	for(unsigned int i=0;i<all_accts.size();i++)
 	{
 		total_money+=(*all_accts[i]).get_balance();
 		type = (*all_accts[i]).get_type();
 		switch(type)
 		{
-			case 1:
+			case Savings:
 				estimate_interest+= ((*all_accts[i]).get_balance() * .015);
 				break;
-			case 2:
+			case MoneyMarket:
 				estimate_interest+= ((*all_accts[i]).get_balance() * .030);
 			default:
 				break;
