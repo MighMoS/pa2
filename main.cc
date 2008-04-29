@@ -27,7 +27,7 @@ int main ()
 	UserInterface::displayMainMenu ();
 #else
 	output_interest_and_fees ();
-	//test_process_accounts ();
+	test_process_accounts ();
 #endif
 
 	Bank::save (); // Save all statuses to disk
@@ -47,8 +47,20 @@ static void output_interest_and_fees ()
 
 static void test_process_accounts ()
 {
+	Account* acct;
 	Bank::process_accounts ();
 	// Customer 1 is Mickey Mouse, his accounts are 1 (checking) and 2 (savings)
 	// Customer 2 is Daffy Duck; his accounts are 3 (checking) and 4 (money market)
 	// Customer 3 is Road runner; his account is 5 (checking)
+
+	// What should happen is that mickey is fined $5, and then gets no interest
+	// Daffy Duck shouldn't be fined, and should gain no interest
+	// RR should get no interest
+
+	acct = Account::get_account_by_id (1);
+	// acct 1 had 100 - 75 = 25 - 5 = 20 + 1000000 = 1000020
+	if (!(acct->get_balance() == 999995))
+		cout << "Account 1 had " << acct->get_balance() << ". Expected 999995.\n";
+	else
+		cout << "Account 1: OK\n";
 }
