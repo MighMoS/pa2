@@ -84,7 +84,7 @@ static void charge_fees (Account* acct)
  */
 void TransactionManager::apply_fines ()
 {
-	float curr_balance;
+	float curr_balance=0;
 	std::ifstream ifile;
 	std::stringstream ss;
 	std::vector<Transaction*> transactions;
@@ -208,11 +208,9 @@ float TransactionManager::apply_interest ()
 		return 0.0;
 
 	if (acct->get_type() == Savings)
-		interest_earned = acct->get_balance ()
-			* savings_monthly_interest_rate;
+		interest_earned = acct->get_balance () * savings_monthly_interest_rate;
 	else if (acct->get_type () == MoneyMarket)
-		interest_earned = acct->get_balance ()
-			* moneymkt_monthly_interest_rate;
+		interest_earned = acct->get_balance () * moneymkt_monthly_interest_rate;
 
 	trans = new Transaction (acct->get_id (), Interest,
 			interest_earned, *Bank::get_date());

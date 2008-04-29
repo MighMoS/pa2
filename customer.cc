@@ -4,6 +4,7 @@
 #include "common.hh"
 #include "customer.hh"
 #include "UserInterface.hh"
+#include "Transaction.hh"
 
 #include <fstream>
 #include <iostream>
@@ -173,6 +174,8 @@ void Customer::close_account()
 	}
 	if (choice!=0)
 	{
+		Transaction tokill(choice, Withdrawal , (Account::get_account_by_id(choice)->get_balance()*-1) ,*Bank::get_date());
+		tokill.process();
 		string path;
 		std::stringstream stream; // Used for converting int to string
 		std::ofstream file;

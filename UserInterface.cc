@@ -498,7 +498,7 @@ void UserInterface::write_financial_report()
 	}
 	std::stringstream stream;
 	std::ofstream file;
-	stream << "reports/F_" <<((*Bank::get_date()).get_month()) << '_' << ((*Bank::get_date()).get_year());
+	stream << "reports/F_" <<((*Bank::get_date()).get_month()) << '_' << ((*Bank::get_date()).get_year()) << ".txt";
 	file.open(stream.str().c_str());
 	if (!file.is_open())
 	{
@@ -561,7 +561,7 @@ void UserInterface::write_account_report()
 	
 	std::stringstream stream;
 	std::ofstream file;
-	stream << "reports/A_" <<((*Bank::get_date()).get_month()) << '_' << ((*Bank::get_date()).get_year());
+	stream << "reports/A_" <<((*Bank::get_date()).get_month()) << '_' << ((*Bank::get_date()).get_year()) << ".txt";
 	file.open(stream.str().c_str());
 	if (!file.is_open())
 	{
@@ -606,7 +606,7 @@ void UserInterface::write_customer_reports()
 		std::ofstream file;
 		stream << "reports/customer/" << all_accts[i]->get_id()
 		       << '_' << ((*Bank::get_date()).get_month()) << '_' 
-		       << ((*Bank::get_date()).get_year());
+		       << ((*Bank::get_date()).get_year()) << ".txt";
 		file.open(stream.str().c_str());
 		if (!file.is_open())
 		{
