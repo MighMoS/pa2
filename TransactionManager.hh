@@ -11,6 +11,7 @@ class TransactionManager
 
 	public:
 	TransactionManager (const unsigned int owner_id);
+	unsigned int apply_interest ();
 	void apply_fines ();
 	void archive_this_month ();
 };

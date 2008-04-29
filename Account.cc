@@ -91,6 +91,11 @@ unsigned int Account::get_owner(void) const
 	return owner;
 }
 
+void Account::apply_interest (void)
+{
+	tm->apply_interest ();
+}
+
 void Account::apply_fines (void)
 {
 	tm->apply_fines ();

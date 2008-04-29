@@ -67,40 +67,6 @@ bool Bank::init (void)
 	return true;
 }
 
-/* PRECONDITION:
- *   acct is != NULL. This should only be called by Bank::process_accounts
- *   and only after acct has been verified to exist.
- * RULES:
- *   Checking have no interest.
- *   Savings monthly interest = 1.5%
- *   MoneyMarket montly interest = 3.0%
- * POSTCONDITION:
- *    (if it was not a checking acct) acct will have more money in it
- */
-// TODO Should be moved to TM
-static void add_interest (Account* acct)
-{
-	static const float savings_monthly_interest_rate = 0.015;
-	static const float moneymkt_monthly_interest_rate = 0.030;
-	float interest_earned;
-	Transaction* trans;
-
-	if (acct->get_type() == Checking)
-		return;
-
-	if (acct->get_type() == Savings)
-		interest_earned = acct->get_balance ()
-			* savings_monthly_interest_rate;
-	else if (acct->get_type () == MoneyMarket)
-		interest_earned = acct->get_balance ()
-			* moneymkt_monthly_interest_rate;
-
-	trans = new Transaction (acct->get_id (), Interest,
-			interest_earned, *Bank::get_date());
-	trans->process ();
-	delete trans;
-}
-
 
 /* Go through all accounts in the system, and apply monthly duties
  * (apply interest, fees, etc)
@@ -109,7 +75,6 @@ static void add_interest (Account* acct)
  *   Currently always returns true, but could return false in the future in
  *   case of error
  */
-// TODO: Should just forward to TM
 bool Bank::process_accounts ()
 {
 	vector <Account*> all_accounts;
@@ -120,9 +85,9 @@ bool Bank::process_accounts ()
 	// next one we'll create.
 	for (unsigned int i = 0; i < all_accounts.size (); i++)
 	{
-		add_interest (all_accounts[i]);
+		all_accounts[i]->apply_interest ();
 		all_accounts[i]->apply_fines();
-		// archive month, prep new month
+		// TODO archive month, prep new month
 
 		delete all_accounts[i]; // Delete each handle as we go
 	}

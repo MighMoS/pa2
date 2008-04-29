@@ -32,10 +32,6 @@ void TransactionManager::archive_this_month ()
  *
  *   MoneyMarket: $10,000 min bal
  *     ($100 fee)
- *     bounced check: $100
- *
- * RETURNS:
- *   true if a fee was charged, false otherwise.
  *
  * POSTCONDITIONS:
  *   acct may have less $$ in it if rules were violated.
@@ -144,3 +140,47 @@ void TransactionManager::apply_fines ()
 
 	ifile.close ();
 }
+
+/* PRECONDITION:
+ *   acct is != NULL. This should only be called by Bank::process_accounts
+ *   and only after acct has been verified to exist.
+ * RULES:
+ *   Checking have no interest.
+ *   Savings monthly interest = 1.5%
+ *   MoneyMarket montly interest = 3.0%
+ * POSTCONDITION:
+ *    (if it was not a checking acct) acct will have more money in it
+ */
+unsigned int TransactionManager::apply_interest ()
+{
+	static const float savings_monthly_interest_rate = 0.015;
+	static const float moneymkt_monthly_interest_rate = 0.030;
+	float interest_earned;
+	Transaction* trans;
+	Account* acct;
+
+	acct = Account::get_account_by_id (acct_id);
+	if (!acct)
+	{
+		std::cerr << "Error allocating account\n";
+		exit (1);
+	}
+
+	if (acct->get_type() == Checking)
+		return 0.0;
+
+	if (acct->get_type() == Savings)
+		interest_earned = acct->get_balance ()
+			* savings_monthly_interest_rate;
+	else if (acct->get_type () == MoneyMarket)
+		interest_earned = acct->get_balance ()
+			* moneymkt_monthly_interest_rate;
+
+	trans = new Transaction (acct->get_id (), Interest,
+			interest_earned, *Bank::get_date());
+	trans->process ();
+	delete trans;
+
+	return interest_earned;
+}
+

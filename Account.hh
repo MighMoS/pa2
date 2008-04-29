@@ -36,6 +36,10 @@ public:
 	float get_balance (void) const;
 	unsigned int get_owner(void) const;
 
+	/* These are needed for process monthly accounts,
+	 * and the apply*s just forward to the TM
+	 */
+	void apply_interest (void);
 	void apply_fines (void);
 	void set_unfined (void) {fined = false;};
 	void set_fined (void) {fined = true;};
