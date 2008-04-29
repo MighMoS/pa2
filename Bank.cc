@@ -83,14 +83,31 @@ bool Bank::process_accounts ()
 	float total_interest = 0;
 	vector <Account*> all_accounts;
 
-	all_accounts = Account::get_all_accounts ();
-
 	// Iterate through all accounts, no acct_no will be higher than the
 	// next one we'll create.
+	//
+	// We have to do this seperately to make sure we're working with up to
+	//   date data.
+	all_accounts = Account::get_all_accounts ();
+
 	for (unsigned int i = 0; i < all_accounts.size (); i++)
 	{
 		total_interest += all_accounts[i]->apply_interest ();
+		delete all_accounts[i];
+	}
+
+	all_accounts = Account::get_all_accounts ();
+
+	for (unsigned int i = 0; i < all_accounts.size (); i++)
+	{
 		all_accounts[i]->apply_fines();
+		delete all_accounts[i];
+	}
+
+	all_accounts = Account::get_all_accounts ();
+
+	for (unsigned int i = 0; i < all_accounts.size (); i++)
+	{
 		all_accounts[i]->archive ();
 		delete all_accounts[i];
 	}
