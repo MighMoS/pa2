@@ -27,7 +27,8 @@ public:
 	Account (const unsigned int id,
 			const float init_bal,
 			const account_type type,
-			const unsigned int custID);
+			const unsigned int custID,
+			const bool has_fine);
 
 	float do_transaction(const float amount);
 
@@ -42,7 +43,7 @@ public:
 	float apply_interest (void);
 	void apply_fines (void);
 	void set_unfined (void) {fined = false;};
-	void set_fined (void) {fined = true;};
+	void set_fined (void) {fined = true;save();};
 	bool is_fined (void) {return fined;};
 	
 	bool is_over_FDIC(); //Returns true if balance is over 100,000

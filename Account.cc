@@ -39,9 +39,10 @@ Account::Account (const float initial_balance, const account_type its_type, cons
 Account::Account (const unsigned int its_id,
 		const float init_bal, 
 		const account_type acct_type,
-		const unsigned int custID) :
+		const unsigned int custID,
+		const bool has_fine) :
 	id (its_id), balance (init_bal), type (acct_type),
-	owner (custID), fined (false)
+	owner (custID), fined (has_fine)
 {
 	tm = new TransactionManager (id);
 }
@@ -100,6 +101,7 @@ float Account::apply_interest (void)
 void Account::apply_fines (void)
 {
 	tm->apply_fines ();
+	save();
 }
 
 /* save. Save an account to the disk.
@@ -136,6 +138,7 @@ void Account::save (void) const
  	file << owner << endl;
 	file << type << endl;
 	file << balance << endl;
+	file << fined << endl;
 
 	file.close();
 }
@@ -164,6 +167,7 @@ Account* Account::get_account_by_id (const unsigned int accID)
 	const static string txt = ".txt";
 	unsigned int type; // Wrong, but works
 	unsigned int own;
+	bool fined;
 
 	string path;
 	std::stringstream stream; // Used for converting int to string
@@ -185,10 +189,11 @@ Account* Account::get_account_by_id (const unsigned int accID)
 	file >> own;
 	file >> type;
 	file >> bal;
+	file >> fined;
 
 	file.close();
 
-	return new Account (accID, bal, (account_type) type, own);
+	return new Account (accID, bal, (account_type) type, own, fined);
 }
 
 /* Account::get_all_accounts
