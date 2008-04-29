@@ -35,7 +35,10 @@ void TransactionManager::archive_this_month ()
 	ss.clear();
 	ss << "logs/c" << acct_id << ".txt";
 	file.open (ss.str().c_str(), std::ios::out | std::ios::trunc);
-	file << std::endl;
+	
+	// Write out the inital balance to the new file.
+	file << *Bank::get_date() << std::endl;
+	file << InitialDeposit << " " << acct->get_balance () << std::endl;
 	file.close ();
 }
 
