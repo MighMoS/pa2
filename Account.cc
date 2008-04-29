@@ -222,5 +222,5 @@ bool Account::is_over_FDIC()
 bool Account::is_active()
 {
 	TransactionManager tm(id);
-	return (tm.get_last_transaction().get_date().get_year() < *Bank::get_date().get_year());
+	return (tm.get_last_transaction().get_date().get_year() < (*Bank::get_date()).get_year());
 }
