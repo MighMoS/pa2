@@ -509,8 +509,88 @@ void UserInterface::write_financial_report()
 	
 	file << "Total Money in Bank: " << total_money << endl;
 	file << "Previous Months Interest: " << (Bank::get_last_interest()) << endl;
-	file << "Estimate of This Months interest: " << estimate_interest;
+	file << "Estimate of This Months interest: " << estimate_interest << endl;
 	file.close();
+	for (unsigned int i = 0; i < all_accts.size (); i++)
+		delete all_accts[i];
+}
+
+void UserInterface::write_account_report()
+{
+	clearScreen();
+	vector<Account*> all_accts;
+	vector<Account*> inactive, below, above;
+	vector<unsigned int> custs;
+	account_type type;
+	unsigned int check, save, mon;
+	
+	all_accts = Account::get_all_accounts ();
+	
+	for(int i=0;i<all_accts.size();i++)
+	{
+		if (!(*all_accts[i]).is_active())
+			inactive.push_back(all_accts[i]);
+		if ((*all_accts[i]).is_over_FDIC())
+		{
+			above.push_back(all_accts[i]);
+			custs.push_back((*all_accts[i]).get_owner());
+		}
+		type = (*all_accts[i]).get_type();
+		switch(type)
+		{
+			case 0:
+				if( (*all_accts[i]).get_balance()<100)
+					below.push_back(all_accts[i]);
+				check++;
+				break;
+			case 1:
+				if( (*all_accts[i]).get_balance()<1000)
+					below.push_back(all_accts[i]);
+				save++;
+				break;
+			case 2:
+				if( (*all_accts[i]).get_balance()<10000)
+					below.push_back(all_accts[i]);
+				mon++;
+				break;
+			default:
+				break;
+		}
+	}
+	
+	std::stringstream stream;
+	std::ofstream file;
+	stream << "reports/A_" <<((*Bank::get_date()).get_month()) << '_' << ((*Bank::get_date()).get_year());
+	file.open(stream.str().c_str());
+	if (!file.is_open())
+	{
+		std::cerr << "Could not open " << stream.str() << " for writing.\nCheck\
+		check to make sure that the folder exists, and that your\
+		permissions are correct.\n";
+		exit (1);
+	}
+	
+	file << "Number of Checking Accounts: " << check << endl;
+	file << "Number of Savings Accounts: " << save << endl;
+	file << "Number of Money Market Accounts: " << mon << endl << endl;
+	file << "All Accounts Under the Minimum Balance: " << endl;
+	for(int i=0;i<below.size();i++)
+		file << (*below[i]) << endl;
+	file << endl <<"All Accounts over the FDIC Maximum Balance: " << endl;
+	for(int i=0;i<above.size();i++)
+		file << (*above[i]) << endl;
+	file << endl <<"All Customers with accounts over the FDIC Maximum Balance: " << endl;
+	for(int i=0;i<custs.size();i++)
+	{
+		Customer cust(custs[i]);
+		file << "Customer " << cust.get_ID() << endl;
+		file << cust.get_FName() << " " << cust.get_LName() << endl;
+		file << (cust.get_Address()) << endl;
+	}	
+	file.close();
+	for (unsigned int i = 0; i < all_accts.size (); i++)
+		delete all_accts[i];
+	
 	for (unsigned int i = 0; i < all_accts.size (); i++)
 		delete all_accts[i];
 }

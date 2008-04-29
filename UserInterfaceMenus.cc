@@ -217,7 +217,8 @@ void UserInterface::admin_duties()
 			pressEnter();
 			break;
 		case 3:
-			cout << "Write accounts report is not implemented in this version.\n";
+			UserInterface::write_account_report();
+			cout << "Report Written.\n";
 			pressEnter();
 			break;
 		case 4:
