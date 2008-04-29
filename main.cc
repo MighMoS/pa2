@@ -138,6 +138,7 @@ static void test_write_customer_report ()
 
 static void output_monthly_archive ()
 {
+	cout << "Outputting montly archive...\n";
 	std::stringstream ss;
 	std::ifstream file;
 	for (unsigned int i = 1; i <= 5; i++)
