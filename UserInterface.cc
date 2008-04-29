@@ -487,10 +487,10 @@ void UserInterface::write_financial_report()
 		switch(type)
 		{
 			case Savings:
-				estimate_interest+= ((*all_accts[i]).get_balance() * .015);
+				estimate_interest += ((*all_accts[i]).get_balance() * .015);
 				break;
 			case MoneyMarket:
-				estimate_interest+= ((*all_accts[i]).get_balance() * .030);
+				estimate_interest += ((*all_accts[i]).get_balance() * .030);
 			default:
 				break;
 		}
@@ -522,7 +522,7 @@ void UserInterface::write_account_report()
 	vector<Account*> inactive, below, above;
 	vector<unsigned int> custs;
 	account_type type;
-	unsigned int check, save, mon;
+	unsigned int check=0, save=0, mon=0;
 	
 	all_accts = Account::get_all_accounts ();
 	

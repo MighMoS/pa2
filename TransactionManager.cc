@@ -146,7 +146,7 @@ Transaction TransactionManager::get_last_transaction()
 
 	std::ifstream ifile;
 	std::stringstream ss;
-	Transaction* trns;
+	Transaction* trns=NULL;
 
 	ss << "logs/c" << acct_id << ".txt";
 	ifile.open (ss.str().c_str());
@@ -169,7 +169,7 @@ Transaction TransactionManager::get_last_transaction()
 		ifile >> year >> month >> day;
 		ifile >> type >> amount;
 		date = new Date (year, Date::string_to_month (month), day);
-		delete trns;
+			delete trns;
 		trns = new Transaction (acct_id, transaction_type (type),
 					amount, *date);
 		if (!date || !trns)
