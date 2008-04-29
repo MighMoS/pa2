@@ -15,6 +15,7 @@ class TransactionManager
 	void apply_fines ();
 	void archive_this_month ();
 	Transaction get_last_transaction();
+	std::vector<Transaction*> get_all_transactions();
 };
 
 #endif //TRANSACTIONMANAGER

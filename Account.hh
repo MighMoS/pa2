@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "TransactionManager.hh"
+#include "Transaction.hh"
 
 // We have three account types
 enum account_type {Checking, Savings, MoneyMarket};
@@ -48,6 +49,12 @@ public:
 	
 	bool is_over_FDIC(); //Returns true if balance is over 100,000
 	bool is_active(); //Returns true if a transaction has been made in the past year
+	
+	//These are all based on the transactions since archive was last called.
+	float get_beggining_balance(); //Get the origional balance
+	std::vector<Transaction*> get_all_Transactions(); // Returns all the transactions for this account
+	float all_deposits(); //Returns the total amount going into the account
+	float all_withdrawls(); //Returns the total ammount leaving the account
 
 	void save(void) const;
 

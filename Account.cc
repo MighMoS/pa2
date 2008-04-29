@@ -229,3 +229,47 @@ bool Account::is_active()
 	TransactionManager tm(id);
 	return (tm.get_last_transaction().get_date().get_year() < (*Bank::get_date()).get_year());
 }
+
+float Account::get_beggining_balance()
+{
+	vector<Transaction*> transactions;
+	transactions=tm->get_all_transactions();
+	float oldbal=balance;
+	for(int i=0;i<transactions.size();i++)
+	{
+		oldbal-= transactions[i]->get_amount();
+		delete transactions[i];
+	}
+	return oldbal;
+}
+vector<Transaction*> Account::get_all_Transactions()
+{
+	return tm->get_all_transactions();
+}
+
+float Account::all_deposits()
+{
+	vector<Transaction*> transactions;
+	transactions=tm->get_all_transactions();
+	float dep=0;
+	for(int i=0;i<transactions.size();i++)
+	{
+		if(transactions[i]->get_amount() >=0)
+			dep += transactions[i]->get_amount();
+		delete transactions[i];
+	}
+	return dep;
+}
+float Account::all_withdrawls()
+{
+	vector<Transaction*> transactions;
+	transactions=tm->get_all_transactions();
+	float with=0;
+	for(int i=0;i<transactions.size();i++)
+	{
+		if(transactions[i]->get_amount() <0)
+			with += transactions[i]->get_amount();
+		delete transactions[i];
+	}
+	return with;
+}

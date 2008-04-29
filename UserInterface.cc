@@ -474,8 +474,8 @@ void UserInterface::write_financial_report()
 {
 	clearScreen();
 	vector<Account*> all_accts;
-	float total_money;
-	float estimate_interest;
+	float total_money=0;
+	float estimate_interest=0;
 	account_type type;
 	
 	all_accts = Account::get_all_accounts ();
@@ -487,10 +487,11 @@ void UserInterface::write_financial_report()
 		switch(type)
 		{
 			case Savings:
-				estimate_interest += ((*all_accts[i]).get_balance() * .015);
+				estimate_interest += (((*all_accts[i]).get_balance()) * .015);
 				break;
 			case MoneyMarket:
-				estimate_interest += ((*all_accts[i]).get_balance() * .030);
+				estimate_interest += (((*all_accts[i]).get_balance()) * .030);
+				break;
 			default:
 				break;
 		}
@@ -573,21 +574,83 @@ void UserInterface::write_account_report()
 	file << "Number of Checking Accounts: " << check << endl;
 	file << "Number of Savings Accounts: " << save << endl;
 	file << "Number of Money Market Accounts: " << mon << endl << endl;
-	file << "All Accounts Under the Minimum Balance: " << endl;
+	file << "All Accounts Under the Minimum Balance: " << endl << endl;
 	for(unsigned int i=0;i<below.size();i++)
-		file << (*below[i]) << endl;
-	file << endl <<"All Accounts over the FDIC Maximum Balance: " << endl;
+		file << (*below[i]) << endl << endl;
+	file << endl <<"All Accounts over the FDIC Maximum Balance: " << endl << endl;
 	for(unsigned int i=0;i<above.size();i++)
-		file << (*above[i]) << endl;
-	file << endl <<"All Customers with accounts over the FDIC Maximum Balance: " << endl;
+		file << (*above[i]) << endl << endl;
+	file << endl <<"All Customers with accounts over the FDIC Maximum Balance: " << endl << endl;
 	for(unsigned int i=0;i<custs.size();i++)
 	{
 		Customer cust(custs[i]);
 		file << "Customer " << cust.get_ID() << endl;
 		file << cust.get_FName() << " " << cust.get_LName() << endl;
-		file << (cust.get_Address()) << endl;
+		file << (cust.get_Address()) << endl << endl;
 	}	
 	file.close();
+	for (unsigned int i = 0; i < all_accts.size (); i++)
+		delete all_accts[i];
+}
+
+void UserInterface::write_customer_reports()
+{
+	clearScreen();
+	account_type type;
+	vector<Account*> all_accts;
+	all_accts = Account::get_all_accounts ();
+	vector<Transaction*> transactions;
+	for(unsigned int i=0;i<all_accts.size();i++)
+	{
+		std::stringstream stream;
+		std::ofstream file;
+		stream << "reports/customer/" << all_accts[i]->get_id()
+		       << '_' << ((*Bank::get_date()).get_month()) << '_' 
+		       << ((*Bank::get_date()).get_year());
+		file.open(stream.str().c_str());
+		if (!file.is_open())
+		{
+			std::cerr << "Could not open " << stream.str() << " for writing.\nCheck\
+			check to make sure that the folder exists, and that your\
+			permissions are correct.\n";
+			exit (1);
+		}
+		
+		Customer cust(all_accts[i]->get_owner());
+		transactions=all_accts[i]->get_all_Transactions();
+		file << cust.get_FName() << " " << cust.get_LName() << endl;
+		file << cust.get_Address() << endl << endl;
+		
+		type=all_accts[i]->get_type();
+		switch(type)
+		{
+			case Checking:
+				file << "Checking ";
+				break;
+			case Savings:
+				file << "Savings ";
+				break;
+			case MoneyMarket:
+				file << "Money Market ";
+				break;
+		}
+		file << "Account number: " << all_accts[i]->get_id() << endl;
+		file << "Starting Balance: " << all_accts[i]->get_beggining_balance() << endl;
+		file << "Ending Balance: " << all_accts[i]->get_balance() << endl << endl;
+		
+		file << "Total Amount deposited in account: " << all_accts[i]->all_deposits() << endl;
+		file << "Total Amount withdrawn from account: " << all_accts[i]->all_withdrawls() << endl << endl;
+		
+		file << "List of this months Transactions: " << endl;
+		
+		for(unsigned int i=0;i<transactions.size();i++)
+		{
+			file << *transactions[i] << endl;
+			delete transactions[i];
+		}
+		transactions.clear();
+		file.close();
+	}
 	for (unsigned int i = 0; i < all_accts.size (); i++)
 		delete all_accts[i];
 }

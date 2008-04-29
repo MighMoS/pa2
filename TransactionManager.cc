@@ -221,3 +221,53 @@ float TransactionManager::apply_interest ()
 
 	return interest_earned;
 }
+
+std::vector<Transaction*> TransactionManager::get_all_transactions()
+{
+	
+	std::ifstream ifile;
+	std::stringstream ss;
+	std::vector<Transaction*> transactions;
+
+	ss << "logs/c" << acct_id << ".txt";
+	ifile.open (ss.str().c_str());
+	if (!ifile.is_open())
+	{
+		std::cerr << "Error opening file " << ss.str().c_str() << ".\n";
+		exit (1);
+	}
+
+	// fill up transactions
+	while (!ifile.eof())
+	{
+		Date* date;
+		unsigned short year, day;
+		std::string month;
+		Transaction* trns;
+		float amount;
+		unsigned int type; // Really a TransactionType
+		
+		// Read in the date and rest of the transaction
+		ifile >> year >> month >> day;
+		ifile >> type >> amount;
+		date = new Date (year, Date::string_to_month (month), day);
+		trns = new Transaction (acct_id, transaction_type (type),
+					amount, *date);
+		if (!date || !trns)
+		{
+			std::cerr << "Error allocating memory!\n";
+			exit (1);
+		}
+		delete date;
+
+		transactions.push_back (trns);
+		char ch;
+		ch=ifile.peek();
+		while (ch=='\n')
+		{
+		ifile.get(ch);
+		ch=ifile.peek();
+		}
+	}
+	return transactions;
+}

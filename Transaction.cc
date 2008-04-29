@@ -62,7 +62,7 @@ void Transaction::save() const
 		permissions are correct.\n";
 		exit (1);
 	}
-	file << date << endl << type << sep << amount << endl << endl;
+	file << *this;
 
 	if (acct) delete acct;
 	file.close();
@@ -76,4 +76,10 @@ float Transaction::get_amount (void) const
 Date Transaction::get_date()
 {
 	return date;
+}
+
+std::ostream& operator << (std::ostream& os, const Transaction& rhs)
+{
+	os << rhs.date << endl << rhs.type << " " << rhs.amount << endl << endl;
+	return os;
 }

@@ -1,6 +1,7 @@
 #ifndef TRANSACTION
 #define TRANSACTION
 #include "Date.hh"
+#include <ostream>
 
 enum transaction_type {Deposit, Withdrawal, Check, Transfer, Interest, BankFee, InitialDeposit};
 
@@ -9,6 +10,8 @@ class Transaction {
 	const float amount;
 	const transaction_type type;
 	const Date date;
+	
+	friend std::ostream& operator << (std::ostream& os, const Transaction& rhs);
 
 	public:
 	
