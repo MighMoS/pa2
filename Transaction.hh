@@ -14,6 +14,7 @@ class Transaction {
 	
 	unsigned int get_account_id (void) const;
 	float get_amount (void) const;
+	Date get_date();
 	void save() const;
 
 	Transaction (const unsigned int account_id,

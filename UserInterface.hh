@@ -27,7 +27,11 @@ public:
 	static void ListAllAccounts (void);
 
 	static void admin_duties();
-
+	
+	//For Writing Reports
+	static void write_financial_report();
+	static void write_account_report();
+	static void write_customer_reports();
 };
 
 #endif // USERINTERFACE

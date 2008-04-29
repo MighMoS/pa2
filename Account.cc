@@ -7,6 +7,7 @@
 #include "Account.hh"
 #include "Bank.hh"
 #include "Transaction.hh"
+#include "TransactionManager.hh"
 
 using std::endl;
 using std::string;
@@ -211,4 +212,15 @@ vector <Account*> Account::get_all_accounts (void)
 	}
 
 	return all_accts;
+}
+
+bool Account::is_over_FDIC()
+{
+	return (balance > 100000);
+}
+
+bool Account::is_active()
+{
+	TransactionManager tm(id);
+	return (tm.get_last_transaction().get_date().get_year() < *Bank::get_date().get_year());
 }

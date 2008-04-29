@@ -44,6 +44,9 @@ public:
 	void set_unfined (void) {fined = false;};
 	void set_fined (void) {fined = true;};
 	bool is_fined (void) {return fined;};
+	
+	bool is_over_FDIC(); //Returns true if balance is over 100,000
+	bool is_active(); //Returns true if a transaction has been made in the past year
 
 	void save(void) const;
 

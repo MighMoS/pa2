@@ -17,6 +17,8 @@ class Date {
 	public:
 	Date (const unsigned short i_year, const Month i_month,
 		const unsigned short i_day);
+		
+	unsigned short get_year() {return year;};
 
 	bool operator < (const Date& rhs) const;
 

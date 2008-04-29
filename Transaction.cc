@@ -72,3 +72,8 @@ float Transaction::get_amount (void) const
 {
 	return amount;
 }
+
+Date Transaction::get_date()
+{
+	return date;
+}

@@ -14,6 +14,7 @@ class TransactionManager
 	float apply_interest ();
 	void apply_fines ();
 	void archive_this_month ();
+	Transaction get_last_transaction();
 };
 
 #endif //TRANSACTIONMANAGER

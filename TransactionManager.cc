@@ -141,6 +141,51 @@ void TransactionManager::apply_fines ()
 	ifile.close ();
 }
 
+
+
+Transaction TransactionManager::get_last_transaction()
+{
+
+	std::ifstream ifile;
+	std::stringstream ss;
+	Transaction* trns;
+
+	ss << "logs/c" << acct_id << ".txt";
+	ifile.open (ss.str().c_str());
+	if (!ifile.is_open())
+	{
+		std::cerr << "Error opening file " << ss.str().c_str() << ".\n";
+		exit (1);
+	}
+
+	// Run to the last transaction
+	while (!ifile.eof())
+	{
+		Date* date;
+		unsigned short year, day;
+		std::string month;
+		float amount;
+		unsigned int type; // Really a TransactionType
+		
+		// Read in the date and rest of the transaction
+		ifile >> year >> month >> day;
+		ifile >> type >> amount;
+		date = new Date (year, Date::string_to_month (month), day);
+		delete trns;
+		trns = new Transaction (acct_id, transaction_type (type),
+					amount, *date);
+		if (!date || !trns)
+		{
+			std::cerr << "Error allocating memory!\n";
+			exit (1);
+		}
+		delete date;
+	}
+	return *trns;
+}
+
+
+
 /* PRECONDITION:
  *   acct is != NULL. This should only be called by Bank::process_accounts
  *   and only after acct has been verified to exist.
@@ -158,14 +203,9 @@ float TransactionManager::apply_interest ()
 	float interest_earned;
 	Transaction* trans;
 	Account* acct;
-
 	acct = Account::get_account_by_id (acct_id);
 	if (!acct)
-	{
 		std::cerr << "Error allocating account\n";
-		exit (1);
-	}
-
 	if (acct->get_type() == Checking)
 		return 0.0;
 
@@ -183,4 +223,3 @@ float TransactionManager::apply_interest ()
 
 	return interest_earned;
 }
-
