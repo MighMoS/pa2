@@ -79,8 +79,8 @@ static void charge_fees (Account* acct)
 	delete trans;
 }
 
-/* Do we even need a vector of transactions? We could just dump everything but
- * the amount of the transaction (the 5th thing written out)
+/* TransactionManager::apply_fines
+ * Applies fines to its owning account based on some rules stated above.
  */
 void TransactionManager::apply_fines ()
 {
@@ -123,12 +123,10 @@ void TransactionManager::apply_fines ()
 		transactions.push_back (trns);
 	}
 
+	// Iterate through each transaction testing to see if we've incurred a fine
 	for (unsigned int i = 0; i < transactions.size(); i++)
 	{
 		curr_balance += transactions[i]->get_amount ();
-#ifdef DEBUG
-		std::cerr << "curr_balance is: " << curr_balance << std::endl;
-#endif
 		Account* acct = Account::get_account_by_id (acct_id);
 		if (acct)
 		{
