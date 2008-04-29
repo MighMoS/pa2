@@ -9,6 +9,7 @@ using std::endl;
 
 static void output_interest_and_fees ();
 static void test_process_accounts ();
+static void test_write_customer_report ();
 
 int main ()
 {
@@ -28,6 +29,7 @@ int main ()
 #else
 	output_interest_and_fees ();
 	test_process_accounts ();
+	test_write_customer_report ();
 #endif
 
 	Bank::save (); // Save all statuses to disk
@@ -49,6 +51,7 @@ static void test_process_accounts ()
 {
 	Account* acct;
 	bool failed_any_tests = false;
+	cout << "Testing process accounts...\n";
 	Bank::process_accounts ();
 	// Customer 1 is Mickey Mouse, his accounts are 1 (checking) and 2 (savings)
 	// Customer 2 is Daffy Duck; his accounts are 3 (checking) and 4 (money market)
@@ -121,4 +124,8 @@ static void test_process_accounts ()
 	}
 	else
 		cout << "\n\n\tProcess accounts passed successfully\n";
+}
+
+static void test_write_customer_report ()
+{
 }
