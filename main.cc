@@ -72,9 +72,9 @@ static void test_process_accounts ()
 		cout << "Account 1: OK\n";
 	delete acct;
 	acct = Account::get_account_by_id (2);
-	if (!(acct->get_balance() == -5))
+	if (!(acct->get_balance() == 0))
 	{
-		cout << "Account 2 had " << acct->get_balance() << ". Expected -5\n";
+		cout << "Account 2 had " << acct->get_balance() << ". Expected 0\n";
 		failed_any_tests = true;
 	}
 	else
